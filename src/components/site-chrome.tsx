@@ -26,6 +26,7 @@ export function SiteHeader() {
             ["Services", "#services"],
             ["How It Works", "#process"],
             ["Schemes", "#schemes"],
+            ["Founder Stories", "#stories"],
             ["FAQ", "#faq"],
           ].map(([label, href]) => (
             <a
@@ -56,6 +57,7 @@ export function SiteHeader() {
               ["Services", "#services"],
               ["How It Works", "#process"],
               ["Schemes", "#schemes"],
+              ["Founder Stories", "#stories"],
               ["FAQ", "#faq"],
               ["Free Consultation", "#consult"],
             ].map(([label, href]) => (
@@ -88,6 +90,7 @@ export function SiteFooter() {
     ["How It Works", "#process"],
     ["Government Schemes", "#schemes"],
     ["Why Aarkin", "#why"],
+    ["Founder Stories", "#stories"],
     ["FAQ", "#faq"],
   ];
 

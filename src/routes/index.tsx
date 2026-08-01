@@ -9,6 +9,7 @@ import {
   Process,
   WhyArkin,
   Schemes,
+  FounderStories,
   Faq,
   Consultation,
 } from "@/components/sections";
@@ -83,6 +84,7 @@ function Index() {
         <Process />
         <WhyArkin />
         <Schemes />
+        <FounderStories />
         <Faq />
         <Consultation />
       </main>

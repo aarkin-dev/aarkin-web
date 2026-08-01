@@ -11,9 +11,11 @@ import {
   Map,
   Minus,
   Plus,
+  Quote,
   Search,
   ShieldCheck,
   Sparkles,
+  Star,
   Target,
   Users,
   Zap,
@@ -642,6 +644,142 @@ export function Schemes() {
               </a>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const FOUNDER_STORIES = [
+  {
+    initials: "RK",
+    name: "Rahul Khanna",
+    role: "Founder, TechSprint — SaaS, Bengaluru",
+    quote:
+      "I had no idea I qualified for a seed fund grant. Aarkin found it, filed everything, and got us ₹18 lakhs within 6 weeks. That capital literally built our MVP.",
+  },
+  {
+    initials: "PM",
+    name: "Priya Mehta",
+    role: "Co-Founder, GreenLeaf Organics — D2C, Jaipur",
+    quote:
+      "The Startup India registration alone saved us 3 years of taxes. Aarkin handled everything in 9 days flat. Worth every penny and then some.",
+  },
+  {
+    initials: "AS",
+    name: "Amit Shah",
+    role: "Owner, Precision Tools India — Manufacturing, Surat",
+    quote:
+      "As an MSME owner, I was leaving government money on the table for years. Aarkin audited my business and unlocked 4 schemes I'd never heard of. Game changer.",
+  },
+  {
+    initials: "NS",
+    name: "Nisha Srinivasan",
+    role: "Director, AquaTech Solutions — Clean Tech, Chennai",
+    quote:
+      "Our CGTMSE loan was approved without a single asset as collateral. The Aarkin team structured our application brilliantly — the bank barely asked a question.",
+  },
+  {
+    initials: "VG",
+    name: "Vikram Gupta",
+    role: "Founder, RapidMove Logistics — Logistics, Delhi NCR",
+    quote:
+      "Before Aarkin, I'd wasted 3 months trying to file myself and got rejected. They took over, corrected everything, and had my registration in 7 days. Highly recommend.",
+  },
+  {
+    initials: "DT",
+    name: "Deepika Tiwari",
+    role: "CEO, HealthBridge — HealthTech, Pune",
+    quote:
+      "The investment readiness package was exactly what we needed before our Series A pitch. They fixed our deck, modeled our financials, and connected us to 6 investors. We closed in 2 months.",
+  },
+];
+
+/* ---------- Founder stories: proof cards from the original site ---------- */
+export function FounderStories() {
+  return (
+    <section id="stories" className="ledger-grain border-b border-border">
+      <div className="mx-auto max-w-7xl px-6 py-24">
+        <div className="grid items-end gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <span className="eyebrow inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
+              <Quote className="size-3" /> Founder stories
+            </span>
+            <h2 className="mt-8 font-display text-4xl leading-[1.05] font-bold text-balance md:text-5xl">
+              Founders who{" "}
+              <span className="slab-yellow -rotate-1 inline-block px-3 py-0.5">
+                trusted the process
+              </span>
+            </h2>
+          </div>
+          <p className="border-l-2 border-yellow pl-6 leading-relaxed text-muted-foreground lg:col-span-4">
+            Real founder experiences across grants, registrations, loans and investment readiness.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {FOUNDER_STORIES.map((story, index) => {
+            const isDark = index === 0 || index === 5;
+            const cardStyle = isDark
+              ? "bg-primary text-primary-foreground"
+              : index === 2
+                ? "bg-yellow text-accent-foreground"
+                : "bg-card";
+
+            return (
+              <figure
+                key={story.name}
+                className={
+                  "tile-lift flex min-h-80 flex-col border-2 border-foreground p-7 " + cardStyle
+                }
+              >
+                <div
+                  className={
+                    "flex items-center justify-between " + (isDark ? "text-yellow" : "text-primary")
+                  }
+                >
+                  <Quote className="size-7" aria-hidden="true" />
+                  <span className="flex gap-1" aria-label="5 out of 5 stars">
+                    {Array.from({ length: 5 }).map((_, starIndex) => (
+                      <Star key={starIndex} className="size-3.5 fill-current" aria-hidden="true" />
+                    ))}
+                  </span>
+                </div>
+                <blockquote className="mt-7 flex-1 font-display text-lg leading-relaxed font-medium">
+                  “{story.quote}”
+                </blockquote>
+                <figcaption
+                  className={
+                    "mt-8 flex items-center gap-4 border-t pt-5 " +
+                    (isDark ? "border-primary-foreground/25" : "border-foreground/20")
+                  }
+                >
+                  <span
+                    className={
+                      "tabular grid size-11 shrink-0 place-items-center text-xs font-bold " +
+                      (isDark
+                        ? "bg-yellow text-accent-foreground"
+                        : "bg-primary text-primary-foreground")
+                    }
+                    aria-hidden="true"
+                  >
+                    {story.initials}
+                  </span>
+                  <span>
+                    <span className="block font-display font-bold">{story.name}</span>
+                    <span
+                      className={
+                        "mt-0.5 block text-xs leading-relaxed " +
+                        (isDark ? "text-primary-foreground/70" : "text-muted-foreground")
+                      }
+                    >
+                      {story.role}
+                    </span>
+                  </span>
+                </figcaption>
+              </figure>
+            );
+          })}
         </div>
       </div>
     </section>
