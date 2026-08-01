@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import {
   Hero,
@@ -47,6 +47,22 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useLayoutEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    const resetScroll = () => window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    resetScroll();
+    const frame = window.requestAnimationFrame(resetScroll);
+    window.addEventListener("pageshow", resetScroll);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("pageshow", resetScroll);
+    };
+  }, []);
+
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll<HTMLElement>("main > section"));
     document.documentElement.classList.add("motion-ready");
