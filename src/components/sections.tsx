@@ -1039,10 +1039,7 @@ export function ScrollEnquiryPopup() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (
-      sessionStorage.getItem("aarkin-consult-prompt-shown") ||
-      sessionStorage.getItem("aarkin-enquiry-completed")
-    ) {
+    if (sessionStorage.getItem("aarkin-enquiry-completed")) {
       return;
     }
 
@@ -1055,7 +1052,6 @@ export function ScrollEnquiryPopup() {
         consultation.getBoundingClientRect().top < window.innerHeight * 0.85;
 
       if (scrollProgress >= 0.3 && !consultationIsVisible) {
-        sessionStorage.setItem("aarkin-consult-prompt-shown", "true");
         setIsOpen(true);
         window.removeEventListener("scroll", onScroll);
       }
