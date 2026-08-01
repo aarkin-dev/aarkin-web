@@ -861,7 +861,7 @@ export function Faq() {
                 )}
               </button>
               {open === i && (
-                <p className="max-w-2xl px-4 pb-6 pl-14 leading-relaxed text-muted-foreground">
+                <p className="animate-in fade-in slide-in-from-top-2 max-w-2xl px-4 pb-6 pl-14 leading-relaxed text-muted-foreground duration-300">
                   {a}
                 </p>
               )}

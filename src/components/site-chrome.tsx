@@ -16,10 +16,10 @@ export function SealMark({ className }: { className?: string }) {
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
+    <header className="site-header sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link to="/" aria-label="Aarkin home" className="flex items-center">
-          <SealMark className="h-12 w-auto" />
+          <SealMark className="h-12 w-auto transition-transform duration-500 hover:-rotate-1 hover:scale-[1.03]" />
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
           {[
@@ -32,7 +32,7 @@ export function SiteHeader() {
             <a
               key={href}
               href={href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              className="nav-link text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               {label}
             </a>

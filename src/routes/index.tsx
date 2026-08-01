@@ -48,7 +48,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll<HTMLElement>("main > *"));
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("main > section"));
     document.documentElement.classList.add("motion-ready");
 
     const observer = new IntersectionObserver(
@@ -63,9 +63,22 @@ function Index() {
       { rootMargin: "0px 0px -8%", threshold: 0.08 },
     );
 
-    elements.forEach((element) => {
-      element.classList.add("reveal-section");
-      observer.observe(element);
+    sections.forEach((section) => {
+      section.classList.add("reveal-section");
+
+      const revealItems = Array.from(
+        section.querySelectorAll<HTMLElement>(
+          "h1, h2, img, form, .tile-lift, .hairline-grid, a.group",
+        ),
+      );
+
+      revealItems.forEach((item, index) => {
+        item.classList.add("reveal-item");
+        item.style.setProperty("--reveal-delay", Math.min(index, 7) * 75 + "ms");
+        if (item.tagName === "IMG") item.classList.add("reveal-image");
+      });
+
+      observer.observe(section);
     });
 
     return () => {
