@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   Award,
@@ -18,6 +18,7 @@ import {
   Star,
   Target,
   Users,
+  X,
   Zap,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -316,7 +317,10 @@ export function Services() {
               What we do
             </span>
             <h2 className="mt-8 max-w-3xl font-display text-4xl leading-[1.05] font-bold text-balance md:text-5xl">
-              Everything your business needs to grow with government support
+              Government support,{" "}
+              <span className="slab-yellow -rotate-1 inline-block px-3 py-0.5">
+                turned into growth
+              </span>
             </h2>
           </div>
           <span className="tabular eyebrow text-muted-foreground">08 / services</span>
@@ -893,6 +897,8 @@ export function Consultation() {
 
       if (!response.ok) throw new Error("Unable to submit enquiry");
       form.reset();
+      sessionStorage.setItem("aarkin-enquiry-completed", "true");
+      window.dispatchEvent(new Event("aarkin:enquiry-completed"));
       toast.success("Request received — we'll reply within 4 business hours.");
     } catch {
       toast.error("We couldn't send that request. Please email aarkin2024@gmail.com.");
@@ -1025,6 +1031,184 @@ export function Consultation() {
         </form>
       </div>
     </section>
+  );
+}
+
+export function ScrollEnquiryPopup() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (
+      sessionStorage.getItem("aarkin-consult-prompt-shown") ||
+      sessionStorage.getItem("aarkin-enquiry-completed")
+    ) {
+      return;
+    }
+
+    const onScroll = () => {
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollProgress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
+      const consultation = document.getElementById("consult");
+      const consultationIsVisible =
+        consultation !== null &&
+        consultation.getBoundingClientRect().top < window.innerHeight * 0.85;
+
+      if (scrollProgress >= 0.3 && !consultationIsVisible) {
+        sessionStorage.setItem("aarkin-consult-prompt-shown", "true");
+        setIsOpen(true);
+        window.removeEventListener("scroll", onScroll);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+    const closeOnCompletedEnquiry = () => setIsOpen(false);
+
+    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("aarkin:enquiry-completed", closeOnCompletedEnquiry);
+    return () => {
+      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("aarkin:enquiry-completed", closeOnCompletedEnquiry);
+    };
+  }, [isOpen]);
+
+  async function submitPopupEnquiry(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    if (data["company_website"]) return;
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/aarkin2024@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          ...data,
+          source: "Scroll consultation prompt",
+          _subject: "New Aarkin website enquiry",
+          _template: "table",
+        }),
+      });
+
+      if (!response.ok) throw new Error("Unable to submit enquiry");
+      form.reset();
+      sessionStorage.setItem("aarkin-enquiry-completed", "true");
+      setIsOpen(false);
+      toast.success("Request received — we'll reply within 4 business hours.");
+    } catch {
+      toast.error("We couldn't send that request. Please email aarkin2024@gmail.com.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  if (!isOpen) return null;
+
+  return (
+    <aside
+      role="dialog"
+      aria-modal="false"
+      aria-labelledby="scroll-enquiry-title"
+      className="animate-in fade-in slide-in-from-bottom-6 fixed right-3 bottom-3 left-3 z-[60] max-h-[calc(100vh-1.5rem)] overflow-y-auto border-2 border-primary bg-background shadow-2xl duration-300 sm:right-6 sm:bottom-6 sm:left-auto sm:w-[26rem]"
+    >
+      <div className="flex items-start justify-between gap-6 bg-primary p-5 text-primary-foreground">
+        <div>
+          <span className="eyebrow text-yellow">Free eligibility check</span>
+          <h2 id="scroll-enquiry-title" className="mt-1 font-display text-2xl font-bold">
+            Could your business qualify?
+          </h2>
+        </div>
+        <button
+          type="button"
+          onClick={() => setIsOpen(false)}
+          className="grid size-9 shrink-0 place-items-center border border-primary-foreground/30 transition-colors hover:border-yellow hover:bg-yellow hover:text-accent-foreground"
+          aria-label="Close consultation form"
+        >
+          <X className="size-4" />
+        </button>
+      </div>
+
+      <form className="space-y-4 p-5" onSubmit={submitPopupEnquiry}>
+        <input
+          type="text"
+          name="company_website"
+          className="hidden"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+        />
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Share a few details. We’ll map your first opportunities for free.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Full name">
+            <input
+              required
+              name="name"
+              autoComplete="name"
+              className={inputClass}
+              placeholder="Your name"
+            />
+          </Field>
+          <Field label="Phone number">
+            <input
+              required
+              name="phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              className={inputClass}
+              placeholder="+91 98xxx xxxxx"
+            />
+          </Field>
+        </div>
+        <Field label="Email address">
+          <input
+            required
+            name="email"
+            type="email"
+            autoComplete="email"
+            className={inputClass}
+            placeholder="you@company.in"
+          />
+        </Field>
+        <Field label="What do you need help with?">
+          <select required name="primary_need" className={inputClass} defaultValue="">
+            <option value="" disabled>
+              Select a service
+            </option>
+            <option>Startup India registration</option>
+            <option>MSME / Udyam registration</option>
+            <option>Government grants & funding</option>
+            <option>Business / MSME loans</option>
+            <option>Investment readiness</option>
+            <option>Not sure — need guidance</option>
+          </select>
+        </Field>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="slab-yellow w-full py-3.5 text-xs font-bold tracking-widest uppercase transition-transform hover:translate-x-1 hover:translate-y-1 disabled:cursor-wait disabled:opacity-70"
+        >
+          {isSubmitting ? "Sending…" : "Check my eligibility"}
+        </button>
+        <p className="text-center text-xs text-muted-foreground">
+          No spam. Your details are used only to reply.
+        </p>
+      </form>
+    </aside>
   );
 }
 

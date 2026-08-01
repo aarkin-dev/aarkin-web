@@ -12,6 +12,7 @@ import {
   FounderStories,
   Faq,
   Consultation,
+  ScrollEnquiryPopup,
 } from "@/components/sections";
 
 export const Route = createFileRoute("/")({
@@ -89,6 +90,7 @@ function Index() {
         <Consultation />
       </main>
       <SiteFooter />
+      <ScrollEnquiryPopup />
     </div>
   );
 }
