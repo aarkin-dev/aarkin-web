@@ -739,7 +739,7 @@ export function Consultation() {
     const form = event.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
 
-    if (data.company_website) return;
+    if (data["company_website"]) return;
 
     setIsSubmitting(true);
     try {

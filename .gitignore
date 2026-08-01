@@ -15,7 +15,6 @@ dist-ssr
 .tanstack/**
 .nitro
 *.local
-.git.lovable-broken-pointer
 *.tsbuildinfo
 .workspace/
 

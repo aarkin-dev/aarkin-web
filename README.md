@@ -29,5 +29,3 @@ Enquiries are sent through FormSubmit to `aarkin2024@gmail.com`. FormSubmit send
 - TanStack Start
 - React and TypeScript
 - Tailwind CSS
-
-This project remains compatible with the Lovable workflow. Avoid rewriting published Git history so Lovable can continue syncing commits safely.
