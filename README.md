@@ -18,7 +18,7 @@ npm run build
 
 ## Brand assets
 
-The current logo is a placeholder. Replace `public/brand/logo-placeholder.svg` with the approved logo, or update its reference in `src/components/site-chrome.tsx`.
+The approved vector logo is stored at `public/brand/aarkin-logo.svg` and used by the header and footer. The favicon is derived from the same master artwork.
 
 ## Enquiry form
 

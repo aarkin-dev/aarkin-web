@@ -1,5 +1,5 @@
 # Aarkin brand assets
 
-`logo-placeholder.svg` is temporary and intentionally isolated here.
+`aarkin-logo.svg` is the production logo derived directly from the supplied master SVG. Its original vector shapes and colour are preserved; only the large white export background and margins were removed for web use.
 
-Replace it with the approved Aarkin logo while keeping the same filename, or update the reference in `src/components/site-chrome.tsx`. A wide logo with a transparent background works best in the header and footer.
+The header and footer load this file from `src/components/site-chrome.tsx`. The favicon uses the symbol from the same master artwork.

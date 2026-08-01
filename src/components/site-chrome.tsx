@@ -4,10 +4,10 @@ import { Menu } from "lucide-react";
 export function SealMark({ className }: { className?: string }) {
   return (
     <img
-      src="/brand/logo-placeholder.svg"
-      alt="Aarkin placeholder logo"
-      width="78"
-      height="58"
+      src="/brand/aarkin-logo.svg"
+      alt="Aarkin"
+      width="760"
+      height="560"
       className={className}
       decoding="async"
     />
@@ -18,9 +18,8 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="flex items-center gap-3">
-          <SealMark className="h-8 w-auto" />
-          <span className="font-display text-lg font-bold tracking-tight">AARKIN</span>
+        <Link to="/" aria-label="Aarkin home" className="flex items-center">
+          <SealMark className="h-12 w-auto" />
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
           {[
@@ -97,9 +96,8 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <div className="flex items-center gap-3">
-              <SealMark className="h-8 w-auto" />
-              <span className="font-display text-lg font-bold tracking-tight">AARKIN.</span>
+            <div className="flex items-center">
+              <SealMark className="h-20 w-auto" />
             </div>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
               Helping Indian startups and MSMEs unlock the full power of government support —
