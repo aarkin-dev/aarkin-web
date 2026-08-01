@@ -1,0 +1,297 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Aarkin design system — "Voltage Ledger"
+ * Deep ink-blue field, electric azure structure, high-voltage yellow slabs.
+ * All colors are oklch semantic tokens. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  /* Brand tokens */
+  --color-ink: var(--ink);
+  --color-azure: var(--azure);
+  --color-yellow: var(--yellow);
+  --color-yellow-soft: var(--yellow-soft);
+  --color-canvas: var(--canvas);
+  --color-hairline: var(--hairline);
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0rem;
+
+  --canvas: oklch(0.168 0.055 264);
+  --ink: oklch(0.128 0.05 264);
+  --azure: oklch(0.62 0.208 256);
+  --yellow: oklch(0.878 0.185 98);
+  --yellow-soft: oklch(0.94 0.12 100);
+  --paper: oklch(0.985 0.004 250);
+  --paper-ink: oklch(0.16 0.05 264);
+
+  --background: oklch(1 0 0);
+  --foreground: var(--paper-ink);
+  --card: oklch(0.985 0.004 250);
+  --card-foreground: var(--paper-ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--paper-ink);
+  --primary: oklch(0.36 0.16 264);
+  --primary-foreground: oklch(0.99 0.005 250);
+  --secondary: oklch(0.955 0.008 250);
+  --secondary-foreground: var(--paper-ink);
+  --muted: oklch(0.965 0.006 250);
+  --muted-foreground: oklch(0.45 0.035 264);
+  --accent: var(--yellow);
+  --accent-foreground: oklch(0.18 0.05 100);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.99 0.005 250);
+  --hairline: oklch(0.128 0.05 264 / 18%);
+  --border: var(--hairline);
+  --input: oklch(0.128 0.05 264 / 30%);
+  --ring: var(--primary);
+
+  --chart-1: var(--primary);
+  --chart-2: var(--azure);
+  --chart-3: var(--yellow);
+  --chart-4: oklch(0.7 0.14 230);
+  --chart-5: oklch(0.9 0.09 100);
+
+  --sidebar: var(--ink);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: oklch(0.985 0.01 250);
+  --sidebar-accent: var(--muted);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--hairline);
+  --sidebar-ring: var(--yellow);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--yellow);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+.mobile-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.motion-ready .reveal-section {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.motion-ready .reveal-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .motion-ready .reveal-section {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Blueprint ruling on white paper, with a faint blue + yellow wash */
+@utility ledger-grain {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(
+      110% 80% at 8% 0%,
+      color-mix(in oklab, var(--primary) 4%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      65% 55% at 100% 100%,
+      color-mix(in oklab, var(--yellow) 16%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--primary) 3.5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--primary) 3.5%, transparent) 1px,
+      transparent 1px
+    );
+  background-size:
+    100% 100%,
+    100% 100%,
+    64px 64px,
+    64px 64px;
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@utility hairline-grid {
+  background-color: var(--hairline);
+  gap: 1px;
+}
+
+/* Solid slab: hard shadow, no softness */
+@utility slab-yellow {
+  background-color: var(--yellow);
+  color: oklch(0.16 0.05 100);
+  box-shadow: 10px 10px 0 0 var(--primary);
+}
+
+@utility slab-blue {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: 10px 10px 0 0 var(--yellow);
+}
+
+@utility tile-lift {
+  transition:
+    transform 220ms cubic-bezier(0.19, 1, 0.22, 1),
+    box-shadow 220ms cubic-bezier(0.19, 1, 0.22, 1),
+    background-color 220ms ease,
+    border-color 220ms ease;
+  &:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0 0 var(--yellow);
+    border-color: var(--yellow);
+  }
+}
+
+/* ---- White paper bands -------------------------------------------------
+   Flips the semantic tokens locally so an entire section renders on white
+   without a single hardcoded color inside components. */
+@utility paper-band {
+  --background: var(--paper);
+  --foreground: var(--paper-ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--paper-ink);
+  --muted: oklch(0.955 0.006 250);
+  --muted-foreground: oklch(0.45 0.03 264);
+  --hairline: oklch(0.128 0.05 264 / 16%);
+  --border: var(--hairline);
+  --input: oklch(0.128 0.05 264 / 30%);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Faint blueprint ruling so white sections still read as part of the system */
+@utility paper-rule {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--primary) 3%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--primary) 3%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 64px 64px;
+}
+
+@utility slab-white {
+  background-color: oklch(1 0 0);
+  color: var(--paper-ink);
+  box-shadow: 10px 10px 0 0 var(--yellow);
+}
