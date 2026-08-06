@@ -185,10 +185,10 @@ function Index() {
         </p>
 
         <a
-          href="mailto:aarkin2024@gmail.com"
+          href="mailto:operations@aarkin.co.in"
           className="slab-yellow mt-10 inline-flex items-center gap-2 px-6 py-4 text-xs font-bold tracking-widest uppercase transition-transform hover:translate-x-1 hover:translate-y-1"
         >
-          <Mail className="size-3.5" /> aarkin2024@gmail.com
+          <Mail className="size-3.5" /> operations@aarkin.co.in
         </a>
       </main>
 
