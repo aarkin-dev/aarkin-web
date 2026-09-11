@@ -4,6 +4,7 @@ import {
   Award,
   BadgeCheck,
   Banknote,
+  Check,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
@@ -333,16 +334,13 @@ const SERVICES = [
   },
 ];
 
-const SERVICE_ICON_BG = [
-  "from-sky-400 to-sky-600",
-  "from-orange to-orange-dark",
-  "from-violet-400 to-violet-600",
-  "from-primary to-azure",
-];
+const SERVICE_ICON_BG = ["bg-sky-500", "bg-orange", "bg-fuchsia-500", "bg-indigo-600"];
 
 /* ---------- Services: seoq.vercel.app/home-three "features box" —
-   one rounded light band holding a 4-column grid, each column a
-   circular gradient icon + title + checklist + Learn More.
+   one rounded light band holding a 4-column grid. Reference has NO
+   per-column card (no bg/shadow) — icon, title, checklist and button
+   sit directly on the shared band. Flat solid icon circles (not
+   gradient), plain check glyphs (not circled), light-tint pill button.
    NOTE: layout-first pass. Aarkin has 8 real services; only the
    first 4 are seated here for now — the rest need an accommodation
    decision (second row? a "view all" page?) in a follow-up pass. ---------- */
@@ -366,19 +364,16 @@ export function Services() {
           </p>
         </div>
 
-        <div className="mt-14 rounded-[2.5rem] bg-muted/60 p-6 md:p-10">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 rounded-[2rem] bg-muted/60 p-8 md:p-12">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {shown.map((s, i) => {
               const Icon = s.icon;
               return (
-                <div
-                  key={s.title}
-                  className="tile-lift flex flex-col rounded-3xl bg-background p-7 shadow-sm"
-                >
+                <div key={s.title} className="reveal-card flex flex-col">
                   <div
-                    className={`grid size-14 place-items-center rounded-full bg-gradient-to-br text-white ${SERVICE_ICON_BG[i % SERVICE_ICON_BG.length]}`}
+                    className={`grid size-16 place-items-center rounded-full text-white ${SERVICE_ICON_BG[i % SERVICE_ICON_BG.length]}`}
                   >
-                    <Icon className="size-6" strokeWidth={1.75} />
+                    <Icon className="size-7" strokeWidth={1.75} />
                   </div>
                   <h3 className="mt-5 font-display text-lg font-bold">{s.title}</h3>
                   <ul className="mt-4 flex-1 space-y-2.5">
@@ -386,9 +381,9 @@ export function Services() {
                       (point) => (
                         <li
                           key={point}
-                          className="flex items-start gap-2 text-sm text-muted-foreground"
+                          className="flex items-center gap-2 text-sm text-foreground/80"
                         >
-                          <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
+                          <Check className="size-4 shrink-0 text-foreground" strokeWidth={2.5} />
                           {point}
                         </li>
                       ),
@@ -396,7 +391,7 @@ export function Services() {
                   </ul>
                   <a
                     href="#consult"
-                    className="mt-6 inline-flex items-center justify-center rounded-full border border-border px-5 py-2.5 text-sm font-semibold transition-colors hover:border-orange hover:bg-orange hover:text-white"
+                    className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-primary/10 px-5 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-orange hover:text-white"
                   >
                     Learn More
                   </a>

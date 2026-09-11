@@ -85,7 +85,7 @@ function Index() {
 
       const revealItems = Array.from(
         section.querySelectorAll<HTMLElement>(
-          "h1, h2, img, form, .tile-lift, .hairline-grid, a.group",
+          "h1, h2, img, form, .tile-lift, .hairline-grid, .reveal-card, a.group",
         ),
       );
 
