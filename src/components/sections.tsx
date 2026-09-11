@@ -349,7 +349,7 @@ export function Services() {
   return (
     <section id="services" className="bg-background py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="reveal-card mx-auto max-w-2xl text-center">
           <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
             What We Do
           </span>

@@ -87,7 +87,11 @@ function Index() {
         section.querySelectorAll<HTMLElement>(
           "h1, h2, img, form, .tile-lift, .hairline-grid, .reveal-card, a.group",
         ),
-      );
+        // .reveal-card is an atomic reveal unit (e.g. an eyebrow+heading+
+        // subtitle block, or a feature column) -- anything it wraps
+        // (like its own <h2>) must NOT also be independently selected,
+        // or it double-animates against its already-fading parent.
+      ).filter((el) => el.classList.contains("reveal-card") || !el.closest(".reveal-card"));
 
       revealItems.forEach((item, index) => {
         item.classList.add("reveal-item");
