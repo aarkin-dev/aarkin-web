@@ -194,36 +194,43 @@
   transition: opacity 450ms ease;
 }
 
-.motion-ready .reveal-section .reveal-item {
+/* Each reveal item is watched by its OWN IntersectionObserver entry (see
+   index.tsx) and animates on ITS OWN .is-visible class -- deliberately not
+   gated behind the ancestor .reveal-section being visible. A tall section
+   (heading up top, a card grid much further down) would otherwise have
+   every descendant's clock start the moment the section merely begins
+   entering the viewport, so content far down it finishes animating off-
+   screen and never visibly moves once actually scrolled into view. */
+.motion-ready .reveal-item {
   opacity: 0;
   scale: 0.985;
   translate: 0 30px;
 }
 
-.motion-ready .reveal-section.is-visible .reveal-item {
+.motion-ready .reveal-item.is-visible {
   animation: content-rise 750ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
 }
 
-.motion-ready .reveal-section .reveal-image {
+.motion-ready .reveal-image {
   clip-path: inset(0 0 100% 0);
   scale: 1.025;
   translate: 0 18px;
 }
 
-.motion-ready .reveal-section.is-visible .reveal-image {
+.motion-ready .reveal-image.is-visible {
   animation: image-unveil 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
 }
 
 /* Cards with no border/shadow of their own (e.g. the Services feature
    columns) need a more pronounced rise than .reveal-item's 30px/750ms —
    otherwise the motion reads as barely-there against a flat background. */
-.motion-ready .reveal-section .reveal-item.reveal-card {
+.motion-ready .reveal-item.reveal-card {
   opacity: 0;
   scale: 0.94;
   translate: 0 44px;
 }
 
-.motion-ready .reveal-section.is-visible .reveal-item.reveal-card {
+.motion-ready .reveal-item.reveal-card.is-visible {
   animation: card-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
 }
 

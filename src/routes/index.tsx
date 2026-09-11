@@ -68,20 +68,43 @@ function Index() {
     const sections = Array.from(document.querySelectorAll<HTMLElement>("main > section"));
     document.documentElement.classList.add("motion-ready");
 
-    const observer = new IntersectionObserver(
+    // Section-level: a plain opacity fade for the section's own background/
+    // container once any part of it is on screen.
+    const sectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
+            sectionObserver.unobserve(entry.target);
           }
         });
       },
       { rootMargin: "0px 0px -8%", threshold: 0.08 },
     );
 
+    // Item-level: each reveal item watches its OWN entry into the viewport.
+    // A tall section (e.g. a heading followed by a much-lower card grid)
+    // must NOT gate every descendant's animation on the section merely
+    // starting to appear -- by the time content far down that section
+    // actually scrolls into view, a section-wide timer would already have
+    // finished, so the reveal would have played out off-screen and never
+    // be seen. Observing items individually fixes that regardless of how
+    // tall the section is.
+    const itemObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            itemObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -10%", threshold: 0.15 },
+    );
+
     sections.forEach((section) => {
       section.classList.add("reveal-section");
+      sectionObserver.observe(section);
 
       const revealItems = Array.from(
         section.querySelectorAll<HTMLElement>(
@@ -97,13 +120,13 @@ function Index() {
         item.classList.add("reveal-item");
         item.style.setProperty("--reveal-delay", Math.min(index, 7) * 75 + "ms");
         if (item.tagName === "IMG") item.classList.add("reveal-image");
+        itemObserver.observe(item);
       });
-
-      observer.observe(section);
     });
 
     return () => {
-      observer.disconnect();
+      sectionObserver.disconnect();
+      itemObserver.disconnect();
       document.documentElement.classList.remove("motion-ready");
     };
   }, []);
