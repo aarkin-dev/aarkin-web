@@ -5,6 +5,8 @@ import {
   BadgeCheck,
   Banknote,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   FileStack,
   Landmark,
   LineChart,
@@ -23,6 +25,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import aboutVisual from "@/assets/about-visual.jpg";
+import heroVisual from "@/assets/hero-visual.jpg";
 
 const BUSINESS_TYPES = [
   "Startup (Pvt. Ltd. / LLP)",
@@ -152,33 +155,69 @@ export function Credentials() {
   );
 }
 
-/* ---------- About: hero grammar — ledger field, outlined badge, hairline grid ---------- */
+const ABOUT_POINTS = [
+  {
+    icon: Map,
+    title: "Scheme Discovery & Mapping",
+    body: "We identify every scheme your business qualifies for — before you file a single form.",
+  },
+  {
+    icon: Sparkles,
+    title: "Fast-Track Execution",
+    body: "Our team handles the entire application process — you get results, not status updates.",
+  },
+  {
+    icon: Users,
+    title: "Founder-First Approach",
+    body: "Dedicated manager, transparent timelines and honest guidance — always.",
+  },
+];
+
+/* ---------- About: seoq.vercel.app/home-three "How Our Strategies
+   Transformed Businesses" — heading band, then 3 stacked cards
+   (left) beside one illustration (right). ---------- */
 export function About() {
   return (
-    <section id="about" className="ledger-grain border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 py-24">
-        <span className="eyebrow inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
-          <Sparkles className="size-3" /> About Aarkin
-        </span>
-        <div className="mt-8 grid gap-12 lg:grid-cols-12">
-          <h2 className="font-display text-4xl leading-[1.05] font-bold text-balance md:text-5xl lg:col-span-7">
-            Government opportunity shouldn&rsquo;t be a{" "}
-            <span className="slab-yellow -rotate-1 inline-block px-3 py-0.5">guessing game</span>
-          </h2>
-          <div className="space-y-5 border-l-2 border-yellow pl-6 lg:col-span-5">
-            <p className="leading-relaxed text-muted-foreground">
-              Most founders lose lakhs in grants, tax benefits and subsidies simply because they
-              don&rsquo;t know the schemes exist — or because the process feels impossibly complex.
-            </p>
-            <p className="leading-relaxed text-muted-foreground">
-              Aarkin sits at the intersection of policy expertise and startup understanding —
-              translating India&rsquo;s government ecosystem into clear, actionable growth.
-            </p>
+    <section id="about" className="border-b border-border bg-background py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
+              About Aarkin
+            </span>
+            <h2 className="mt-6 max-w-xl font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
+              Government Opportunity Shouldn&rsquo;t Be a{" "}
+              <span className="text-orange">Guessing Game</span>
+            </h2>
           </div>
+          <p className="max-w-sm leading-relaxed text-muted-foreground">
+            Aarkin sits at the intersection of policy expertise and startup understanding —
+            translating India&rsquo;s government ecosystem into clear, actionable growth.
+          </p>
         </div>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-12">
-          <div className="relative lg:col-span-5">
+        <div className="mt-14 grid gap-8 lg:grid-cols-2">
+          <div className="flex flex-col gap-5">
+            {ABOUT_POINTS.map(({ icon: Icon, title, body }, i) => (
+              <div
+                key={title}
+                className="relative flex gap-5 rounded-3xl border border-border bg-card p-7"
+              >
+                <span className="absolute top-6 -left-3 grid size-6 place-items-center rounded-full bg-orange text-xs font-bold text-white">
+                  {i + 1}
+                </span>
+                <div className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
+                  <Icon className="size-5" strokeWidth={1.75} />
+                </div>
+                <div>
+                  <h4 className="font-display text-lg font-bold">{title}</h4>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="relative">
             <img
               src={aboutVisual}
               alt="Stack of approved government scheme certificates with official seals"
@@ -186,66 +225,57 @@ export function About() {
               height={1024}
               loading="lazy"
               decoding="async"
-              className="aspect-square w-full object-cover"
+              className="aspect-square w-full rounded-[2rem] object-cover"
             />
-            <span className="slab-yellow absolute -bottom-4 -left-4 px-4 py-2 text-xs font-bold tracking-widest uppercase">
-              200+ schemes mapped
+            <span className="absolute -bottom-5 left-6 rounded-2xl bg-background px-5 py-3 text-center shadow-lg">
+              <span className="block font-display text-2xl font-bold text-primary">200+</span>
+              <span className="block text-xs font-semibold text-muted-foreground">
+                Schemes Mapped
+              </span>
             </span>
           </div>
-          <div className="hairline-grid grid self-start border border-border lg:col-span-7">
-            {[
-              ["₹3Cr+", "Average funding per client"],
-              ["1,500+", "MSMEs onboarded"],
-              ["7 days", "Average DPIIT cycle"],
-            ].map(([v, l], i) => (
-              <div
-                key={l}
-                className={
-                  i === 1
-                    ? "bg-yellow p-8 text-accent-foreground"
-                    : i === 2
-                      ? "bg-primary p-8 text-primary-foreground"
-                      : "bg-background p-8"
-                }
-              >
-                <div className="tabular font-display text-4xl font-bold tracking-tight">{v}</div>
-                <div className={`eyebrow mt-2 ${i === 0 ? "text-muted-foreground" : "opacity-70"}`}>
-                  {l}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
+      </div>
+    </section>
+  );
+}
 
-        <div className="hairline-grid mt-8 grid border border-border md:grid-cols-3">
-          {[
-            [
-              Map,
-              "Scheme discovery & mapping",
-              "We identify every scheme your business qualifies for — before you file a single form.",
-            ],
-            [
-              Sparkles,
-              "Fast-track execution",
-              "Our team handles the entire application process — you get results, not status updates.",
-            ],
-            [
-              Users,
-              "Founder-first approach",
-              "Dedicated manager, transparent timelines and honest guidance — always.",
-            ],
-          ].map(([Icon, title, body]) => {
-            const I = Icon as typeof Map;
-            return (
-              <div key={title as string} className="bg-background p-8">
-                <I className="size-6 text-primary" strokeWidth={1.5} />
-                <h4 className="mt-5 font-display text-lg font-bold">{title as string}</h4>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {body as string}
-                </p>
-              </div>
-            );
-          })}
+/* ---------- FundingCta: seoq.vercel.app/home-three dark "Get Our Every
+   Update, Join With Us" newsletter band — illustration one side,
+   heading + copy + CTA the other, on the dark canvas field. ---------- */
+export function FundingCta() {
+  return (
+    <section className="bg-[var(--canvas)] py-20 text-white">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
+        <div className="relative order-2 lg:order-1">
+          <img
+            src={heroVisual}
+            alt="Founder holding an approved government certificate bearing the national emblem"
+            width={1024}
+            height={1280}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[4/5] w-full max-w-sm rounded-[2rem] object-cover"
+          />
+        </div>
+        <div className="order-1 lg:order-2">
+          <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-orange">
+            Government Opportunity
+          </span>
+          <h2 className="mt-6 font-display text-3xl leading-[1.15] font-bold text-balance md:text-4xl">
+            The Government Wants to Fund Your Growth. Let Us Make the Introduction.
+          </h2>
+          <p className="mt-5 max-w-md leading-relaxed text-white/65">
+            Every year, thousands of crores in grants, subsidies and collateral-free loans go
+            unclaimed — because founders don&rsquo;t know they qualify. Aarkin changes that
+            equation.
+          </p>
+          <a
+            href="#consult"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-primary"
+          >
+            Check My Eligibility Now <ArrowUpRight className="size-4" />
+          </a>
         </div>
       </div>
     </section>
@@ -303,58 +333,85 @@ const SERVICES = [
   },
 ];
 
-/* ---------- Services: an index, not a card grid. Rows flip to yellow on hover. ---------- */
+const SERVICE_ICON_BG = [
+  "from-sky-400 to-sky-600",
+  "from-orange to-orange-dark",
+  "from-violet-400 to-violet-600",
+  "from-primary to-azure",
+];
+
+/* ---------- Services: seoq.vercel.app/home-three "features box" —
+   one rounded light band holding a 4-column grid, each column a
+   circular gradient icon + title + checklist + Learn More.
+   NOTE: layout-first pass. Aarkin has 8 real services; only the
+   first 4 are seated here for now — the rest need an accommodation
+   decision (second row? a "view all" page?) in a follow-up pass. ---------- */
 export function Services() {
+  const shown = SERVICES.slice(0, 4);
   return (
-    <section id="services" className="border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 py-24">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <span className="eyebrow inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
-              What we do
+    <section id="services" className="bg-background py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
+            What We Do
+          </span>
+          <h2 className="mt-6 font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
+            Everything Your Business Needs to{" "}
+            <span className="bg-gradient-to-r from-primary to-orange bg-clip-text text-transparent">
+              Grow with Government Support
             </span>
-            <h2 className="mt-8 max-w-3xl font-display text-4xl leading-[1.05] font-bold text-balance md:text-5xl">
-              Government support,{" "}
-              <span className="slab-yellow -rotate-1 inline-block px-3 py-0.5">
-                turned into growth
-              </span>
-            </h2>
-          </div>
-          <span className="tabular eyebrow text-muted-foreground">08 / services</span>
+          </h2>
+          <p className="mt-4 leading-relaxed text-muted-foreground">
+            From registration to funding — one expert team, zero complexity.
+          </p>
         </div>
 
-        <div className="mt-14 border-t border-border">
-          {SERVICES.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <a
-                key={s.title}
-                href="#consult"
-                className="group grid grid-cols-12 items-start gap-x-3 gap-y-2 border-b border-border px-2 py-7 transition-colors hover:bg-yellow hover:text-accent-foreground md:gap-8"
-              >
-                <span className="tabular eyebrow col-span-2 pt-1 text-primary group-hover:text-accent-foreground sm:col-span-1">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="col-span-10 sm:col-span-11 md:col-span-4">
-                  <h3 className="flex items-center gap-3 font-display text-xl font-bold md:text-2xl">
-                    <Icon
-                      className="size-5 shrink-0 text-primary group-hover:text-accent-foreground"
-                      strokeWidth={1.5}
-                    />
-                    {s.title}
-                  </h3>
+        <div className="mt-14 rounded-[2.5rem] bg-muted/60 p-6 md:p-10">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {shown.map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <div
+                  key={s.title}
+                  className="tile-lift flex flex-col rounded-3xl bg-background p-7 shadow-sm"
+                >
+                  <div
+                    className={`grid size-14 place-items-center rounded-full bg-gradient-to-br text-white ${SERVICE_ICON_BG[i % SERVICE_ICON_BG.length]}`}
+                  >
+                    <Icon className="size-6" strokeWidth={1.75} />
+                  </div>
+                  <h3 className="mt-5 font-display text-lg font-bold">{s.title}</h3>
+                  <ul className="mt-4 flex-1 space-y-2.5">
+                    {[s.tag, "Documentation handled", "Filed on your behalf", "Status tracked"].map(
+                      (point) => (
+                        <li
+                          key={point}
+                          className="flex items-start gap-2 text-sm text-muted-foreground"
+                        >
+                          <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
+                          {point}
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                  <a
+                    href="#consult"
+                    className="mt-6 inline-flex items-center justify-center rounded-full border border-border px-5 py-2.5 text-sm font-semibold transition-colors hover:border-orange hover:bg-orange hover:text-white"
+                  >
+                    Learn More
+                  </a>
                 </div>
-                <p className="col-span-12 text-sm leading-relaxed text-muted-foreground group-hover:text-accent-foreground/80 md:col-span-5">
-                  {s.body}
-                </p>
-                <span className="eyebrow col-span-12 flex items-center justify-between gap-2 pt-1 md:col-span-2 md:justify-end">
-                  {s.tag}
-                  <ArrowUpRight className="size-4 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </span>
-              </a>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
+
+        <p className="mt-8 text-center text-sm text-muted-foreground">
+          Check out all of our{" "}
+          <a href="#" className="font-semibold text-primary underline-offset-4 hover:underline">
+            8 services
+          </a>
+        </p>
       </div>
     </section>
   );
@@ -600,49 +657,78 @@ const SCHEMES = [
   },
 ];
 
-/* ---------- Schemes: white paper band, yellow-tabbed cards ---------- */
+const SCHEME_TILE_BG = [
+  "from-violet-400 to-violet-600",
+  "from-orange to-orange-dark",
+  "from-primary to-azure",
+  "from-rose-400 to-rose-600",
+  "from-sky-400 to-sky-600",
+  "from-amber-400 to-amber-600",
+];
+
+/* ---------- Schemes: seoq.vercel.app/home-three "Real-Life Case
+   Studies That Inspire" — heading + filter-tab row, then a
+   colour-tiled grid (their 3D illustration tiles stand in as
+   gradient tiles here, since Aarkin has no equivalent imagery). ---------- */
 export function Schemes() {
+  const categories = ["All", ...Array.from(new Set(SCHEMES.map((s) => s.tag)))];
+  const [active, setActive] = useState("All");
+  const shown = active === "All" ? SCHEMES : SCHEMES.filter((s) => s.tag === active);
+
   return (
-    <section id="schemes" className="paper-band paper-rule border-b-2 border-yellow">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+    <section id="schemes" className="bg-muted/40 py-24">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <span className="eyebrow inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
-              Scheme library
+            <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
+              Scheme Library
             </span>
-            <h2 className="mt-8 max-w-3xl font-display text-4xl leading-[1.05] font-bold text-balance md:text-5xl">
-              The schemes founders miss{" "}
-              <span className="slab-yellow -rotate-1 inline-block px-3 py-0.5">most often</span>
+            <h2 className="mt-6 max-w-xl font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
+              The Schemes Founders Miss <span className="text-orange">Most Often</span>
             </h2>
           </div>
-          <span className="tabular eyebrow text-muted-foreground">
-            200+ mapped &middot; 06 shown
-          </span>
+          <div className="flex flex-wrap gap-2">
+            {categories.map((c) => (
+              <button
+                key={c}
+                onClick={() => setActive(c)}
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                  active === c
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-background text-muted-foreground hover:bg-primary/10"
+                }`}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {SCHEMES.map((s) => (
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {shown.map((s, i) => (
             <article
               key={s.name}
-              className="tile-lift group flex flex-col border-2 border-foreground bg-card p-7"
+              className="tile-lift group overflow-hidden rounded-3xl bg-background shadow-sm"
             >
-              <div className="flex items-start justify-between">
-                <span className="tabular eyebrow bg-yellow px-2 py-1 text-accent-foreground">
-                  {s.code}
-                </span>
-                <span className="eyebrow text-primary">{s.tag}</span>
-              </div>
-              <h3 className="mt-6 font-display text-xl font-bold">{s.name}</h3>
-              <div className="tabular mt-2 font-display text-2xl font-bold text-primary">
-                {s.amount}
-              </div>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-              <a
-                href="#consult"
-                className="eyebrow mt-6 inline-flex items-center gap-2 border-t-2 border-yellow pt-4 text-foreground"
+              <div
+                className={`relative flex aspect-[4/3] items-center justify-center bg-gradient-to-br p-6 text-white ${SCHEME_TILE_BG[i % SCHEME_TILE_BG.length]}`}
               >
-                Check eligibility <ArrowUpRight className="size-3.5" />
-              </a>
+                <span className="absolute top-4 right-4 rounded-full bg-white/20 px-3 py-1 text-xs font-bold">
+                  {s.tag}
+                </span>
+                <span className="font-display text-3xl font-bold">{s.amount}</span>
+              </div>
+              <div className="p-6">
+                <h3 className="font-display text-lg font-bold">{s.name}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+                <a
+                  href="#consult"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                >
+                  Check Eligibility{" "}
+                  <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </a>
+              </div>
             </article>
           ))}
         </div>
@@ -696,92 +782,88 @@ const FOUNDER_STORIES = [
   },
 ];
 
-/* ---------- Founder stories: proof cards from the original site ---------- */
+/* ---------- Founder stories: seoq.vercel.app/home-three "What Clients
+   Say" carousel — one large centered card, dimmed peeking neighbours,
+   prev/next arrows. ---------- */
 export function FounderStories() {
+  const [index, setIndex] = useState(0);
+  const n = FOUNDER_STORIES.length;
+  const at = (offset: number) => FOUNDER_STORIES[(index + offset + n) % n]!;
+
   return (
-    <section id="stories" className="ledger-grain border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 py-24">
-        <div className="grid items-end gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <span className="eyebrow inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
-              <Quote className="size-3" /> Founder stories
+    <section id="stories" className="overflow-hidden bg-background py-24">
+      <div className="mx-auto max-w-3xl px-6 text-center">
+        <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
+          <Quote className="size-3" /> Founder Stories
+        </span>
+        <h2 className="mt-6 font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
+          Founders Who <span className="text-orange">Trusted the Process</span>
+        </h2>
+      </div>
+
+      <div className="relative mx-auto mt-14 flex max-w-6xl items-center justify-center gap-4 px-6">
+        <button
+          onClick={() => setIndex((i) => i - 1)}
+          aria-label="Previous testimonial"
+          className="hidden shrink-0 rounded-full border border-border bg-background p-3 text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground sm:grid sm:place-items-center"
+        >
+          <ChevronLeft className="size-5" />
+        </button>
+
+        <div className="hidden max-w-[15rem] flex-1 scale-90 rounded-3xl border border-border bg-card p-6 opacity-40 lg:block">
+          <p className="line-clamp-4 text-sm leading-relaxed">“{at(-1).quote}”</p>
+        </div>
+
+        <div className="flex-1 rounded-[2rem] border border-border bg-card p-8 shadow-lg md:p-10">
+          <div className="flex flex-wrap items-center gap-6">
+            <span className="grid size-16 shrink-0 place-items-center rounded-full bg-primary text-lg font-bold text-primary-foreground">
+              {at(0).initials}
             </span>
-            <h2 className="mt-8 font-display text-4xl leading-[1.05] font-bold text-balance md:text-5xl">
-              Founders who{" "}
-              <span className="slab-yellow -rotate-1 inline-block px-3 py-0.5">
-                trusted the process
+            <div className="flex-1">
+              <span className="flex gap-1 text-orange" aria-label="5 out of 5 stars">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="size-3.5 fill-current" aria-hidden="true" />
+                ))}
               </span>
-            </h2>
+              <blockquote className="mt-3 font-display text-lg leading-relaxed font-medium text-balance">
+                “{at(0).quote}”
+              </blockquote>
+              <p className="mt-4">
+                <span className="block font-display font-bold">{at(0).name}</span>
+                <span className="block text-sm text-muted-foreground">{at(0).role}</span>
+              </p>
+            </div>
           </div>
-          <p className="border-l-2 border-yellow pl-6 leading-relaxed text-muted-foreground lg:col-span-4">
-            Real founder experiences across grants, registrations, loans and investment readiness.
-          </p>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {FOUNDER_STORIES.map((story, index) => {
-            const isDark = index === 0 || index === 5;
-            const cardStyle = isDark
-              ? "bg-primary text-primary-foreground"
-              : index === 2
-                ? "bg-yellow text-accent-foreground"
-                : "bg-card";
-
-            return (
-              <figure
-                key={story.name}
-                className={
-                  "tile-lift flex min-h-80 flex-col border-2 border-foreground p-7 " + cardStyle
-                }
-              >
-                <div
-                  className={
-                    "flex items-center justify-between " + (isDark ? "text-yellow" : "text-primary")
-                  }
-                >
-                  <Quote className="size-7" aria-hidden="true" />
-                  <span className="flex gap-1" aria-label="5 out of 5 stars">
-                    {Array.from({ length: 5 }).map((_, starIndex) => (
-                      <Star key={starIndex} className="size-3.5 fill-current" aria-hidden="true" />
-                    ))}
-                  </span>
-                </div>
-                <blockquote className="mt-7 flex-1 font-display text-lg leading-relaxed font-medium">
-                  “{story.quote}”
-                </blockquote>
-                <figcaption
-                  className={
-                    "mt-8 flex items-center gap-4 border-t pt-5 " +
-                    (isDark ? "border-primary-foreground/25" : "border-foreground/20")
-                  }
-                >
-                  <span
-                    className={
-                      "tabular grid size-11 shrink-0 place-items-center text-xs font-bold " +
-                      (isDark
-                        ? "bg-yellow text-accent-foreground"
-                        : "bg-primary text-primary-foreground")
-                    }
-                    aria-hidden="true"
-                  >
-                    {story.initials}
-                  </span>
-                  <span>
-                    <span className="block font-display font-bold">{story.name}</span>
-                    <span
-                      className={
-                        "mt-0.5 block text-xs leading-relaxed " +
-                        (isDark ? "text-primary-foreground/70" : "text-muted-foreground")
-                      }
-                    >
-                      {story.role}
-                    </span>
-                  </span>
-                </figcaption>
-              </figure>
-            );
-          })}
+        <div className="hidden max-w-[15rem] flex-1 scale-90 rounded-3xl border border-border bg-card p-6 opacity-40 lg:block">
+          <p className="line-clamp-4 text-sm leading-relaxed">“{at(1).quote}”</p>
         </div>
+
+        <button
+          onClick={() => setIndex((i) => i + 1)}
+          aria-label="Next testimonial"
+          className="hidden shrink-0 rounded-full border border-border bg-background p-3 text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground sm:grid sm:place-items-center"
+        >
+          <ChevronRight className="size-5" />
+        </button>
+      </div>
+
+      <div className="mt-8 flex items-center justify-center gap-2 sm:hidden">
+        <button
+          onClick={() => setIndex((i) => i - 1)}
+          aria-label="Previous testimonial"
+          className="grid place-items-center rounded-full border border-border p-2.5"
+        >
+          <ChevronLeft className="size-4" />
+        </button>
+        <button
+          onClick={() => setIndex((i) => i + 1)}
+          aria-label="Next testimonial"
+          className="grid place-items-center rounded-full border border-border p-2.5"
+        >
+          <ChevronRight className="size-4" />
+        </button>
       </div>
     </section>
   );
@@ -823,6 +905,53 @@ const FAQS: [string, string][] = [
 ];
 
 /* ---------- FAQ: numbered hairline accordion ---------- */
+const INSIGHT_TILE_BG = [
+  "from-primary to-azure",
+  "from-orange to-orange-dark",
+  "from-violet-400 to-violet-600",
+];
+
+/* ---------- InsightsPreview: fills the seoq.vercel.app/home-three
+   "Trends and Predictions" blog-card slot. Aarkin has no blog yet,
+   so this borrows 3 FAQ entries as teaser cards for now — flagged
+   as a content gap to revisit. ---------- */
+export function InsightsPreview() {
+  const picks = FAQS.slice(0, 3);
+  return (
+    <section className="bg-muted/40 py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <h2 className="mx-auto max-w-xl text-center font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
+          Trends &amp; Answers for <span className="text-orange">Online Success</span>
+        </h2>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {picks.map(([q, a], i) => (
+            <article key={q} className="overflow-hidden rounded-3xl bg-background shadow-sm">
+              <div
+                className={`flex aspect-[16/10] items-center justify-center bg-gradient-to-br p-6 text-white ${INSIGHT_TILE_BG[i]}`}
+              >
+                <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-bold">FAQ</span>
+              </div>
+              <div className="p-6">
+                <h3 className="font-display text-lg font-bold text-balance">{q}</h3>
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                  {a}
+                </p>
+                <a
+                  href="#consult"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                >
+                  Read More <ArrowUpRight className="size-3.5" />
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
@@ -905,39 +1034,52 @@ export function Consultation() {
   }
 
   return (
-    <section id="consult" className="ledger-grain">
-      <div className="mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-2">
+    <section id="consult" className="bg-muted/40 py-24">
+      <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2">
         <div>
-          <span className="eyebrow inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
-            Free consultation
+          <div className="relative">
+            <img
+              src={aboutVisual}
+              alt="Government documents ready for filing, stamped and approved"
+              width={1024}
+              height={1024}
+              loading="lazy"
+              decoding="async"
+              className="aspect-square w-full rounded-[2rem] object-cover"
+            />
+          </div>
+
+          <span className="eyebrow mt-8 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
+            Free Consultation
           </span>
-          <h2 className="mt-4 font-display text-5xl leading-tight font-bold text-balance">
-            Your business is sitting on untapped government capital.
+          <h2 className="mt-4 font-display text-4xl leading-tight font-bold text-balance md:text-5xl">
+            Your Business Is Sitting on <span className="text-orange">Untapped</span> Government
+            Capital.
           </h2>
           <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
             Book a free 30-minute consultation. We'll audit your eligibility, identify your
             opportunities and give you a clear roadmap — no commitment required.
           </p>
-          <div className="mt-10 space-y-6">
+          <div className="mt-8 flex flex-wrap gap-6">
             {[
-              ["01", "No-cost eligibility audit", "A 30-minute review of your entity and schemes."],
-              ["02", "Pan-India expertise", "Founders served from Surat to Chennai."],
-              ["03", "Response in 4 hours", "A dedicated manager replies the same business day."],
-            ].map(([n, t, b]) => (
-              <div key={n} className="flex gap-6">
-                <div className="tabular grid size-11 shrink-0 place-items-center border-2 border-primary font-display text-sm text-primary">
+              ["01", "No-cost audit"],
+              ["02", "Pan-India expertise"],
+              ["03", "4-hour response"],
+            ].map(([n, t]) => (
+              <div key={n} className="flex items-center gap-3">
+                <div className="tabular grid size-9 shrink-0 place-items-center rounded-full bg-primary/10 font-display text-xs font-bold text-primary">
                   {n}
                 </div>
-                <div>
-                  <h5 className="font-display font-bold">{t}</h5>
-                  <p className="text-sm text-muted-foreground">{b}</p>
-                </div>
+                <h5 className="font-display text-sm font-bold">{t}</h5>
               </div>
             ))}
           </div>
         </div>
 
-        <form className="space-y-6 border border-border bg-card p-10" onSubmit={submitEnquiry}>
+        <form
+          className="space-y-6 self-start rounded-[2rem] bg-background p-8 shadow-lg md:p-10"
+          onSubmit={submitEnquiry}
+        >
           <input
             type="text"
             name="company_website"
@@ -946,7 +1088,10 @@ export function Consultation() {
             autoComplete="off"
             aria-hidden="true"
           />
-          <h3 className="font-display text-2xl font-bold">Book your free consultation</h3>
+          <h3 className="font-display text-2xl font-bold">Book Your Free Consultation</h3>
+          <p className="text-sm text-muted-foreground">
+            Tell us about your business. We'll do the rest.
+          </p>
           <div className="grid gap-5 md:grid-cols-2">
             <Field label="Full name">
               <input
@@ -1018,9 +1163,9 @@ export function Consultation() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="slab-yellow w-full py-4 text-xs font-bold tracking-widest uppercase transition-transform hover:translate-x-1 hover:translate-y-1 disabled:cursor-wait disabled:opacity-70"
+            className="w-full rounded-full bg-primary py-3.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-orange disabled:cursor-wait disabled:opacity-70"
           >
-            {isSubmitting ? "Sending…" : "Get my free consultation"}
+            {isSubmitting ? "Sending…" : "Get My Free Consultation"}
           </button>
           <p className="text-center text-xs text-muted-foreground">
             Your details are used only to respond to your enquiry. No spam.
@@ -1206,7 +1351,7 @@ export function ScrollEnquiryPopup() {
 }
 
 const inputClass =
-  "w-full border-b border-input bg-transparent py-2 text-sm outline-none transition-colors focus:border-yellow";
+  "w-full rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-primary";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (

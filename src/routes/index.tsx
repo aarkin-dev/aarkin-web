@@ -3,16 +3,17 @@ import { useEffect, useLayoutEffect } from "react";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import {
   Hero,
-  Credentials,
   About,
   Services,
-  Process,
-  WhyArkin,
+  FundingCta,
   Schemes,
   FounderStories,
-  Faq,
   Consultation,
+  InsightsPreview,
   ScrollEnquiryPopup,
+  // Parked — no direct seoq.vercel.app/home-three slot yet.
+  // Real, good content; revisit placement in the accommodation pass.
+  // Credentials, Process, WhyArkin, Faq,
 } from "@/components/sections";
 
 export const Route = createFileRoute("/")({
@@ -108,15 +109,13 @@ function Index() {
       <SiteHeader />
       <main>
         <Hero />
-        <Credentials />
-        <About />
         <Services />
-        <Process />
-        <WhyArkin />
+        <About />
+        <FundingCta />
         <Schemes />
         <FounderStories />
-        <Faq />
         <Consultation />
+        <InsightsPreview />
       </main>
       <SiteFooter />
       <ScrollEnquiryPopup />
