@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export function SealMark({ className }: { className?: string }) {
   return (
@@ -14,64 +15,90 @@ export function SealMark({ className }: { className?: string }) {
   );
 }
 
+const NAV_LINKS: [string, string][] = [
+  ["Services", "#services"],
+  ["How It Works", "#process"],
+  ["Schemes", "#schemes"],
+  ["Results", "#stories"],
+  ["FAQ", "#faq"],
+];
+
 export function SiteHeader() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="site-header sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+    <header
+      className={`site-header fixed top-0 left-0 z-50 w-full transition-colors duration-300 ${
+        scrolled
+          ? "border-b border-white/10 bg-[var(--canvas)]/95 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <Link to="/" aria-label="Aarkin home" className="flex items-center">
-          <SealMark className="h-12 w-auto transition-transform duration-500 hover:-rotate-1 hover:scale-[1.03]" />
+          <SealMark className="h-10 w-auto brightness-0 invert" />
         </Link>
-        <nav className="hidden items-center gap-8 md:flex">
-          {[
-            ["Services", "#services"],
-            ["How It Works", "#process"],
-            ["Schemes", "#schemes"],
-            ["Founder Stories", "#stories"],
-            ["FAQ", "#faq"],
-          ].map(([label, href]) => (
+
+        <nav className="hidden items-center gap-9 md:flex">
+          {NAV_LINKS.map(([label, href]) => (
             <a
               key={href}
               href={href}
-              className="nav-link text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              className="nav-link text-sm font-semibold text-white/80 transition-colors hover:text-white"
             >
               {label}
             </a>
           ))}
         </nav>
 
-        <a
-          href="#consult"
-          className="hidden bg-yellow px-5 py-2.5 text-xs font-bold tracking-widest text-accent-foreground uppercase transition-colors hover:bg-primary hover:text-primary-foreground sm:inline-flex"
-        >
-          Free Consultation
-        </a>
-        <details className="mobile-menu relative md:hidden">
-          <summary
-            className="grid size-10 cursor-pointer list-none place-items-center border border-border"
-            aria-label="Open navigation menu"
+        <div className="flex items-center gap-3">
+          <a
+            href="#consult"
+            className="hidden items-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/20 sm:inline-flex"
           >
-            <Menu className="size-5" />
-          </summary>
-          <nav className="absolute right-0 top-12 w-64 border border-border bg-background p-3 shadow-xl">
-            {[
-              ["Services", "#services"],
-              ["How It Works", "#process"],
-              ["Schemes", "#schemes"],
-              ["Founder Stories", "#stories"],
-              ["FAQ", "#faq"],
-              ["Free Consultation", "#consult"],
-            ].map(([label, href]) => (
-              <a
-                key={href}
-                href={href}
-                className="block border-b border-border px-3 py-3 text-sm font-medium last:border-0"
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-        </details>
+            Book Free Consultation
+          </a>
+
+          <button
+            type="button"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            className="grid size-10 cursor-pointer place-items-center rounded-full border border-white/20 bg-white/10 text-white md:hidden"
+          >
+            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </div>
+
+      {mobileOpen ? (
+        <nav className="border-t border-white/10 bg-[var(--canvas)] px-6 py-4 md:hidden">
+          {NAV_LINKS.map(([label, href]) => (
+            <a
+              key={href}
+              href={href}
+              onClick={() => setMobileOpen(false)}
+              className="block border-b border-white/10 py-3 text-sm font-semibold text-white/85 last:border-0"
+            >
+              {label}
+            </a>
+          ))}
+          <a
+            href="#consult"
+            onClick={() => setMobileOpen(false)}
+            className="mt-4 block rounded-full bg-orange px-5 py-3 text-center text-sm font-semibold text-white"
+          >
+            Book Free Consultation
+          </a>
+        </nav>
+      ) : null}
     </header>
   );
 }
@@ -89,61 +116,49 @@ export function SiteFooter() {
     ["About Aarkin", "#about"],
     ["How It Works", "#process"],
     ["Government Schemes", "#schemes"],
-    ["Why Aarkin", "#why"],
-    ["Founder Stories", "#stories"],
+    ["Our Impact", "#impact"],
+    ["Success Stories", "#stories"],
     ["FAQ", "#faq"],
   ];
 
   return (
-    <footer className="border-t-2 border-yellow">
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-12 lg:grid-cols-12">
+    <footer className="bg-[var(--canvas)] pt-20 text-white/70">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid gap-12 border-b border-white/10 pb-14 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <div className="flex items-center">
-              <SealMark className="h-20 w-auto" />
+            <div className="flex items-center gap-2">
+              <SealMark className="h-9 w-auto brightness-0 invert" />
+              <span className="font-display text-lg font-bold tracking-tight text-white">
+                AARKIN
+              </span>
             </div>
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-xs text-sm leading-relaxed">
               Helping Indian startups and MSMEs unlock the full power of government support —
               registrations, grants, funding, and beyond.
             </p>
-            <p className="eyebrow mt-6 inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
-              <span aria-hidden>🇮🇳</span> Proudly serving Indian builders
+            <p className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white/85">
+              <span aria-hidden>🇮🇳</span> Proudly Serving Indian Builders
             </p>
-            <div>
-              <a
-                href="#consult"
-                className="slab-yellow mt-7 inline-block px-5 py-3 text-xs font-bold tracking-widest uppercase"
-              >
-                Free consultation
-              </a>
+            <div className="mt-6 flex gap-3">
+              {["LinkedIn", "Instagram", "WhatsApp"].map((s) => (
+                <a
+                  key={s}
+                  href="#"
+                  aria-label={s}
+                  className="grid size-9 place-items-center rounded-full bg-white/10 text-xs font-bold text-white transition-colors hover:bg-orange"
+                >
+                  {s[0]}
+                </a>
+              ))}
             </div>
           </div>
 
           <div className="lg:col-span-3">
-            <h4 className="eyebrow text-primary">Services</h4>
+            <h4 className="font-display text-sm font-bold text-white">Services</h4>
             <ul className="mt-5 space-y-3">
               {serviceLinks.map(([l, href]) => (
                 <li key={l}>
-                  <a
-                    href={href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    {l}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="lg:col-span-3">
-            <h4 className="eyebrow text-primary">Quick Links</h4>
-            <ul className="mt-5 space-y-3">
-              {quickLinks.map(([l, href]) => (
-                <li key={l}>
-                  <a
-                    href={href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
+                  <a href={href} className="text-sm transition-colors hover:text-orange">
                     {l}
                   </a>
                 </li>
@@ -152,24 +167,63 @@ export function SiteFooter() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="eyebrow text-primary">Contact</h4>
-            <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
-              <li>
-                <a href="mailto:aarkin2024@gmail.com" className="hover:text-primary">
-                  aarkin2024@gmail.com
-                </a>
-              </li>
-              <li>Mon–Sat, 10am–7pm IST</li>
-              <li>Pan-India, remote-first</li>
+            <h4 className="font-display text-sm font-bold text-white">Quick Links</h4>
+            <ul className="mt-5 space-y-3">
+              {quickLinks.map(([l, href]) => (
+                <li key={l}>
+                  <a href={href} className="text-sm transition-colors hover:text-orange">
+                    {l}
+                  </a>
+                </li>
+              ))}
             </ul>
+          </div>
+
+          <div className="lg:col-span-3">
+            <h4 className="font-display text-sm font-bold text-white">Subscribe Newsletter</h4>
+            <form
+              className="mt-5 flex items-center rounded-full border border-white/15 bg-white/5 p-1.5"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                type="email"
+                required
+                placeholder="Enter your email"
+                className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none"
+              />
+              <button
+                type="submit"
+                aria-label="Subscribe"
+                className="grid size-9 shrink-0 place-items-center rounded-full bg-orange text-white"
+              >
+                →
+              </button>
+            </form>
+            <p className="mt-3 text-xs text-white/40">
+              Scheme &amp; funding updates only. No spam, ever.
+            </p>
           </div>
         </div>
 
-        <div className="mt-14 border-t border-border pt-6">
-          <p className="eyebrow text-muted-foreground">
-            &copy; {new Date().getFullYear()} Aarkin Advisory &middot; Startup India &amp; MSME
-            Consultants &middot; India
-          </p>
+        <div className="flex flex-col gap-3 py-8 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+          <p>&copy; {new Date().getFullYear()} Aarkin Consulting. All rights reserved.</p>
+          <div className="flex flex-wrap gap-x-2 gap-y-1">
+            <a href="#" className="hover:text-white">
+              Privacy Policy
+            </a>
+            <span>&middot;</span>
+            <a href="#" className="hover:text-white">
+              Terms of Service
+            </a>
+            <span>&middot;</span>
+            <a href="mailto:info@aarkin.co.in" className="hover:text-white">
+              info@aarkin.co.in
+            </a>
+            <span>&middot;</span>
+            <a href="tel:+918130557358" className="hover:text-white">
+              +91 81305 57358
+            </a>
+          </div>
         </div>
       </div>
     </footer>

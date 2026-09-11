@@ -22,105 +22,102 @@ import {
   Zap,
 } from "lucide-react";
 import { toast } from "sonner";
-import heroVisual from "@/assets/hero-visual.jpg";
 import aboutVisual from "@/assets/about-visual.jpg";
 
-const HERO_STATS = [
-  { value: "2,000+", label: "Businesses assisted" },
-  { value: "₹50Cr+", label: "Funding unlocked" },
-  { value: "98%", label: "Approval rate" },
-  { value: "7 days", label: "Avg. DPIIT cycle" },
+const BUSINESS_TYPES = [
+  "Startup (Pvt. Ltd. / LLP)",
+  "MSME / Small Business",
+  "Sole Proprietorship",
+  "Partnership Firm",
+  "Not yet registered",
 ];
 
+const TRUST_BADGES = ["Startup India", "MSME Udyam", "DPIIT", "CGTMSE", "MUDRA"];
+
+/* ---------- Hero: SEOQ home-three layout — dark field, gradient headline,
+   pill "eligibility check" tool in place of their domain-search bar,
+   wavy divider into the white page below. ---------- */
 export function Hero() {
   return (
-    <section className="ledger-grain border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 pt-20 pb-16">
-        <div className="grid items-end gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <span className="eyebrow inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
-              <Sparkles className="size-3" /> India's trusted startup growth partner
-            </span>
-            <h1 className="mt-7 font-display text-5xl leading-[0.95] font-bold text-balance md:text-7xl">
-              Your business deserves every rupee of support{" "}
-              <span className="slab-yellow mr-3 -rotate-1 inline-block px-3 py-0.5">
-                India offers
-              </span>
-            </h1>
-          </div>
-          <div className="lg:col-span-4">
-            <div className="border-l-2 border-yellow py-1 pl-6">
-              <p className="max-w-sm leading-relaxed text-muted-foreground">
-                We decode government schemes, unlock grants, fast-track registrations and build
-                investment-readiness — so founders can build, not file paperwork.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="#consult"
-                  className="slab-yellow inline-flex items-center gap-2 px-6 py-4 text-xs font-bold tracking-widest uppercase transition-transform hover:translate-x-1 hover:translate-y-1"
-                >
-                  Book free consultation <ArrowUpRight className="size-3.5" />
-                </a>
-                <a
-                  href="#services"
-                  className="inline-flex items-center border-2 border-input px-6 py-4 text-xs font-bold tracking-widest uppercase transition-colors hover:border-yellow hover:bg-yellow hover:text-accent-foreground"
-                >
-                  Explore services
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+    <section className="relative overflow-hidden bg-[var(--canvas)] pt-40 pb-0 text-white">
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(60% 50% at 15% 0%, color-mix(in oklab, var(--azure) 22%, transparent), transparent 70%), radial-gradient(50% 40% at 100% 10%, color-mix(in oklab, var(--orange) 16%, transparent), transparent 70%)",
+        }}
+      />
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-12">
-          <div className="relative lg:col-span-5">
-            <div className="absolute -top-3 -left-3 hidden size-full border-2 border-yellow lg:block" />
-            <img
-              src={heroVisual}
-              alt="Indian founder holding an approved government scheme certificate"
-              width={1024}
-              height={1280}
-              fetchPriority="high"
-              decoding="async"
-              className="relative aspect-[4/5] w-full object-cover"
-            />
-          </div>
-          <div className="hairline-grid grid grid-cols-2 self-start border border-border lg:col-span-7">
-            {HERO_STATS.map((s, i) => (
-              <div
-                key={s.label}
-                className={
-                  i % 3 === 0 ? "bg-yellow p-8 text-accent-foreground" : "bg-background p-8"
-                }
-              >
-                <div className="tabular font-display text-3xl font-bold tracking-tight">
-                  {s.value}
-                </div>
-                <div
-                  className={`eyebrow mt-2 ${i % 3 === 0 ? "text-accent-foreground/70" : "text-muted-foreground"}`}
-                >
-                  {s.label}
-                </div>
-              </div>
+      <div className="relative mx-auto max-w-5xl px-6 text-center">
+        <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-white/75">
+          <Sparkles className="size-3 text-orange" /> India's Trusted Startup Growth Partner
+        </span>
+
+        <h1 className="mt-8 font-display text-5xl leading-[1.05] font-extrabold text-balance md:text-6xl lg:text-7xl">
+          Your Business Deserves Every
+          <br />
+          <span className="bg-gradient-to-r from-orange-light to-orange bg-clip-text text-transparent">
+            Rupee of Support India Offers
+          </span>
+        </h1>
+
+        <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/65 md:text-lg">
+          We decode government schemes, unlock funding, fast-track registrations, and build
+          investment-readiness — so founders can focus on building, not paperwork.
+        </p>
+
+        {/* Eligibility tool — same pill-shaped "tool bar" grammar as the reference's domain search */}
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="mx-auto mt-10 flex max-w-2xl flex-col gap-2 rounded-3xl border border-white/10 bg-white/[0.06] p-2 sm:flex-row sm:items-center sm:rounded-full"
+        >
+          <input
+            type="text"
+            placeholder="What does your business need help with?"
+            className="min-w-0 flex-1 rounded-full bg-transparent px-5 py-3.5 text-sm text-white placeholder:text-white/40 focus:outline-none"
+          />
+          <div className="hidden h-6 w-px bg-white/15 sm:block" />
+          <select
+            defaultValue={BUSINESS_TYPES[0]}
+            aria-label="Business type"
+            className="rounded-full bg-transparent px-4 py-3.5 text-sm text-white/70 focus:outline-none sm:w-auto"
+          >
+            {BUSINESS_TYPES.map((t) => (
+              <option key={t} value={t} className="text-ink">
+                {t}
+              </option>
             ))}
-            <div className="bg-primary p-8 text-primary-foreground">
-              <p className="text-sm leading-relaxed">
-                Free 30-minute eligibility audit against 200+ central and state schemes.
-              </p>
-              <a
-                href="#consult"
-                className="eyebrow mt-4 inline-flex items-center gap-2 text-yellow"
-              >
-                Start now <ArrowUpRight className="size-3.5" />
-              </a>
-            </div>
-            <div className="bg-yellow p-8 text-accent-foreground">
-              <div className="tabular font-display text-3xl font-bold tracking-tight">200+</div>
-              <div className="eyebrow mt-2 text-accent-foreground/70">Schemes mapped</div>
-            </div>
-          </div>
+          </select>
+          <button
+            type="submit"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-orange"
+          >
+            Check Eligibility
+          </button>
+        </form>
+
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 pb-24">
+          {TRUST_BADGES.map((b) => (
+            <span key={b} className="eyebrow flex items-center gap-2 text-white/35 grayscale">
+              <ShieldCheck className="size-3.5" /> {b}
+            </span>
+          ))}
         </div>
       </div>
+
+      {/* Wavy divider into the white page */}
+      <svg
+        aria-hidden
+        viewBox="0 0 1440 110"
+        preserveAspectRatio="none"
+        className="relative block h-[70px] w-full text-background md:h-[110px]"
+      >
+        <path
+          fill="currentColor"
+          d="M0,64 C 240,110 360,10 720,40 C 1080,70 1200,0 1440,44 L1440,110 L0,110 Z"
+        />
+      </svg>
     </section>
   );
 }
@@ -138,7 +135,7 @@ export function Credentials() {
   ];
 
   return (
-    <div className="overflow-hidden border-y-2 border-yellow bg-yellow py-3 text-accent-foreground">
+    <div className="overflow-hidden border-y border-border bg-orange py-3 text-white">
       <div className="flex gap-10 whitespace-nowrap">
         {[0, 1].map((k) => (
           <div key={k} className="flex shrink-0 animate-[marquee_38s_linear_infinite] gap-10">
