@@ -6,13 +6,12 @@ import {
   BadgeCheck,
   Banknote,
   CheckCircle2,
+  ChevronDown,
   FileStack,
   Landmark,
   LineChart,
   Map,
-  Minus,
   Play,
-  Plus,
   Quote,
   Search,
   ShieldCheck,
@@ -1096,46 +1095,86 @@ export function ContactCta() {
   );
 }
 
-export function Faq() {
+/* ---------- Faq: themazine.com/mr/dobee/faq.html's own FAQ page
+   (.faq__section), not its home-page teaser -- confirmed off the
+   live CSSOM (.faq__section .faq-rapper / .accordion-button rules;
+   there's a second, unrelated ".faq .accordion-button" ruleset
+   elsewhere in their stylesheet with a "+/-" text glyph and a pink
+   background -- that one belongs to a different page and isn't used
+   here). Two categories side by side (their "Business Questions" /
+   "Consulting Questions"), each a pale sage card
+   (rgb(234,240,216) -- measured off .faq-rapper's computed
+   background, distinct from our existing --mint/--orange-light so
+   kept as its own one-off tint rather than reusing a near-miss)
+   holding white accordion rows 20px apart (.accordion-item.mt-20).
+   Each row's toggle is a 43px lime circle (.accordion-button::after)
+   with a chevron that rotates 180deg on open -- a single rotated
+   icon, not a swapped plus/minus pair, matching the reference's own
+   `--bs-accordion-btn-icon-transform: rotate(-180deg)` exactly.
+
+   Categories are Aarkin's own grouping of the same real FAQS used by
+   InsightsPreview -- the reference's two columns are generic content
+   buckets, ours map onto what our 8 real questions are actually
+   about (registrations vs. funding/process), so nothing here is
+   invented copy. ---------- */
+const FAQ_CATEGORIES: { title: string; indices: number[] }[] = [
+  { title: "Registrations & Compliance", indices: [0, 1, 2, 6] },
+  { title: "Funding & Working With Us", indices: [3, 4, 5, 7] },
+];
+
+function FaqColumn({ title, indices }: { title: string; indices: number[] }) {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="ledger-grain border-b border-border">
-      <div className="mx-auto grid max-w-7xl gap-14 px-6 py-24 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <span className="eyebrow inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
-            Common questions
-          </span>
-          <h2 className="mt-8 font-display text-4xl leading-[1.05] font-bold text-balance">
-            Everything founders ask us first
-          </h2>
-        </div>
-        <div className="border-t border-border lg:col-span-8">
-          {FAQS.map(([q, a], i) => (
-            <div
-              key={q}
-              className={`border-b border-border transition-colors ${open === i ? "bg-card" : ""}`}
-            >
+    <div>
+      <h3 className="text-[22px] leading-tight font-bold text-[var(--orange-dark)]">{title}</h3>
+      <div className="mt-8 space-y-5 rounded-2xl bg-[#EAF0D8] p-6 sm:p-8">
+        {indices.map((idx, i) => {
+          const entry = FAQS[idx];
+          if (!entry) return null;
+          const [q, a] = entry;
+          const isOpen = open === i;
+          return (
+            <div key={q} className="overflow-hidden rounded-md bg-white">
               <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="flex w-full items-start gap-5 px-4 py-5 text-left"
-                aria-expanded={open === i}
+                onClick={() => setOpen(isOpen ? null : i)}
+                className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left"
+                aria-expanded={isOpen}
               >
-                <span className="tabular eyebrow pt-1.5 text-primary">
-                  {String(i + 1).padStart(2, "0")}
+                <span className="text-lg font-semibold text-foreground">{q}</span>
+                <span className="grid size-[43px] shrink-0 place-items-center rounded-full bg-orange text-foreground">
+                  <ChevronDown
+                    className={`size-5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                    strokeWidth={2}
+                  />
                 </span>
-                <span className="flex-1 font-display text-lg font-bold">{q}</span>
-                {open === i ? (
-                  <Minus className="mt-1 size-4 shrink-0 text-primary" />
-                ) : (
-                  <Plus className="mt-1 size-4 shrink-0 text-muted-foreground" />
-                )}
               </button>
-              {open === i && (
-                <p className="animate-in fade-in slide-in-from-top-2 max-w-2xl px-4 pb-6 pl-14 leading-relaxed text-muted-foreground duration-300">
+              {isOpen && (
+                <p className="animate-in fade-in slide-in-from-top-2 px-5 pr-10 pb-6 leading-[1.9] text-muted-foreground duration-300">
                   {a}
                 </p>
               )}
             </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export function Faq() {
+  return (
+    <section id="faq" className="bg-[var(--mint)] py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-xl text-center">
+          <p className="text-lg font-semibold text-foreground">Common Questions</p>
+          <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
+            Answers Before You <span className="text-[var(--green-text)]">Ask</span>
+          </h2>
+        </div>
+
+        <div className="mt-14 grid gap-10 lg:grid-cols-2 lg:gap-x-10">
+          {FAQ_CATEGORIES.map((cat) => (
+            <FaqColumn key={cat.title} title={cat.title} indices={cat.indices} />
           ))}
         </div>
       </div>

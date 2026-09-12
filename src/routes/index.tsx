@@ -10,13 +10,14 @@ import {
   FundingCta,
   Schemes,
   FounderStories,
+  Faq,
   Consultation,
   InsightsPreview,
   ContactCta,
   ScrollEnquiryPopup,
   // Parked — no direct reference match yet. Real, good content;
   // revisit placement as we work through the pending-sections list.
-  // Credentials, Faq,
+  // Credentials,
 } from "@/components/sections";
 
 export const Route = createFileRoute("/")({
@@ -170,6 +171,7 @@ function Index() {
         <FundingCta />
         <Schemes />
         <FounderStories />
+        <Faq />
         <Consultation />
         <InsightsPreview />
         <ContactCta />
