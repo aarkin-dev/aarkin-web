@@ -90,11 +90,22 @@ function Index() {
     // finished, so the reveal would have played out off-screen and never
     // be seen. Observing items individually fixes that regardless of how
     // tall the section is.
+    //
+    // `.reveal-image` items are observed via their PARENT, not themselves --
+    // a `.reveal-image` starts fully hidden behind `clip-path: inset(0 0
+    // 100% 0)`, and the browser folds that clip into the element's own
+    // intersection geometry, so its intersectionRatio is permanently 0 and
+    // it can never cross the threshold that would remove the clip-path in
+    // the first place. Every existing image wrapper in this codebase is a
+    // tight `<div className="relative">` around just that image, so it's a
+    // safe, correctly-sized stand-in to watch instead.
+    const revealTargets = new Map<Element, HTMLElement[]>();
     const itemObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
+            const items = revealTargets.get(entry.target) ?? [entry.target as HTMLElement];
+            items.forEach((item) => item.classList.add("is-visible"));
             itemObserver.unobserve(entry.target);
           }
         });
@@ -124,8 +135,16 @@ function Index() {
         const explicitDelay = item.dataset["revealDelayMs"];
         const delay = explicitDelay ? Number(explicitDelay) : Math.min(index, 7) * 75;
         item.style.setProperty("--reveal-delay", delay + "ms");
-        if (item.tagName === "IMG") item.classList.add("reveal-image");
-        itemObserver.observe(item);
+
+        let observeTarget: Element = item;
+        if (item.tagName === "IMG") {
+          item.classList.add("reveal-image");
+          observeTarget = item.parentElement ?? item;
+        }
+        const bucket = revealTargets.get(observeTarget) ?? [];
+        bucket.push(item);
+        revealTargets.set(observeTarget, bucket);
+        itemObserver.observe(observeTarget);
       });
     });
 

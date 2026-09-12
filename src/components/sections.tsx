@@ -13,6 +13,7 @@ import {
   LineChart,
   Map,
   Minus,
+  Play,
   Plus,
   Quote,
   Search,
@@ -28,100 +29,130 @@ import { toast } from "sonner";
 import aboutVisual from "@/assets/about-visual.jpg";
 import heroVisual from "@/assets/hero-visual.jpg";
 
-const BUSINESS_TYPES = [
-  "Startup (Pvt. Ltd. / LLP)",
-  "MSME / Small Business",
-  "Sole Proprietorship",
-  "Partnership Firm",
-  "Not yet registered",
-];
-
-const TRUST_BADGES = ["Startup India", "MSME Udyam", "DPIIT", "CGTMSE", "MUDRA"];
-
-/* ---------- Hero: SEOQ home-three layout — dark field, gradient headline,
-   pill "eligibility check" tool in place of their domain-search bar,
-   wavy divider into the white page below. ---------- */
+/* ---------- Hero: matches the "Dobee" reference layout exactly —
+   warm off-white field, big left-aligned bold headline, avatar-group
+   trust line, and a right-side circular photo inside decorative ring
+   outlines with a play badge and a floating two-stat card. The
+   reference's lime-green accent is swapped for Aarkin's orange; its
+   near-black text/button colour is just a dark neutral, so it stays
+   as our regular ink/navy foreground. ---------- */
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[var(--canvas)] pt-40 pb-0 text-white">
-      <div
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "radial-gradient(60% 50% at 15% 0%, color-mix(in oklab, var(--azure) 22%, transparent), transparent 70%), radial-gradient(50% 40% at 100% 10%, color-mix(in oklab, var(--orange) 16%, transparent), transparent 70%)",
-        }}
-      />
+    <section className="relative overflow-hidden bg-[#F2F1E9] pt-44 pb-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
+        <div>
+          <h1 className="font-display text-5xl leading-[1.08] font-extrabold text-balance text-foreground md:text-6xl">
+            Your Business
+            <br />
+            Deserves Every
+            <br />
+            Rupee of Support
+          </h1>
 
-      <div className="relative mx-auto max-w-5xl px-6 text-center">
-        <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-white/75">
-          <Sparkles className="size-3 text-orange" /> India's Trusted Startup Growth Partner
-        </span>
+          <p className="mt-7 max-w-md text-base leading-relaxed text-foreground/60 md:text-lg">
+            We decode government schemes, unlock funding, fast-track registrations, and build
+            investment-readiness — so founders can focus on building, not paperwork.
+          </p>
 
-        <h1 className="mt-8 font-display text-5xl leading-[1.05] font-extrabold text-balance md:text-6xl lg:text-7xl">
-          Your Business Deserves Every
-          <br />
-          <span className="bg-gradient-to-r from-orange-light to-orange bg-clip-text text-transparent">
-            Rupee of Support India Offers
-          </span>
-        </h1>
+          <div className="mt-9 flex flex-wrap items-center gap-6">
+            <a
+              href="#consult"
+              className="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-4 text-sm font-bold text-background transition-colors hover:bg-orange"
+            >
+              Learn More
+            </a>
 
-        <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/65 md:text-lg">
-          We decode government schemes, unlock funding, fast-track registrations, and build
-          investment-readiness — so founders can focus on building, not paperwork.
-        </p>
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-3">
+                {[Landmark, Users, ShieldCheck].map((Icon, i) => (
+                  <span
+                    key={i}
+                    className="grid size-11 place-items-center rounded-full border-2 border-[#F2F1E9] bg-primary/10 text-primary"
+                  >
+                    <Icon className="size-4.5" strokeWidth={1.75} />
+                  </span>
+                ))}
+              </div>
+              <p className="text-sm">
+                <span className="block font-display font-bold text-foreground">
+                  2,000+ Founders
+                </span>
+                <span className="block text-foreground/55">Already onboarded</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
-        {/* Eligibility tool — same pill-shaped "tool bar" grammar as the reference's domain search */}
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="mx-auto mt-10 flex max-w-2xl flex-col gap-2 rounded-3xl border border-white/10 bg-white/[0.06] p-2 sm:flex-row sm:items-center sm:rounded-full"
-        >
-          <input
-            type="text"
-            placeholder="What does your business need help with?"
-            className="min-w-0 flex-1 rounded-full bg-transparent px-5 py-3.5 text-sm text-white placeholder:text-white/40 focus:outline-none"
+        <div className="relative mx-auto aspect-square w-full max-w-md">
+          {/* Decorative ring outlines, exactly as in the reference */}
+          <svg
+            aria-hidden
+            viewBox="0 0 400 400"
+            className="pointer-events-none absolute inset-0 size-full"
+          >
+            <circle
+              cx="185"
+              cy="195"
+              r="185"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+              className="text-foreground/20"
+            />
+            <circle
+              cx="225"
+              cy="180"
+              r="175"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+              className="text-foreground/15"
+            />
+            <circle
+              cx="205"
+              cy="220"
+              r="165"
+              fill="none"
+              stroke="var(--orange)"
+              strokeWidth="1.5"
+            />
+          </svg>
+
+          <img
+            src={heroVisual}
+            alt="Founder holding an approved government certificate bearing the national emblem"
+            width={1024}
+            height={1280}
+            loading="eager"
+            decoding="async"
+            className="absolute inset-[7%] size-[86%] rounded-full object-cover shadow-2xl"
           />
-          <div className="hidden h-6 w-px bg-white/15 sm:block" />
-          <select
-            defaultValue={BUSINESS_TYPES[0]}
-            aria-label="Business type"
-            className="rounded-full bg-transparent px-4 py-3.5 text-sm text-white/70 focus:outline-none sm:w-auto"
-          >
-            {BUSINESS_TYPES.map((t) => (
-              <option key={t} value={t} className="text-ink">
-                {t}
-              </option>
-            ))}
-          </select>
-          <button
-            type="submit"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-orange"
-          >
-            Check Eligibility
-          </button>
-        </form>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 pb-24">
-          {TRUST_BADGES.map((b) => (
-            <span key={b} className="eyebrow flex items-center gap-2 text-white/35 grayscale">
-              <ShieldCheck className="size-3.5" /> {b}
-            </span>
-          ))}
+          <button
+            type="button"
+            aria-label="Play introduction video"
+            className="absolute top-[24%] left-[6%] grid size-16 place-items-center rounded-full bg-orange text-white shadow-lg transition-transform hover:scale-105"
+          >
+            <Play className="size-5 translate-x-0.5" fill="currentColor" strokeWidth={0} />
+          </button>
+
+          <div className="absolute -bottom-2 right-[2%] flex items-stretch gap-5 rounded-[1.75rem] bg-orange px-7 py-6 text-foreground shadow-xl">
+            <div className="text-center">
+              <span className="block font-display text-3xl font-extrabold">98%</span>
+              <span className="mt-1 block text-xs font-semibold text-foreground/70">
+                Approval Rate
+              </span>
+            </div>
+            <div className="w-px bg-foreground/15" />
+            <div className="text-center">
+              <span className="block font-display text-3xl font-extrabold">7-Day</span>
+              <span className="mt-1 block text-xs font-semibold text-foreground/70">
+                DPIIT Certificate
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Wavy divider into the white page */}
-      <svg
-        aria-hidden
-        viewBox="0 0 1440 110"
-        preserveAspectRatio="none"
-        className="relative block h-[70px] w-full text-background md:h-[110px]"
-      >
-        <path
-          fill="currentColor"
-          d="M0,64 C 240,110 360,10 720,40 C 1080,70 1200,0 1440,44 L1440,110 L0,110 Z"
-        />
-      </svg>
     </section>
   );
 }

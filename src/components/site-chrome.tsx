@@ -38,13 +38,13 @@ export function SiteHeader() {
     <header
       className={`site-header fixed top-0 left-0 z-50 w-full transition-colors duration-300 ${
         scrolled
-          ? "border-b border-white/10 bg-[var(--canvas)]/95 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
+          ? "border-b border-white/10 bg-[var(--canvas)]/95 text-white backdrop-blur-md"
+          : "border-b border-transparent bg-transparent text-foreground"
       }`}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <Link to="/" aria-label="Aarkin home" className="flex items-center">
-          <SealMark className="h-10 w-auto brightness-0 invert" />
+          <SealMark className={`h-10 w-auto ${scrolled ? "brightness-0 invert" : ""}`} />
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex">
@@ -52,7 +52,11 @@ export function SiteHeader() {
             <a
               key={href}
               href={href}
-              className="nav-link text-sm font-semibold text-white/80 transition-colors hover:text-white"
+              className={`nav-link text-sm font-semibold transition-colors ${
+                scrolled
+                  ? "text-white/80 hover:text-white"
+                  : "text-foreground/70 hover:text-foreground"
+              }`}
             >
               {label}
             </a>
@@ -62,7 +66,11 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <a
             href="#consult"
-            className="hidden items-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/20 sm:inline-flex"
+            className={`hidden items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold transition-colors sm:inline-flex ${
+              scrolled
+                ? "border-white/25 bg-white/10 text-white hover:bg-white/20"
+                : "border-foreground/15 bg-foreground/5 text-foreground hover:bg-foreground/10"
+            }`}
           >
             Book Free Consultation
           </a>
@@ -71,7 +79,11 @@ export function SiteHeader() {
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
-            className="grid size-10 cursor-pointer place-items-center rounded-full border border-white/20 bg-white/10 text-white md:hidden"
+            className={`grid size-10 cursor-pointer place-items-center rounded-full border md:hidden ${
+              scrolled
+                ? "border-white/20 bg-white/10 text-white"
+                : "border-foreground/15 bg-foreground/5 text-foreground"
+            }`}
           >
             {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
