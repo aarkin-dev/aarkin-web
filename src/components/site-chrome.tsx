@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
 
 export function SealMark({ className }: { className?: string }) {
   return (
@@ -106,6 +106,22 @@ export function SiteHeader() {
   );
 }
 
+/* ---------- Footer: themazine.com/mr/dobee/index-3.html's
+   footer__area__two, ditto -- light mint-family background (their
+   rgb(239,249,248); ours is the same pale wash already used for
+   Founder Stories/Process, #FFF7EE, so the two-tone family stays
+   consistent instead of introducing a 3rd near-identical pale tint),
+   logo+social left, link columns, a white newsletter card with a lime
+   send button. Green replaces their lime exactly, per the sitewide
+   colour change.
+
+   Extended beyond the reference with a real registered-business
+   section the reference doesn't have at all -- Registered Office,
+   Branch Office, and legal/GST identifiers -- content pulled directly
+   from aarkin.co.in's own "Our Legal & Financial Details" section, not
+   invented. This is real compliance information the user explicitly
+   asked to add here, so it's additive to the reference's layout
+   rather than a literal copy of it. ---------- */
 export function SiteFooter() {
   const serviceLinks: [string, string][] = [
     ["Startup India Registration", "#services"],
@@ -123,15 +139,28 @@ export function SiteFooter() {
     ["Success Stories", "#stories"],
     ["FAQ", "#faq"],
   ];
+  const offices: { label: string; city: string; address: string }[] = [
+    {
+      label: "Registered Office",
+      city: "Ahmedabad",
+      address: "55 World Business House, Nr. Parimal Garden, Ambawadi, Ahmedabad – 380006, Gujarat",
+    },
+    {
+      label: "Branch Office",
+      city: "Gurugram",
+      address:
+        "270, Udyog Vihar II Rd, Phase II, Udyog Vihar III, Sector 20, Gurugram, Haryana 122016",
+    },
+  ];
 
   return (
-    <footer className="bg-[var(--canvas)] pt-20 text-white/70">
+    <footer className="bg-[#FFF7EE] pt-20 text-foreground/70">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-12 border-b border-white/10 pb-14 lg:grid-cols-12">
+        <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <div className="flex items-center gap-2">
-              <SealMark className="h-9 w-auto brightness-0 invert" />
-              <span className="font-display text-lg font-bold tracking-tight text-white">
+              <SealMark className="h-9 w-auto" />
+              <span className="font-display text-lg font-bold tracking-tight text-foreground">
                 AARKIN
               </span>
             </div>
@@ -139,7 +168,7 @@ export function SiteFooter() {
               Helping Indian startups and MSMEs unlock the full power of government support —
               registrations, grants, funding, and beyond.
             </p>
-            <p className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white/85">
+            <p className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-foreground/85">
               <span aria-hidden>🇮🇳</span> Proudly Serving Indian Builders
             </p>
             <div className="mt-6 flex gap-3">
@@ -148,7 +177,7 @@ export function SiteFooter() {
                   key={s}
                   href="#"
                   aria-label={s}
-                  className="grid size-9 place-items-center rounded-full bg-white/10 text-xs font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
+                  className="grid size-9 place-items-center rounded-full bg-foreground/10 text-xs font-bold text-foreground transition-colors hover:bg-orange"
                 >
                   {s[0]}
                 </a>
@@ -156,12 +185,15 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="lg:col-span-3">
-            <h4 className="font-display text-sm font-bold text-white">Services</h4>
+          <div className="lg:col-span-2">
+            <h4 className="font-display text-sm font-bold text-foreground">Services</h4>
             <ul className="mt-5 space-y-3">
               {serviceLinks.map(([l, href]) => (
                 <li key={l}>
-                  <a href={href} className="text-sm transition-colors hover:text-orange">
+                  <a
+                    href={href}
+                    className="text-sm transition-colors hover:text-[var(--green-text)]"
+                  >
                     {l}
                   </a>
                 </li>
@@ -170,11 +202,14 @@ export function SiteFooter() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="font-display text-sm font-bold text-white">Quick Links</h4>
+            <h4 className="font-display text-sm font-bold text-foreground">Quick Links</h4>
             <ul className="mt-5 space-y-3">
               {quickLinks.map(([l, href]) => (
                 <li key={l}>
-                  <a href={href} className="text-sm transition-colors hover:text-orange">
+                  <a
+                    href={href}
+                    className="text-sm transition-colors hover:text-[var(--green-text)]"
+                  >
                     {l}
                   </a>
                 </li>
@@ -182,17 +217,17 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          <div className="lg:col-span-3">
-            <h4 className="font-display text-sm font-bold text-white">Subscribe Newsletter</h4>
+          <div className="lg:col-span-4">
+            <h4 className="font-display text-sm font-bold text-foreground">Subscribe Newsletter</h4>
             <form
-              className="mt-5 flex items-center rounded-full border border-white/15 bg-white/5 p-1.5"
+              className="mt-5 flex items-center rounded-full border border-foreground/15 bg-white p-1.5"
               onSubmit={(e) => e.preventDefault()}
             >
               <input
                 type="email"
                 required
                 placeholder="Enter your email"
-                className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none"
+                className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none"
               />
               <button
                 type="submit"
@@ -202,28 +237,80 @@ export function SiteFooter() {
                 →
               </button>
             </form>
-            <p className="mt-3 text-xs text-white/40">
+            <p className="mt-3 text-xs text-foreground/40">
               Scheme &amp; funding updates only. No spam, ever.
             </p>
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 py-8 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; {new Date().getFullYear()} Aarkin Consulting. All rights reserved.</p>
+        <div className="mt-14 grid gap-8 border-t border-foreground/10 pt-12 sm:grid-cols-2 lg:grid-cols-4">
+          {offices.map(({ label, city, address }) => (
+            <div key={label} className="flex gap-3">
+              <MapPin
+                className="mt-0.5 size-4 shrink-0 text-[var(--green-text)]"
+                strokeWidth={1.75}
+              />
+              <div>
+                <h5 className="text-sm font-bold text-foreground">
+                  {label} <span className="font-normal text-foreground/50">— {city}</span>
+                </h5>
+                <p className="mt-1 text-sm leading-relaxed">{address}</p>
+              </div>
+            </div>
+          ))}
+          <div className="flex gap-3">
+            <Phone className="mt-0.5 size-4 shrink-0 text-[var(--green-text)]" strokeWidth={1.75} />
+            <div>
+              <h5 className="text-sm font-bold text-foreground">Call Us</h5>
+              <a
+                href="tel:+918130557358"
+                className="mt-1 block text-sm hover:text-[var(--green-text)]"
+              >
+                +91 81305 57358
+              </a>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <Mail className="mt-0.5 size-4 shrink-0 text-[var(--green-text)]" strokeWidth={1.75} />
+            <div>
+              <h5 className="text-sm font-bold text-foreground">Email Us</h5>
+              <a
+                href="mailto:info@aarkin.co.in"
+                className="mt-1 block text-sm hover:text-[var(--green-text)]"
+              >
+                info@aarkin.co.in
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 border-t border-foreground/10 py-6 text-xs text-foreground/45">
+          <p>
+            <span className="font-semibold text-foreground/60">
+              Aarkin Biz Solutions Private Limited
+            </span>
+            {" · "}CIN: U70200GJ2025PTC158343{" · "}GSTIN: 24ABCCA0649M1Z0
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-3 border-t border-foreground/10 py-8 text-xs text-foreground/45 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            &copy; {new Date().getFullYear()} Aarkin Biz Solutions Pvt. Ltd. All rights reserved.
+          </p>
           <div className="flex flex-wrap gap-x-2 gap-y-1">
-            <a href="#" className="hover:text-white">
+            <a href="#" className="hover:text-foreground">
               Privacy Policy
             </a>
             <span>&middot;</span>
-            <a href="#" className="hover:text-white">
+            <a href="#" className="hover:text-foreground">
               Terms of Service
             </a>
             <span>&middot;</span>
-            <a href="mailto:info@aarkin.co.in" className="hover:text-white">
+            <a href="mailto:info@aarkin.co.in" className="hover:text-foreground">
               info@aarkin.co.in
             </a>
             <span>&middot;</span>
-            <a href="tel:+918130557358" className="hover:text-white">
+            <a href="tel:+918130557358" className="hover:text-foreground">
               +91 81305 57358
             </a>
           </div>

@@ -1016,6 +1016,41 @@ export function InsightsPreview() {
   );
 }
 
+/* ---------- ContactCta: themazine.com/mr/dobee/index-3.html's
+   subscribe__section__three, ditto -- pale lime band, a plain heading
+   and one underlined link, faint decorative ring circles behind it.
+   Sits as its own compact prompt right before the footer, exactly
+   where the reference has it (last content section before the
+   footer) -- separate from the full Consultation form higher up the
+   page, not a replacement for it. Green throughout. ---------- */
+export function ContactCta() {
+  return (
+    <section className="relative overflow-hidden bg-[var(--orange-light)] py-20">
+      <svg
+        aria-hidden
+        viewBox="0 0 600 600"
+        className="pointer-events-none absolute top-1/2 right-0 size-[600px] max-w-none -translate-y-1/2 translate-x-1/4 text-foreground/10"
+      >
+        <circle cx="300" cy="300" r="290" fill="none" stroke="currentColor" strokeWidth="1" />
+        <circle cx="300" cy="300" r="220" fill="none" stroke="currentColor" strokeWidth="1" />
+        <circle cx="300" cy="300" r="150" fill="none" stroke="currentColor" strokeWidth="1" />
+      </svg>
+
+      <div className="relative mx-auto max-w-7xl px-6">
+        <h2 className="max-w-2xl font-display text-3xl leading-[1.25] font-bold text-balance text-foreground md:text-4xl">
+          Want to Talk? Our Team Is Ready to Help.
+        </h2>
+        <a
+          href="#consult"
+          className="mt-4 inline-block text-lg font-semibold text-foreground underline decoration-2 underline-offset-4 transition-colors hover:text-[var(--green-text)]"
+        >
+          Reach out, or check your free eligibility to get started.
+        </a>
+      </div>
+    </section>
+  );
+}
+
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (

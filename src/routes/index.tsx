@@ -12,6 +12,7 @@ import {
   FounderStories,
   Consultation,
   InsightsPreview,
+  ContactCta,
   ScrollEnquiryPopup,
   // Parked — no direct reference match yet. Real, good content;
   // revisit placement as we work through the pending-sections list.
@@ -171,6 +172,7 @@ function Index() {
         <FounderStories />
         <Consultation />
         <InsightsPreview />
+        <ContactCta />
       </main>
       <SiteFooter />
       <ScrollEnquiryPopup />
