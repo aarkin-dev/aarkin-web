@@ -10,9 +10,9 @@ import {
   FundingCta,
   Schemes,
   FounderStories,
+  InsightsPreview,
   Faq,
   Consultation,
-  InsightsPreview,
   ContactCta,
   ScrollEnquiryPopup,
   // Parked — no direct reference match yet. Real, good content;
@@ -164,8 +164,8 @@ function Index() {
       <SiteHeader />
       <main>
         <Hero />
-        <Services />
         <About />
+        <Services />
         <Process />
         <WhyArkin />
         <FundingCta />
