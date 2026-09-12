@@ -2,17 +2,30 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
 
-export function SealMark({ className }: { className?: string }) {
-  return (
-    <img
-      src="/brand/aarkin-logo.svg"
-      alt="Aarkin"
-      width="760"
-      height="560"
-      className={className}
-      decoding="async"
-    />
-  );
+/* Three brand-mark variants, all extracted straight from the master
+   file (public/brand/aarkin-master.svg, the untouched original) --
+   see public/brand/README.md for how each was derived and why. Pick
+   by what a call site needs: "icon" when the wordmark is set
+   separately (or there's no room for it), "lockup" for the normal
+   icon+"AARKIN" combination (the default -- used in the header and
+   footer), "lockup-full" when the "POWERING YOUR GROWTH" tagline
+   should show too. Every variant is real vector paths from the
+   original artwork, not a look-alike web font, so it's pixel-accurate
+   regardless of what typeface the source was actually set in. */
+const SEAL_SRC = {
+  icon: "/brand/aarkin-icon.svg",
+  lockup: "/brand/aarkin-lockup.svg",
+  "lockup-full": "/brand/aarkin-lockup-full.svg",
+} as const;
+
+export function SealMark({
+  variant = "lockup",
+  className,
+}: {
+  variant?: keyof typeof SEAL_SRC;
+  className?: string;
+}) {
+  return <img src={SEAL_SRC[variant]} alt="Aarkin" className={className} decoding="async" />;
 }
 
 const NAV_LINKS: [string, string][] = [
@@ -46,11 +59,8 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        <Link to="/" aria-label="Aarkin home" className="flex items-center gap-2.5">
+        <Link to="/" aria-label="Aarkin home" className="flex items-center">
           <SealMark className="h-[46px] w-auto" />
-          <span className="font-display text-xl font-bold tracking-tight text-foreground">
-            AARKIN
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex">
@@ -161,12 +171,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <div className="flex items-center gap-2">
-              <SealMark className="h-10 w-auto" />
-              <span className="font-display text-lg font-bold tracking-tight text-foreground">
-                AARKIN
-              </span>
-            </div>
+            <SealMark className="h-10 w-auto" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed">
               Helping Indian startups and MSMEs unlock the full power of government support —
               registrations, grants, funding, and beyond.
