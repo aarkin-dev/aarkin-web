@@ -28,6 +28,12 @@ import {
 import { toast } from "sonner";
 import aboutVisual from "@/assets/about-visual.jpg";
 import heroVisual from "@/assets/hero-visual.jpg";
+// Natural, warm-toned photo for the Hero circle -- the site's other
+// visuals are a deliberate navy/orange duotone illustration style, which
+// reads as flatly yellow/orange in the reference's photo-realistic circle
+// frame. Real photo, Unsplash License (free, no attribution required):
+// https://unsplash.com/photos/diverse-team-collaborating-around-a-laptop-in-office-yd_RKGH_RH4
+import heroTeamVisual from "@/assets/hero-visual-team.jpg";
 
 /* ---------- Hero: matches the "Dobee" reference layout exactly —
    warm off-white field, big left-aligned bold headline, avatar-group
@@ -119,10 +125,10 @@ export function Hero() {
           </svg>
 
           <img
-            src={heroVisual}
-            alt="Founder holding an approved government certificate bearing the national emblem"
-            width={1024}
-            height={1280}
+            src={heroTeamVisual}
+            alt="A founding team gathered around a laptop, reviewing their progress together"
+            width={1400}
+            height={1400}
             loading="eager"
             decoding="async"
             className="absolute inset-[7%] size-[86%] rounded-full object-cover shadow-2xl"
