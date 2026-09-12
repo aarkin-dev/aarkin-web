@@ -6,8 +6,6 @@ import {
   Banknote,
   Check,
   CheckCircle2,
-  ChevronLeft,
-  ChevronRight,
   FileStack,
   Landmark,
   LineChart,
@@ -827,13 +825,18 @@ const FOUNDER_STORIES = [
   },
 ];
 
-/* ---------- Founder stories: seoq.vercel.app/home-three "What Clients
-   Say" carousel — one large centered card, dimmed peeking neighbours,
-   prev/next arrows. ---------- */
+/* ---------- Founder stories: seoz-react-nextjs.netlify.app's
+   "What Client Say About Us" testimonial slider -- ditto design (white
+   14px-radius bordered card, star row + quote, avatar/name flowing
+   below it) and ditto animation (continuous, no manual prev/next),
+   content and colours ours. Their version runs on Swiper autoplay
+   (measured: it steps to the next slide on an eased ~2s transition,
+   then holds); reproduced here as a seamless, pausable CSS marquee --
+   same "always auto-advancing, hands off the wheel" effect using the
+   exact technique this codebase already has for the Credentials strip,
+   rather than pulling in a carousel library for it. ---------- */
 export function FounderStories() {
-  const [index, setIndex] = useState(0);
-  const n = FOUNDER_STORIES.length;
-  const at = (offset: number) => FOUNDER_STORIES[(index + offset + n) % n]!;
+  const track = [...FOUNDER_STORIES, ...FOUNDER_STORIES];
 
   return (
     <section id="stories" className="overflow-hidden bg-[#FFF7EE] py-24">
@@ -846,69 +849,36 @@ export function FounderStories() {
         </h2>
       </div>
 
-      <div className="relative mx-auto mt-14 flex max-w-6xl items-center justify-center gap-4 px-6">
-        <button
-          onClick={() => setIndex((i) => i - 1)}
-          aria-label="Previous testimonial"
-          className="hidden shrink-0 rounded-full border border-border bg-background p-3 text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground sm:grid sm:place-items-center"
-        >
-          <ChevronLeft className="size-5" />
-        </button>
+      <div className="mt-14 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+        <div className="flex w-max animate-[marquee-loop_54s_linear_infinite] gap-8 px-6 hover:[animation-play-state:paused]">
+          {track.map((story, i) => (
+            <div key={i} className="w-[360px] shrink-0 sm:w-[420px]">
+              <div className="rounded-[14px] border border-primary/10 bg-white p-[30px] shadow-[0_2px_24px_rgba(0,53,102,0.05)]">
+                <div className="flex items-center justify-between">
+                  <span className="flex gap-1 text-[#F0BF11]" aria-label="5 out of 5 stars">
+                    {Array.from({ length: 5 }).map((_, s) => (
+                      <Star key={s} className="size-3.5 fill-current" aria-hidden="true" />
+                    ))}
+                  </span>
+                  <Quote className="size-5 text-orange/30" aria-hidden="true" />
+                </div>
+                <blockquote className="mt-5 leading-relaxed text-balance text-foreground">
+                  “{story.quote}”
+                </blockquote>
+              </div>
 
-        <div className="hidden max-w-[15rem] flex-1 scale-90 rounded-3xl border border-border bg-card p-6 opacity-40 lg:block">
-          <p className="line-clamp-4 text-sm leading-relaxed">“{at(-1).quote}”</p>
-        </div>
-
-        <div className="flex-1 rounded-[2rem] border border-border bg-card p-8 shadow-lg md:p-10">
-          <div className="flex flex-wrap items-center gap-6">
-            <span className="grid size-16 shrink-0 place-items-center rounded-full bg-primary text-lg font-bold text-primary-foreground">
-              {at(0).initials}
-            </span>
-            <div className="flex-1">
-              <span className="flex gap-1 text-orange" aria-label="5 out of 5 stars">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="size-3.5 fill-current" aria-hidden="true" />
-                ))}
-              </span>
-              <blockquote className="mt-3 font-display text-lg leading-relaxed font-medium text-balance">
-                “{at(0).quote}”
-              </blockquote>
-              <p className="mt-4">
-                <span className="block font-display font-bold">{at(0).name}</span>
-                <span className="block text-sm text-muted-foreground">{at(0).role}</span>
-              </p>
+              <div className="mt-[30px] flex items-center gap-5">
+                <span className="grid size-[53px] shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                  {story.initials}
+                </span>
+                <div>
+                  <h3 className="font-display font-bold">{story.name}</h3>
+                  <p className="text-sm text-muted-foreground">{story.role}</p>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-
-        <div className="hidden max-w-[15rem] flex-1 scale-90 rounded-3xl border border-border bg-card p-6 opacity-40 lg:block">
-          <p className="line-clamp-4 text-sm leading-relaxed">“{at(1).quote}”</p>
-        </div>
-
-        <button
-          onClick={() => setIndex((i) => i + 1)}
-          aria-label="Next testimonial"
-          className="hidden shrink-0 rounded-full border border-border bg-background p-3 text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground sm:grid sm:place-items-center"
-        >
-          <ChevronRight className="size-5" />
-        </button>
-      </div>
-
-      <div className="mt-8 flex items-center justify-center gap-2 sm:hidden">
-        <button
-          onClick={() => setIndex((i) => i - 1)}
-          aria-label="Previous testimonial"
-          className="grid place-items-center rounded-full border border-border p-2.5"
-        >
-          <ChevronLeft className="size-4" />
-        </button>
-        <button
-          onClick={() => setIndex((i) => i + 1)}
-          aria-label="Next testimonial"
-          className="grid place-items-center rounded-full border border-border p-2.5"
-        >
-          <ChevronRight className="size-4" />
-        </button>
       </div>
     </section>
   );
