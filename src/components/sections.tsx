@@ -325,50 +325,50 @@ const SERVICES = [
   {
     icon: Landmark,
     title: "Startup India Registration",
-    body: "DPIIT recognition unlocking 3 years of tax exemption under 80-IAC, IPR benefits and priority scheme access.",
-    tag: "DPIIT approved",
+    body: "Get your DPIIT recognition certificate and unlock 3 years of tax exemption, IPR benefits, and government scheme priority access.",
+    tag: "DPIIT Approved",
   },
   {
     icon: Award,
     title: "MSME / Udyam Registration",
-    body: "Priority lending, lower interest rates and access to ₹1000+ crore subsidy schemes.",
-    tag: "Udyam portal",
+    body: "Official Udyam certification gives you priority lending, lower interest rates, and access to ₹1000+ crore subsidy schemes.",
+    tag: "Udyam Portal",
   },
   {
     icon: Banknote,
     title: "Government Grants",
-    body: "SIDBI, DST, BIRAC, NASSCOM and state-level schemes — identified, filed and followed up.",
-    tag: "Non-dilutive capital",
+    body: "We identify and apply for grants you qualify for — SIDBI, DST, NASSCOM, state-level schemes, and more. You don't miss what we handle.",
+    tag: "Non-Dilutive Capital",
   },
   {
     icon: Landmark,
     title: "Business & MSME Loans",
-    body: "CGTMSE-backed credit, MUDRA, Standup India and PSU bank schemes at the lowest eligible rates.",
-    tag: "Collateral-free",
+    body: "Structured loan applications for CGTMSE-backed credit, MUDRA, Standup India, and PSU bank schemes at the lowest eligible rates.",
+    tag: "Collateral-Free Options",
   },
   {
     icon: LineChart,
     title: "Investment Readiness",
-    body: "Pitch decks, financial models, diligence prep and investor introductions before you walk into the room.",
-    tag: "Angel & VC connects",
+    body: "Pitch decks, financial models, due-diligence prep, and investor introductions — we get you ready before you walk into any room.",
+    tag: "Angel & VC Connects",
   },
   {
     icon: FileStack,
     title: "Compliance & Documentation",
-    body: "GST returns, startup filings, MCA compliance and annual reporting managed end to end.",
-    tag: "Zero penalties",
+    body: "GST returns, startup filings, MCA compliance, annual reporting — we manage your regulatory obligations so you don't have to.",
+    tag: "Zero Penalties",
   },
   {
     icon: Map,
-    title: "Scheme Consulting",
-    body: "A full audit against 200+ central and state schemes, with a personalised unlock roadmap.",
-    tag: "200+ schemes mapped",
+    title: "Government Scheme Consulting",
+    body: "A full audit of your business against 200+ central and state schemes — with a personalized roadmap to unlock what you qualify for.",
+    tag: "200+ Schemes Mapped",
   },
   {
     icon: BadgeCheck,
-    title: "Subsidy & Incentives",
-    body: "Capital subsidy, technology upgrades, export incentives and tariff concessions, properly documented.",
-    tag: "State & central",
+    title: "Subsidy & Incentive Assistance",
+    body: "Capital subsidy, technology upgrade subsidies, export incentives, and electricity tariff concessions — claimed and documented properly.",
+    tag: "State & Central Level",
   },
 ];
 
@@ -394,7 +394,7 @@ const SERVICES = [
    hover specifically -- both measured off the live site's actual CSS,
    not approximated. Green -> orange, content and copy ours. ---------- */
 export function Services() {
-  const shown = SERVICES.slice(0, 3);
+  const shown = SERVICES;
   return (
     <section id="services" className="border-t border-foreground/10 bg-[#F2F1E9] py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -424,30 +424,28 @@ export function Services() {
           </div>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {shown.map((s, i) => {
             const Icon = s.icon;
             return (
               <div
                 key={s.title}
-                className="reveal-card group flex h-full flex-col rounded-[5px] bg-white p-9 transition-colors duration-300 hover:bg-orange"
-                data-reveal-delay-ms={300 + i * 150}
+                className="reveal-card group flex h-full flex-col rounded-[5px] bg-white p-7 transition-colors duration-300 hover:bg-orange"
+                data-reveal-delay-ms={300 + (i % 4) * 150}
               >
-                <div className="flex items-center gap-5">
-                  <span className="grid size-[82px] shrink-0 place-items-center rounded-full border border-foreground/80 bg-orange text-white transition-colors duration-300 hover:border-transparent hover:bg-foreground">
-                    <Icon className="size-8" strokeWidth={1.5} />
-                  </span>
-                  <h3 className="font-display text-2xl leading-tight font-semibold text-foreground">
-                    {s.title}
-                  </h3>
-                </div>
-                <p className="mt-7 flex-1 leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                <span className="grid size-16 shrink-0 place-items-center rounded-full bg-orange text-white transition-colors duration-300 hover:bg-foreground">
+                  <Icon className="size-7" strokeWidth={1.5} />
+                </span>
+                <h3 className="mt-6 font-display text-xl leading-tight font-semibold text-foreground">
+                  {s.title}
+                </h3>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
                   {s.body}
                 </p>
-                <div className="mt-8 flex items-center justify-between">
+                <div className="mt-6 flex items-center justify-between">
                   <a
                     href="#consult"
-                    className="inline-flex items-center justify-center rounded-[5px] bg-foreground px-8 py-3.5 text-sm font-semibold text-white"
+                    className="inline-flex items-center justify-center rounded-[5px] bg-foreground px-5 py-3 text-sm font-semibold text-white"
                   >
                     Learn More
                   </a>
@@ -456,20 +454,13 @@ export function Services() {
                     aria-label={`Learn more about ${s.title}`}
                     className="text-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                   >
-                    <ArrowUpRight className="size-6" strokeWidth={1.5} />
+                    <ArrowUpRight className="size-5" strokeWidth={1.5} />
                   </a>
                 </div>
               </div>
             );
           })}
         </div>
-
-        <p className="mt-10 text-center text-sm text-muted-foreground">
-          Check out all of our{" "}
-          <a href="#" className="font-semibold text-primary underline-offset-4 hover:underline">
-            8 services
-          </a>
-        </p>
       </div>
     </section>
   );
