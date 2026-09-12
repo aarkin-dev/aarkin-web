@@ -22,7 +22,6 @@ import {
   Zap,
 } from "lucide-react";
 import { toast } from "sonner";
-import aboutVisual from "@/assets/about-visual.jpg";
 // Government Opportunity's photo -- symbolises the government itself
 // (the Central Secretariat / Rashtrapati Bhavan dome in New Delhi),
 // replacing the old navy/yellow duotone illustration, same real-photo
@@ -48,6 +47,12 @@ import aboutAccentBottom from "@/assets/about-accent-bottom.jpg";
 // used elsewhere on the page. Unsplash License (free, no attribution
 // required): https://unsplash.com/photos/two-business-people-reviewing-documents-together-8k5j5z6ZYT4
 import whyArkinVisual from "@/assets/why-arkin.jpg";
+// Consultation section's photo -- replaces the old navy/yellow duotone
+// illustration (about-visual.jpg), which was the last leftover of that
+// retired style still on the page. Real photo, distinct from every
+// other section's, Unsplash License (free, no attribution required):
+// https://unsplash.com/photos/gray-laptop-computer-7aakZdIl4vg
+import consultationVisual from "@/assets/consultation-visual.jpg";
 
 /* ---------- Hero: matches the "Dobee" reference layout exactly —
    warm off-white field, big left-aligned bold headline, avatar-group
@@ -1222,10 +1227,10 @@ export function Consultation() {
         <div>
           <div className="relative">
             <img
-              src={aboutVisual}
-              alt="Government documents ready for filing, stamped and approved"
-              width={1024}
-              height={1024}
+              src={consultationVisual}
+              alt="Two people in a relaxed one-on-one consultation meeting over laptops"
+              width={1200}
+              height={798}
               loading="lazy"
               decoding="async"
               className="aspect-square w-full rounded-[2rem] object-cover"
@@ -1257,10 +1262,7 @@ export function Consultation() {
           </div>
         </div>
 
-        <form
-          className="space-y-6 self-start rounded-[2rem] bg-[#FFF7EE] p-8 shadow-sm md:p-10"
-          onSubmit={submitEnquiry}
-        >
+        <form className="space-y-6 self-start p-8 md:p-10" onSubmit={submitEnquiry}>
           <input
             type="text"
             name="company_website"
