@@ -154,7 +154,7 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="bg-[#FFF7EE] pt-20 text-foreground/70">
+    <footer className="bg-[var(--mint)] pt-20 text-foreground/70">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">

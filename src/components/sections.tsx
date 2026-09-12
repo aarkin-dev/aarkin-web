@@ -61,7 +61,7 @@ import whyArkinVisual from "@/assets/why-arkin.jpg";
    foreground. ---------- */
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#F2F1E9] pt-44 pb-24">
+    <section className="dotted-bg relative overflow-hidden pt-44 pb-24">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
         <div>
           <h1 className="font-display text-5xl leading-[1.08] font-extrabold text-balance text-foreground md:text-6xl">
@@ -90,7 +90,7 @@ export function Hero() {
                 {[Landmark, Users, ShieldCheck].map((Icon, i) => (
                   <span
                     key={i}
-                    className="grid size-11 place-items-center rounded-full border-2 border-[#F2F1E9] bg-primary/10 text-primary"
+                    className="grid size-11 place-items-center rounded-full border-2 border-[var(--hero-green)] bg-primary/10 text-primary"
                   >
                     <Icon className="size-4.5" strokeWidth={1.75} />
                   </span>
@@ -245,7 +245,7 @@ const ABOUT_POINTS = [
    than a 3rd invented image. ---------- */
 export function About() {
   return (
-    <section id="about" className="border-b border-border bg-background py-24">
+    <section id="about" className="bg-[#FFF7EE] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div className="relative">
@@ -346,7 +346,7 @@ const IMPACT_STATS = [
    count exactly, so nothing invented or cut. ---------- */
 export function FundingCta() {
   return (
-    <section className="bg-[#FFF7EE] py-24">
+    <section className="bg-background py-24">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
         <div>
           <p className="text-lg font-semibold text-[var(--green-text)]">Government Opportunity</p>
@@ -473,7 +473,7 @@ const SERVICES = [
 export function Services() {
   const shown = SERVICES;
   return (
-    <section id="services" className="border-t border-foreground/10 bg-[#F2F1E9] py-24">
+    <section id="services" className="bg-[var(--mint)] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-10 pb-14 lg:grid-cols-2">
           <div className="reveal-card" data-reveal-delay-ms="150">
@@ -641,7 +641,7 @@ const WHY = [
    Numbers section still pending, not invented or dropped. ---------- */
 export function WhyArkin() {
   return (
-    <section id="why" className="border-t border-border bg-background py-24">
+    <section id="why" className="bg-[#FFF7EE] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-16 lg:grid-cols-12">
           <div className="lg:col-span-7">
@@ -762,7 +762,7 @@ export function Schemes() {
   const shown = active === "All" ? SCHEMES : SCHEMES.filter((s) => s.tag === active);
 
   return (
-    <section id="schemes" className="bg-background py-24">
+    <section id="schemes" className="bg-[var(--mint)] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -982,7 +982,7 @@ const INSIGHT_TILE_BG = [
 export function InsightsPreview() {
   const picks = FAQS.slice(0, 3);
   return (
-    <section className="bg-background py-24">
+    <section className="bg-[#FFF7EE] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <h2 className="mx-auto max-w-xl text-center font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
           Trends &amp; Answers for <span className="text-[var(--green-text)]">Online Success</span>
