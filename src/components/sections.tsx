@@ -369,14 +369,14 @@ export function Services() {
           </p>
         </div>
 
-        <div className="mt-14 rounded-[2rem] bg-[#F6F9FE] p-8 md:p-12">
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div className="overflow-hidden rounded-[2rem] bg-[#F6F9FE]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4">
             {shown.map((s, i) => {
               const Icon = s.icon;
               return (
                 <div
                   key={s.title}
-                  className="reveal-card flex flex-col"
+                  className="reveal-card relative flex flex-col pt-10 pr-[45px] pb-12 pl-9 transition-all duration-300 ease-out hover:z-10 hover:scale-110! hover:rounded-[14px]! hover:bg-white! hover:shadow-[0_10px_120px_0_rgba(11,23,40,0.14)]!"
                   data-reveal-delay-ms={300 + i * 200}
                 >
                   <div
