@@ -118,7 +118,12 @@ function Index() {
 
       revealItems.forEach((item, index) => {
         item.classList.add("reveal-item");
-        item.style.setProperty("--reveal-delay", Math.min(index, 7) * 75 + "ms");
+        // Explicit override for delays measured off the actual reference
+        // (data-reveal-delay-ms="300" etc.) -- falls back to the generic
+        // auto-stagger for everything else.
+        const explicitDelay = item.dataset["revealDelayMs"];
+        const delay = explicitDelay ? Number(explicitDelay) : Math.min(index, 7) * 75;
+        item.style.setProperty("--reveal-delay", delay + "ms");
         if (item.tagName === "IMG") item.classList.add("reveal-image");
         itemObserver.observe(item);
       });

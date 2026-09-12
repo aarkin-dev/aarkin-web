@@ -357,7 +357,7 @@ export function Services() {
   return (
     <section id="services" className="bg-background py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="reveal-card mx-auto max-w-2xl text-center">
+        <div className="reveal-card mx-auto max-w-2xl text-center" data-reveal-delay-ms="300">
           <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
             What We Do
           </span>
@@ -374,7 +374,11 @@ export function Services() {
             {shown.map((s, i) => {
               const Icon = s.icon;
               return (
-                <div key={s.title} className="reveal-card flex flex-col">
+                <div
+                  key={s.title}
+                  className="reveal-card flex flex-col"
+                  data-reveal-delay-ms={300 + i * 200}
+                >
                   <div
                     className="grid size-[83px] place-items-center rounded-full text-white"
                     style={{ backgroundColor: SERVICE_ICON_BG[i % SERVICE_ICON_BG.length] }}

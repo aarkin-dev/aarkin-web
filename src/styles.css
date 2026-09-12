@@ -221,29 +221,29 @@
   animation: image-unveil 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
 }
 
-/* Cards with no border/shadow of their own (e.g. the Services feature
-   columns) need a more pronounced rise than .reveal-item's 30px/750ms —
-   otherwise the motion reads as barely-there against a flat background. */
+/* Matches the reference's actual WOW.js "fadeInUp" exactly (pulled from
+   its own animate.css rule via getComputedStyle/cssRules, not
+   approximated): opacity 0->1, translateY 20px->0, 1000ms, ease, no
+   scale change. Per-card delay also comes straight off the reference's
+   data-wow-delay values via data-reveal-delay-ms (see index.tsx). */
 .motion-ready .reveal-item.reveal-card {
   opacity: 0;
-  scale: 0.94;
-  translate: 0 44px;
+  scale: 1;
+  translate: 0 20px;
 }
 
 .motion-ready .reveal-item.reveal-card.is-visible {
-  animation: card-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms) both;
+  animation: card-rise 1000ms ease var(--reveal-delay, 0ms) both;
 }
 
 @keyframes card-rise {
   from {
     opacity: 0;
-    scale: 0.94;
-    translate: 0 44px;
+    translate: 0 20px;
   }
 
   to {
     opacity: 1;
-    scale: 1;
     translate: 0 0;
   }
 }
