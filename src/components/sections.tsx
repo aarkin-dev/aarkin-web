@@ -1022,7 +1022,49 @@ export function InsightsPreview() {
    Sits as its own compact prompt right before the footer, exactly
    where the reference has it (last content section before the
    footer) -- separate from the full Consultation form higher up the
-   page, not a replacement for it. Green throughout. ---------- */
+   page, not a replacement for it. Green throughout.
+
+   The reference's right-side element (subscribe__link__btn) is a
+   216px lime circle -- subscribe__one__06.png -- that spins 360deg
+   every 6s (linear, infinite; confirmed off its own computed
+   `animation` and @keyframes rotation), with "CONTACT WITH US" set on
+   a curved path across its top arc, plus a static 138px outlined
+   circle centred on top of it (not rotating -- it has no animation of
+   its own) holding an arrow-link to their About page. Reproduced here
+   as inline SVG + CSS (`animate-spin-slow`, see styles.css) instead of
+   a raster image so the text stays crisp and recolourable, same
+   circle/arc math and 216/138px sizing measured off the live
+   reference. Ours links to #consult, same target as the section's own
+   CTA link. ---------- */
+function RotatingContactBadge() {
+  return (
+    <div className="relative hidden size-[216px] shrink-0 lg:block">
+      <svg
+        viewBox="0 0 216 216"
+        className="size-full animate-[ring-spin_6s_linear_infinite]"
+        aria-hidden
+      >
+        <defs>
+          <path id="contact-badge-arc" d="M 20,108 A 88,88 0 0 1 196,108" fill="none" />
+        </defs>
+        <circle cx="108" cy="108" r="108" fill="var(--orange)" />
+        <text fill="var(--orange-dark)" fontSize="14" fontWeight="700" letterSpacing="2.5">
+          <textPath href="#contact-badge-arc" startOffset="50%" textAnchor="middle">
+            TALK TO US
+          </textPath>
+        </text>
+      </svg>
+      <a
+        href="#consult"
+        aria-label="Talk to our team"
+        className="absolute inset-0 m-auto grid size-[138px] place-items-center rounded-full border border-foreground bg-[var(--orange-light)] text-foreground transition-colors hover:bg-foreground hover:text-white"
+      >
+        <ArrowUpRight className="size-9" strokeWidth={1.75} />
+      </a>
+    </div>
+  );
+}
+
 export function ContactCta() {
   return (
     <section className="relative overflow-hidden bg-[var(--orange-light)] py-20">
@@ -1036,16 +1078,19 @@ export function ContactCta() {
         <circle cx="300" cy="300" r="150" fill="none" stroke="currentColor" strokeWidth="1" />
       </svg>
 
-      <div className="relative mx-auto max-w-7xl px-6">
-        <h2 className="max-w-2xl font-display text-3xl leading-[1.25] font-bold text-balance text-foreground md:text-4xl">
-          Want to Talk? Our Team Is Ready to Help.
-        </h2>
-        <a
-          href="#consult"
-          className="mt-4 inline-block text-lg font-semibold text-foreground underline decoration-2 underline-offset-4 transition-colors hover:text-[var(--green-text)]"
-        >
-          Reach out, or check your free eligibility to get started.
-        </a>
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-12 px-6">
+        <div>
+          <h2 className="max-w-2xl font-display text-3xl leading-[1.25] font-bold text-balance text-foreground md:text-4xl">
+            Want to Talk? Our Team Is Ready to Help.
+          </h2>
+          <a
+            href="#consult"
+            className="mt-4 inline-block text-lg font-semibold text-foreground underline decoration-2 underline-offset-4 transition-colors hover:text-[var(--green-text)]"
+          >
+            Reach out, or check your free eligibility to get started.
+          </a>
+        </div>
+        <RotatingContactBadge />
       </div>
     </section>
   );

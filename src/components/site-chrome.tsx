@@ -46,8 +46,11 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        <Link to="/" aria-label="Aarkin home" className="flex items-center">
+        <Link to="/" aria-label="Aarkin home" className="flex items-center gap-2.5">
           <SealMark className="h-[46px] w-auto" />
+          <span className="font-display text-xl font-bold tracking-tight text-foreground">
+            AARKIN
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex">

@@ -313,7 +313,12 @@
    linear cycle. The reference's pulse colour is literally blue
    (rgba(55,140,255,...), left over from the template's original blue
    theme even on its own green build) -- ours uses our own orange so it
-   actually matches the orange play button it's emanating from. */
+   actually matches the orange play button it's emanating from.
+   Reused (at 6s, via `animate-[ring-spin_6s_linear_infinite]`) for the
+   ContactCta section's rotating "TALK TO US" circle badge -- same
+   plain 360deg-rotate keyframe, matching index-3.html's
+   subscribe__one__06.png ring, which spins on its own 6s linear
+   infinite cycle. */
 @keyframes ring-spin {
   to {
     transform: rotate(360deg);
