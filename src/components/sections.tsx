@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
+  Asterisk,
   Award,
   BadgeCheck,
   Banknote,
-  Check,
   CheckCircle2,
   FileStack,
   Landmark,
@@ -372,12 +372,6 @@ const SERVICES = [
   },
 ];
 
-// Exact colors measured from the reference (getComputedStyle on the live
-// site) -- NOT a blue/orange swap. None of these four is "red", so the
-// brand's red->orange substitution doesn't apply here; flagged for
-// confirmation in case that reading is wrong.
-const SERVICE_ICON_BG = ["#00BBE4", "#FF326F", "#C343FF", "#5D43FF"];
-
 /* ---------- Services: seoq.vercel.app/home-three "features box" —
    one rounded light band holding a 4-column grid. Reference has NO
    per-column card (no bg/shadow) — icon, title, checklist and button
@@ -390,66 +384,87 @@ const SERVICE_ICON_BG = ["#00BBE4", "#FF326F", "#C343FF", "#5D43FF"];
    NOTE: layout-first pass. Aarkin has 8 real services; only the
    first 4 are seated here for now — the rest need an accommodation
    decision (second row? a "view all" page?) in a follow-up pass. ---------- */
+/* ---------- Services: themazine.com/mr/dobee "Our Services" section,
+   ditto -- plain eyebrow + big heading beside a bordered highlight box
+   (spark icon, copy, pill CTA), then a row of plain white cards on the
+   reference's own cream section backdrop (its dedicated `.service__bg`
+   layer, matched here rather than the site's default white). Whole
+   card flips solid orange on hover; the icon circle (orange at rest,
+   like their lime) flips to dark ink with an inverted glyph on ITS OWN
+   hover specifically -- both measured off the live site's actual CSS,
+   not approximated. Green -> orange, content and copy ours. ---------- */
 export function Services() {
-  const shown = SERVICES.slice(0, 4);
+  const shown = SERVICES.slice(0, 3);
   return (
-    <section id="services" className="bg-background py-24">
+    <section id="services" className="bg-[#F2F1E9] py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="reveal-card mx-auto max-w-2xl text-center" data-reveal-delay-ms="300">
-          <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
-            What We Do
-          </span>
-          <h2 className="mt-6 font-display text-[44px] leading-[54px] font-bold text-balance">
-            Everything Your Business Needs to Grow with Government Support
-          </h2>
-          <p className="mt-4 text-lg leading-[26px] font-medium text-foreground/70">
-            From registration to funding — one expert team, zero complexity.
-          </p>
-        </div>
+        <div className="grid items-center gap-10 pb-14 lg:grid-cols-2">
+          <div className="reveal-card" data-reveal-delay-ms="150">
+            <p className="text-lg font-semibold text-foreground">Our Services</p>
+            <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
+              We Offer Every Founder Great Support.
+            </h2>
+          </div>
 
-        <div className="overflow-hidden rounded-[2rem] bg-[#F6F9FE]">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4">
-            {shown.map((s, i) => {
-              const Icon = s.icon;
-              return (
-                <div
-                  key={s.title}
-                  className="reveal-card relative flex flex-col pt-10 pr-[45px] pb-12 pl-9 transition-all duration-300 ease-out hover:z-10 hover:scale-110! hover:rounded-[14px]! hover:bg-white! hover:shadow-[0_10px_120px_0_rgba(11,23,40,0.14)]!"
-                  data-reveal-delay-ms={300 + i * 200}
-                >
-                  <div
-                    className="grid size-[83px] place-items-center rounded-full text-white"
-                    style={{ backgroundColor: SERVICE_ICON_BG[i % SERVICE_ICON_BG.length] }}
-                  >
-                    <Icon className="size-8" strokeWidth={1.75} />
-                  </div>
-                  <h3 className="mt-8 font-display text-xl font-semibold">{s.title}</h3>
-                  <ul className="mt-5 flex-1 space-y-3">
-                    {[s.tag, "Documentation handled", "Filed on your behalf", "Status tracked"].map(
-                      (point) => (
-                        <li
-                          key={point}
-                          className="flex items-center gap-2 text-[15px] text-foreground"
-                        >
-                          <Check className="size-4 shrink-0 text-foreground" strokeWidth={2.5} />
-                          {point}
-                        </li>
-                      ),
-                    )}
-                  </ul>
-                  <a
-                    href="#consult"
-                    className="mt-8 inline-flex w-fit items-center justify-center rounded-full bg-primary/[0.06] px-7 py-4 text-[15px] font-semibold text-foreground transition-colors hover:bg-orange hover:text-white"
-                  >
-                    Learn More
-                  </a>
-                </div>
-              );
-            })}
+          <div
+            className="reveal-card flex flex-col items-start gap-6 rounded-[5px] border border-foreground/80 p-7 sm:flex-row sm:items-center"
+            data-reveal-delay-ms="300"
+          >
+            <Asterisk className="size-10 shrink-0 text-foreground" strokeWidth={1.5} />
+            <p className="flex-1 text-[15px] leading-relaxed text-muted-foreground">
+              From registration to funding, we handle every form, filing and follow-up — so you only
+              deal with the outcome.
+            </p>
+            <a
+              href="#consult"
+              className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-orange px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-foreground hover:text-white"
+            >
+              More Services
+            </a>
           </div>
         </div>
 
-        <p className="mt-8 text-center text-sm text-muted-foreground">
+        <div className="grid gap-8 lg:grid-cols-3">
+          {shown.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <div
+                key={s.title}
+                className="reveal-card group rounded-[5px] bg-white p-9 transition-colors duration-300 hover:bg-orange"
+                data-reveal-delay-ms={300 + i * 150}
+              >
+                <div className="flex items-center gap-5">
+                  <span className="grid size-[82px] shrink-0 place-items-center rounded-full border border-foreground/80 bg-orange text-foreground transition-colors duration-300 hover:border-transparent hover:bg-foreground hover:text-white">
+                    <Icon className="size-8" strokeWidth={1.5} />
+                  </span>
+                  <h3 className="font-display text-2xl leading-tight font-semibold text-foreground">
+                    {s.title}
+                  </h3>
+                </div>
+                <p className="mt-7 leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                  {s.body}
+                </p>
+                <div className="mt-8 flex items-center justify-between">
+                  <a
+                    href="#consult"
+                    className="inline-flex items-center justify-center rounded-[5px] bg-foreground px-8 py-3.5 text-sm font-semibold text-white"
+                  >
+                    Learn More
+                  </a>
+                  <a
+                    href="#consult"
+                    aria-label={`Learn more about ${s.title}`}
+                    className="text-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  >
+                    <ArrowUpRight className="size-6" strokeWidth={1.5} />
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <p className="mt-10 text-center text-sm text-muted-foreground">
           Check out all of our{" "}
           <a href="#" className="font-semibold text-primary underline-offset-4 hover:underline">
             8 services
