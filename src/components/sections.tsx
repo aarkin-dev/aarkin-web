@@ -396,7 +396,7 @@ const SERVICES = [
 export function Services() {
   const shown = SERVICES.slice(0, 3);
   return (
-    <section id="services" className="bg-[#F2F1E9] py-24">
+    <section id="services" className="border-t border-foreground/10 bg-[#F2F1E9] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-10 pb-14 lg:grid-cols-2">
           <div className="reveal-card" data-reveal-delay-ms="150">
