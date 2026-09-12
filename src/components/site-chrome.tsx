@@ -96,7 +96,7 @@ export function SiteHeader() {
           <a
             href="#consult"
             onClick={() => setMobileOpen(false)}
-            className="mt-4 block rounded-full bg-orange px-5 py-3 text-center text-sm font-semibold text-white"
+            className="mt-4 block rounded-full bg-orange px-5 py-3 text-center text-sm font-semibold text-foreground"
           >
             Book Free Consultation
           </a>
@@ -148,7 +148,7 @@ export function SiteFooter() {
                   key={s}
                   href="#"
                   aria-label={s}
-                  className="grid size-9 place-items-center rounded-full bg-white/10 text-xs font-bold text-white transition-colors hover:bg-orange"
+                  className="grid size-9 place-items-center rounded-full bg-white/10 text-xs font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
                 >
                   {s[0]}
                 </a>
@@ -197,7 +197,7 @@ export function SiteFooter() {
               <button
                 type="submit"
                 aria-label="Subscribe"
-                className="grid size-9 shrink-0 place-items-center rounded-full bg-orange text-white"
+                className="grid size-9 shrink-0 place-items-center rounded-full bg-orange text-foreground"
               >
                 →
               </button>

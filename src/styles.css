@@ -80,10 +80,26 @@
   --yellow: oklch(0.878 0.185 98);
   --yellow-soft: oklch(0.94 0.12 100);
 
-  /* SEOQ-clone accent — replaces red/orange from the reference site */
-  --orange: #ff8a00;
-  --orange-light: #ffb347;
-  --orange-dark: #e67600;
+  /* Dobee-clone accent — the reference's own lime green, copied exactly
+     (themazine.com/mr/dobee), replacing the earlier orange substitute.
+     --orange/-light/-dark keep their names (renaming every bg-orange/
+     text-orange call site sitewide would be a much larger, riskier
+     change than what was asked for) but now hold green values:
+     --orange is the reference's literal primary lime, rgb(190,232,71).
+     --orange-dark is reused for their actual dark-ink hover target
+     (rgb(22,63,52)), matching how the reference itself darkens on
+     hover rather than using a deeper lime. --green-text is NOT from
+     the reference's own swatches -- the reference never puts its lime
+     directly on a light background as small/heading text (only as
+     button/icon-circle fills, always paired with dark text on top of
+     it); a literal lime text color on our cream/white backgrounds
+     would be close to illegible. This is a saturated, readable mid-
+     green for the handful of spots that need green AS text rather
+     than as a fill. */
+  --orange: #bee847;
+  --orange-light: #eaf9c3;
+  --orange-dark: #163f34;
+  --green-text: #4c9a2a;
   --paper: oklch(0.985 0.004 250);
   --paper-ink: oklch(0.16 0.05 264);
 

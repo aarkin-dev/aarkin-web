@@ -54,9 +54,11 @@ import whyArkinVisual from "@/assets/why-arkin.jpg";
    warm off-white field, big left-aligned bold headline, avatar-group
    trust line, and a right-side circular photo inside decorative ring
    outlines with a play badge and a floating two-stat card. The
-   reference's lime-green accent is swapped for Aarkin's orange; its
-   near-black text/button colour is just a dark neutral, so it stays
-   as our regular ink/navy foreground. ---------- */
+   `--orange` token now holds the reference's own lime green (see
+   styles.css) rather than a substitute, per later direction to use
+   the reference's real colours sitewide; its near-black text/button
+   colour is just a dark neutral, so it stays as our regular ink/navy
+   foreground. ---------- */
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#F2F1E9] pt-44 pb-24">
@@ -67,7 +69,7 @@ export function Hero() {
             <br />
             Deserves Every
             <br />
-            <span className="text-orange">Rupee of Support</span>
+            <span className="text-[var(--green-text)]">Rupee of Support</span>
           </h1>
 
           <p className="mt-7 max-w-md text-base leading-relaxed text-foreground/60 md:text-lg">
@@ -78,7 +80,7 @@ export function Hero() {
           <div className="mt-9 flex flex-wrap items-center gap-6">
             <a
               href="#consult"
-              className="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-4 text-sm font-bold text-background transition-colors hover:bg-orange"
+              className="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-4 text-sm font-bold text-background transition-colors hover:bg-orange hover:text-foreground"
             >
               Learn More
             </a>
@@ -136,7 +138,7 @@ export function Hero() {
                 cy="220"
                 r="165"
                 fill="none"
-                stroke="var(--orange)"
+                stroke="var(--green-text)"
                 strokeWidth="1.5"
               />
             </svg>
@@ -155,7 +157,7 @@ export function Hero() {
           <button
             type="button"
             aria-label="Play introduction video"
-            className="absolute top-[24%] left-[6%] grid size-16 animate-[cta-glow_5s_linear_infinite] place-items-center rounded-full bg-orange text-white transition-transform hover:scale-105"
+            className="absolute top-[24%] left-[6%] grid size-16 animate-[cta-glow_5s_linear_infinite] place-items-center rounded-full bg-orange text-foreground transition-transform hover:scale-105"
           >
             <Play className="size-5 translate-x-0.5" fill="currentColor" strokeWidth={0} />
           </button>
@@ -194,7 +196,7 @@ export function Credentials() {
   ];
 
   return (
-    <div className="overflow-hidden border-y border-border bg-orange py-3 text-white">
+    <div className="overflow-hidden border-y border-border bg-orange py-3 text-foreground">
       <div className="flex gap-10 whitespace-nowrap">
         {[0, 1].map((k) => (
           <div key={k} className="flex shrink-0 animate-[marquee_38s_linear_infinite] gap-10">
@@ -280,7 +282,7 @@ export function About() {
             <p className="text-lg font-semibold text-foreground">About Aarkin</p>
             <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
               Government Opportunity Shouldn&rsquo;t Be a{" "}
-              <span className="text-orange">Guessing Game</span>
+              <span className="text-[var(--green-text)]">Guessing Game</span>
             </h2>
             <p className="mt-4 max-w-lg leading-relaxed text-muted-foreground">
               Aarkin sits at the intersection of policy expertise and startup understanding —
@@ -291,7 +293,7 @@ export function About() {
               <div className="flex flex-col gap-8">
                 {ABOUT_POINTS.map(({ icon: Icon, title, body }) => (
                   <div key={title} className="flex gap-5">
-                    <span className="grid size-16 shrink-0 place-items-center rounded-full bg-orange text-white">
+                    <span className="grid size-16 shrink-0 place-items-center rounded-full bg-orange text-foreground">
                       <Icon className="size-6" strokeWidth={1.5} />
                     </span>
                     <div>
@@ -347,7 +349,7 @@ export function FundingCta() {
     <section className="bg-[#FFF7EE] py-24">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
         <div>
-          <p className="text-lg font-semibold text-orange">Government Opportunity</p>
+          <p className="text-lg font-semibold text-[var(--green-text)]">Government Opportunity</p>
           <h2 className="mt-2 font-display text-3xl leading-[1.15] font-bold text-balance text-foreground md:text-4xl">
             The Government Wants to Fund Your Growth. Let Us Make the Introduction.
           </h2>
@@ -358,7 +360,7 @@ export function FundingCta() {
           </p>
           <a
             href="#consult"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-foreground"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white"
           >
             Check My Eligibility Now <ArrowUpRight className="size-4" />
           </a>
@@ -366,7 +368,7 @@ export function FundingCta() {
           <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-foreground/10 pt-10">
             {IMPACT_STATS.map(({ icon: Icon, value, label }) => (
               <div key={label} className="flex items-start gap-4">
-                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-orange/15 text-orange">
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-orange/15 text-[var(--green-text)]">
                   <Icon className="size-5" strokeWidth={1.75} />
                 </span>
                 <div>
@@ -492,7 +494,7 @@ export function Services() {
             </p>
             <a
               href="#consult"
-              className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-orange px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-foreground"
+              className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-orange px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-foreground hover:text-white"
             >
               More Services
             </a>
@@ -508,7 +510,7 @@ export function Services() {
                 className="reveal-card group flex h-full flex-col rounded-[5px] bg-white p-7 transition-colors duration-300 hover:bg-orange"
                 data-reveal-delay-ms={300 + (i % 4) * 150}
               >
-                <span className="grid size-16 shrink-0 place-items-center rounded-full bg-orange text-white transition-colors duration-300 hover:bg-foreground">
+                <span className="grid size-16 shrink-0 place-items-center rounded-full bg-orange text-foreground transition-colors duration-300 hover:bg-foreground hover:text-white">
                   <Icon className="size-7" strokeWidth={1.5} />
                 </span>
                 <h3 className="mt-6 font-display text-xl leading-tight font-semibold text-foreground">
@@ -768,7 +770,7 @@ export function Schemes() {
               Scheme Library
             </span>
             <h2 className="mt-6 max-w-xl font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
-              The Schemes Founders Miss <span className="text-orange">Most Often</span>
+              The Schemes Founders Miss <span className="text-[var(--green-text)]">Most Often</span>
             </h2>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -895,7 +897,7 @@ export function FounderStories() {
       <div className="mx-auto max-w-3xl px-6 text-center">
         <p className="text-lg font-semibold text-foreground">Founder Stories</p>
         <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
-          Founders Who <span className="text-orange">Trusted the Process</span>
+          Founders Who <span className="text-[var(--green-text)]">Trusted the Process</span>
         </h2>
       </div>
 
@@ -916,7 +918,7 @@ export function FounderStories() {
               </div>
               <p className="mt-8 leading-relaxed text-foreground">{story.quote}</p>
               <div className="mt-10 flex items-center">
-                <span className="z-10 grid size-[60px] shrink-0 place-items-center rounded-full bg-orange text-white">
+                <span className="z-10 grid size-[60px] shrink-0 place-items-center rounded-full bg-orange text-foreground">
                   <Quote className="size-6" fill="currentColor" strokeWidth={0} />
                 </span>
                 <span className="-ml-5 grid size-[53px] shrink-0 place-items-center rounded-full border-2 border-white bg-primary text-sm font-bold text-primary-foreground">
@@ -983,7 +985,7 @@ export function InsightsPreview() {
     <section className="bg-background py-24">
       <div className="mx-auto max-w-7xl px-6">
         <h2 className="mx-auto max-w-xl text-center font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
-          Trends &amp; Answers for <span className="text-orange">Online Success</span>
+          Trends &amp; Answers for <span className="text-[var(--green-text)]">Online Success</span>
         </h2>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
@@ -1115,8 +1117,8 @@ export function Consultation() {
             Free Consultation
           </span>
           <h2 className="mt-4 font-display text-4xl leading-tight font-bold text-balance md:text-5xl">
-            Your Business Is Sitting on <span className="text-orange">Untapped</span> Government
-            Capital.
+            Your Business Is Sitting on <span className="text-[var(--green-text)]">Untapped</span>{" "}
+            Government Capital.
           </h2>
           <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
             Book a free 30-minute consultation. We'll audit your eligibility, identify your
@@ -1225,7 +1227,7 @@ export function Consultation() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-full bg-primary py-3.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-orange disabled:cursor-wait disabled:opacity-70"
+            className="w-full rounded-full bg-primary py-3.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-orange hover:text-foreground disabled:cursor-wait disabled:opacity-70"
           >
             {isSubmitting ? "Sending…" : "Get My Free Consultation"}
           </button>
