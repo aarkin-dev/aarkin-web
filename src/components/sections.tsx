@@ -1232,10 +1232,8 @@ export function Consultation() {
             />
           </div>
 
-          <span className="eyebrow mt-8 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
-            Free Consultation
-          </span>
-          <h2 className="mt-4 font-display text-4xl leading-tight font-bold text-balance md:text-5xl">
+          <p className="mt-8 text-lg font-semibold text-foreground">Free Consultation</p>
+          <h2 className="mt-2 font-display text-4xl leading-tight font-bold text-balance md:text-5xl">
             Your Business Is Sitting on <span className="text-[var(--green-text)]">Untapped</span>{" "}
             Government Capital.
           </h2>
@@ -1250,17 +1248,17 @@ export function Consultation() {
               ["03", "4-hour response"],
             ].map(([n, t]) => (
               <div key={n} className="flex items-center gap-3">
-                <div className="tabular grid size-9 shrink-0 place-items-center rounded-full bg-primary/10 font-display text-xs font-bold text-primary">
+                <div className="tabular grid size-9 shrink-0 place-items-center rounded-full border border-foreground bg-[color-mix(in_oklab,var(--orange)_10%,white)] font-display text-xs font-bold text-foreground">
                   {n}
                 </div>
-                <h5 className="font-display text-sm font-bold">{t}</h5>
+                <h5 className="font-display text-sm font-bold text-foreground">{t}</h5>
               </div>
             ))}
           </div>
         </div>
 
         <form
-          className="space-y-6 self-start rounded-[2rem] bg-background p-8 shadow-lg md:p-10"
+          className="space-y-6 self-start rounded-[2rem] bg-[#FFF7EE] p-8 shadow-sm md:p-10"
           onSubmit={submitEnquiry}
         >
           <input
@@ -1271,7 +1269,9 @@ export function Consultation() {
             autoComplete="off"
             aria-hidden="true"
           />
-          <h3 className="font-display text-2xl font-bold">Book Your Free Consultation</h3>
+          <h3 className="font-display text-2xl font-bold text-foreground">
+            Book Your Free Consultation
+          </h3>
           <p className="text-sm text-muted-foreground">
             Tell us about your business. We'll do the rest.
           </p>
@@ -1346,7 +1346,7 @@ export function Consultation() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-full bg-primary py-3.5 text-sm font-bold text-primary-foreground transition-colors hover:bg-orange hover:text-foreground disabled:cursor-wait disabled:opacity-70"
+            className="w-full rounded-full bg-orange py-3.5 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white disabled:cursor-wait disabled:opacity-70"
           >
             {isSubmitting ? "Sending…" : "Get My Free Consultation"}
           </button>
@@ -1442,11 +1442,11 @@ export function ScrollEnquiryPopup() {
       role="dialog"
       aria-modal="false"
       aria-labelledby="scroll-enquiry-title"
-      className="animate-in fade-in slide-in-from-bottom-6 fixed right-3 bottom-3 left-3 z-[60] max-h-[calc(100vh-1.5rem)] overflow-y-auto border-2 border-primary bg-background shadow-2xl duration-300 sm:right-6 sm:bottom-6 sm:left-auto sm:w-[26rem]"
+      className="animate-in fade-in slide-in-from-bottom-6 fixed right-3 bottom-3 left-3 z-[60] max-h-[calc(100vh-1.5rem)] overflow-y-auto rounded-2xl border border-border bg-background shadow-2xl duration-300 sm:right-6 sm:bottom-6 sm:left-auto sm:w-[26rem]"
     >
-      <div className="flex items-start justify-between gap-6 bg-primary p-5 text-primary-foreground">
+      <div className="flex items-start justify-between gap-6 rounded-t-2xl bg-[var(--orange-dark)] p-5 text-white">
         <div>
-          <span className="eyebrow text-yellow">Free eligibility check</span>
+          <span className="eyebrow text-orange">Free eligibility check</span>
           <h2 id="scroll-enquiry-title" className="mt-1 font-display text-2xl font-bold">
             Could your business qualify?
           </h2>
@@ -1454,7 +1454,7 @@ export function ScrollEnquiryPopup() {
         <button
           type="button"
           onClick={() => setIsOpen(false)}
-          className="grid size-9 shrink-0 place-items-center border border-primary-foreground/30 transition-colors hover:border-yellow hover:bg-yellow hover:text-accent-foreground"
+          className="grid size-9 shrink-0 place-items-center rounded-full border border-white/30 transition-colors hover:border-transparent hover:bg-orange hover:text-foreground"
           aria-label="Close consultation form"
         >
           <X className="size-4" />
@@ -1521,9 +1521,9 @@ export function ScrollEnquiryPopup() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="slab-yellow w-full py-3.5 text-xs font-bold tracking-widest uppercase transition-transform hover:translate-x-1 hover:translate-y-1 disabled:cursor-wait disabled:opacity-70"
+          className="w-full rounded-full bg-orange py-3.5 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white disabled:cursor-wait disabled:opacity-70"
         >
-          {isSubmitting ? "Sending…" : "Check my eligibility"}
+          {isSubmitting ? "Sending…" : "Check My Eligibility"}
         </button>
         <p className="text-center text-xs text-muted-foreground">
           No spam. Your details are used only to reply.
@@ -1534,12 +1534,12 @@ export function ScrollEnquiryPopup() {
 }
 
 const inputClass =
-  "w-full rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-primary";
+  "w-full rounded-xl border border-input bg-white px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-[var(--green-text)]";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block space-y-2">
-      <span className="eyebrow text-muted-foreground">{label}</span>
+      <span className="eyebrow text-foreground/60">{label}</span>
       {children}
     </label>
   );

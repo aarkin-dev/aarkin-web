@@ -60,7 +60,7 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <Link to="/" aria-label="Aarkin home" className="flex items-center">
-          <SealMark className="h-[46px] w-auto" />
+          <SealMark className="h-16 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex">
@@ -171,7 +171,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <SealMark className="h-10 w-auto" />
+            <SealMark className="h-12 w-auto" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed">
               Helping Indian startups and MSMEs unlock the full power of government support —
               registrations, grants, funding, and beyond.
