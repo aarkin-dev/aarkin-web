@@ -24,7 +24,13 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import aboutVisual from "@/assets/about-visual.jpg";
-import heroVisual from "@/assets/hero-visual.jpg";
+// Government Opportunity's photo -- symbolises the government itself
+// (the Central Secretariat / Rashtrapati Bhavan dome in New Delhi),
+// replacing the old navy/yellow duotone illustration, same real-photo
+// treatment as every other section's image. Unsplash License (free,
+// no attribution required):
+// https://unsplash.com/photos/rashtrapati-bhavan-indias-presidential-palace-lRDBtGx_c9A
+import governmentOpportunityVisual from "@/assets/government-opportunity.jpg";
 // Natural, warm-toned photo for the Hero circle -- the site's other
 // visuals are a deliberate navy/orange duotone illustration style, which
 // reads as flatly yellow/orange in the reference's photo-realistic circle
@@ -376,10 +382,10 @@ export function FundingCta() {
 
         <div className="relative mx-auto w-full max-w-sm">
           <img
-            src={heroVisual}
-            alt="Founder holding an approved government certificate bearing the national emblem"
-            width={1024}
-            height={1280}
+            src={governmentOpportunityVisual}
+            alt="The Central Secretariat dome in New Delhi, seat of the Government of India"
+            width={1000}
+            height={1250}
             loading="lazy"
             decoding="async"
             className="aspect-[4/5] w-full rounded-[2rem] object-cover"
