@@ -721,7 +721,7 @@ export function Schemes() {
   const shown = active === "All" ? SCHEMES : SCHEMES.filter((s) => s.tag === active);
 
   return (
-    <section id="schemes" className="bg-muted/40 py-24">
+    <section id="schemes" className="bg-background py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -836,7 +836,7 @@ export function FounderStories() {
   const at = (offset: number) => FOUNDER_STORIES[(index + offset + n) % n]!;
 
   return (
-    <section id="stories" className="overflow-hidden bg-background py-24">
+    <section id="stories" className="overflow-hidden bg-[#FFF7EE] py-24">
       <div className="mx-auto max-w-3xl px-6 text-center">
         <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
           <Quote className="size-3" /> Founder Stories
@@ -963,7 +963,7 @@ const INSIGHT_TILE_BG = [
 export function InsightsPreview() {
   const picks = FAQS.slice(0, 3);
   return (
-    <section className="bg-muted/40 py-24">
+    <section className="bg-background py-24">
       <div className="mx-auto max-w-7xl px-6">
         <h2 className="mx-auto max-w-xl text-center font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
           Trends &amp; Answers for <span className="text-orange">Online Success</span>
@@ -1079,7 +1079,7 @@ export function Consultation() {
   }
 
   return (
-    <section id="consult" className="bg-muted/40 py-24">
+    <section id="consult" className="bg-background py-24">
       <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2">
         <div>
           <div className="relative">
