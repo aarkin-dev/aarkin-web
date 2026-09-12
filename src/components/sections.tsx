@@ -334,13 +334,21 @@ const SERVICES = [
   },
 ];
 
-const SERVICE_ICON_BG = ["bg-sky-500", "bg-orange", "bg-fuchsia-500", "bg-indigo-600"];
+// Exact colors measured from the reference (getComputedStyle on the live
+// site) -- NOT a blue/orange swap. None of these four is "red", so the
+// brand's red->orange substitution doesn't apply here; flagged for
+// confirmation in case that reading is wrong.
+const SERVICE_ICON_BG = ["#00BBE4", "#FF326F", "#C343FF", "#5D43FF"];
 
 /* ---------- Services: seoq.vercel.app/home-three "features box" —
    one rounded light band holding a 4-column grid. Reference has NO
    per-column card (no bg/shadow) — icon, title, checklist and button
    sit directly on the shared band. Flat solid icon circles (not
    gradient), plain check glyphs (not circled), light-tint pill button.
+   Measurements pulled directly from the reference via computed styles:
+   heading 44px/700/plain navy (no gradient), subtitle 18px/500/70%
+   opacity, icon 83px, column bg #F6F9FE, title 20px/600, list 15px/400,
+   button bg rgba(38,80,226,.06) with plain navy text (not tinted).
    NOTE: layout-first pass. Aarkin has 8 real services; only the
    first 4 are seated here for now — the rest need an accommodation
    decision (second row? a "view all" page?) in a follow-up pass. ---------- */
@@ -353,35 +361,33 @@ export function Services() {
           <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
             What We Do
           </span>
-          <h2 className="mt-6 font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
-            Everything Your Business Needs to{" "}
-            <span className="bg-gradient-to-r from-primary to-orange bg-clip-text text-transparent">
-              Grow with Government Support
-            </span>
+          <h2 className="mt-6 font-display text-[44px] leading-[54px] font-bold text-balance">
+            Everything Your Business Needs to Grow with Government Support
           </h2>
-          <p className="mt-4 leading-relaxed text-muted-foreground">
+          <p className="mt-4 text-lg leading-[26px] font-medium text-foreground/70">
             From registration to funding — one expert team, zero complexity.
           </p>
         </div>
 
-        <div className="mt-14 rounded-[2rem] bg-muted/60 p-8 md:p-12">
+        <div className="mt-14 rounded-[2rem] bg-[#F6F9FE] p-8 md:p-12">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {shown.map((s, i) => {
               const Icon = s.icon;
               return (
                 <div key={s.title} className="reveal-card flex flex-col">
                   <div
-                    className={`grid size-16 place-items-center rounded-full text-white ${SERVICE_ICON_BG[i % SERVICE_ICON_BG.length]}`}
+                    className="grid size-[83px] place-items-center rounded-full text-white"
+                    style={{ backgroundColor: SERVICE_ICON_BG[i % SERVICE_ICON_BG.length] }}
                   >
-                    <Icon className="size-7" strokeWidth={1.75} />
+                    <Icon className="size-8" strokeWidth={1.75} />
                   </div>
-                  <h3 className="mt-5 font-display text-lg font-bold">{s.title}</h3>
-                  <ul className="mt-4 flex-1 space-y-2.5">
+                  <h3 className="mt-8 font-display text-xl font-semibold">{s.title}</h3>
+                  <ul className="mt-5 flex-1 space-y-3">
                     {[s.tag, "Documentation handled", "Filed on your behalf", "Status tracked"].map(
                       (point) => (
                         <li
                           key={point}
-                          className="flex items-center gap-2 text-sm text-foreground/80"
+                          className="flex items-center gap-2 text-[15px] text-foreground"
                         >
                           <Check className="size-4 shrink-0 text-foreground" strokeWidth={2.5} />
                           {point}
@@ -391,7 +397,7 @@ export function Services() {
                   </ul>
                   <a
                     href="#consult"
-                    className="mt-6 inline-flex w-fit items-center justify-center rounded-full bg-primary/10 px-5 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-orange hover:text-white"
+                    className="mt-8 inline-flex w-fit items-center justify-center rounded-full bg-primary/[0.06] px-7 py-4 text-[15px] font-semibold text-foreground transition-colors hover:bg-orange hover:text-white"
                   >
                     Learn More
                   </a>
