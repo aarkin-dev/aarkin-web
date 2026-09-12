@@ -417,7 +417,7 @@ export function Services() {
             </p>
             <a
               href="#consult"
-              className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-orange px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-foreground hover:text-white"
+              className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-orange px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-foreground"
             >
               More Services
             </a>
@@ -430,18 +430,18 @@ export function Services() {
             return (
               <div
                 key={s.title}
-                className="reveal-card group rounded-[5px] bg-white p-9 transition-colors duration-300 hover:bg-orange"
+                className="reveal-card group flex h-full flex-col rounded-[5px] bg-white p-9 transition-colors duration-300 hover:bg-orange"
                 data-reveal-delay-ms={300 + i * 150}
               >
                 <div className="flex items-center gap-5">
-                  <span className="grid size-[82px] shrink-0 place-items-center rounded-full border border-foreground/80 bg-orange text-foreground transition-colors duration-300 hover:border-transparent hover:bg-foreground hover:text-white">
+                  <span className="grid size-[82px] shrink-0 place-items-center rounded-full border border-foreground/80 bg-orange text-white transition-colors duration-300 hover:border-transparent hover:bg-foreground">
                     <Icon className="size-8" strokeWidth={1.5} />
                   </span>
                   <h3 className="font-display text-2xl leading-tight font-semibold text-foreground">
                     {s.title}
                   </h3>
                 </div>
-                <p className="mt-7 leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                <p className="mt-7 flex-1 leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
                   {s.body}
                 </p>
                 <div className="mt-8 flex items-center justify-between">
