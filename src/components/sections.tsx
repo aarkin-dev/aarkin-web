@@ -84,7 +84,7 @@ export function Hero() {
           <div className="mt-9 flex flex-wrap items-center gap-6">
             <a
               href="#consult"
-              className="inline-flex items-center justify-center rounded-full bg-foreground px-8 py-4 text-sm font-bold text-background transition-colors hover:bg-orange hover:text-foreground"
+              className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white"
             >
               Learn More
             </a>
@@ -94,7 +94,7 @@ export function Hero() {
                 {[Landmark, Users, ShieldCheck].map((Icon, i) => (
                   <span
                     key={i}
-                    className="grid size-11 place-items-center rounded-full border-2 border-[var(--hero-green)] bg-primary/10 text-primary"
+                    className="grid size-11 place-items-center rounded-full border-2 border-[var(--hero-green)] bg-orange/15 text-[var(--green-text)]"
                   >
                     <Icon className="size-4.5" strokeWidth={1.75} />
                   </span>
@@ -350,7 +350,7 @@ const IMPACT_STATS = [
    count exactly, so nothing invented or cut. ---------- */
 export function FundingCta() {
   return (
-    <section className="bg-background py-24">
+    <section id="opportunity" className="bg-background py-24">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
         <div>
           <p className="text-lg font-semibold text-[var(--green-text)]">Government Opportunity</p>
@@ -498,7 +498,7 @@ export function Services() {
             </p>
             <a
               href="#consult"
-              className="inline-flex shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-orange px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-foreground hover:text-white"
+              className="inline-flex shrink-0 items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white"
             >
               More Services
             </a>
@@ -770,10 +770,8 @@ export function Schemes() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
-              Scheme Library
-            </span>
-            <h2 className="mt-6 max-w-xl font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
+            <p className="text-lg font-semibold text-foreground">Scheme Library</p>
+            <h2 className="mt-2 max-w-xl font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
               The Schemes Founders Miss <span className="text-[var(--green-text)]">Most Often</span>
             </h2>
           </div>
@@ -782,10 +780,10 @@ export function Schemes() {
               <button
                 key={c}
                 onClick={() => setActive(c)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                className={`rounded-full px-4 py-2 text-sm font-bold transition-colors ${
                   active === c
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-background text-muted-foreground hover:bg-primary/10"
+                    ? "bg-foreground text-white"
+                    : "bg-background text-muted-foreground hover:bg-orange/20 hover:text-foreground"
                 }`}
               >
                 {c}
@@ -813,7 +811,7 @@ export function Schemes() {
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
                 <a
                   href="#consult"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--green-text)]"
                 >
                   Check Eligibility{" "}
                   <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -925,7 +923,7 @@ export function FounderStories() {
                 <span className="z-10 grid size-[60px] shrink-0 place-items-center rounded-full bg-orange text-foreground">
                   <Quote className="size-6" fill="currentColor" strokeWidth={0} />
                 </span>
-                <span className="-ml-5 grid size-[53px] shrink-0 place-items-center rounded-full border-2 border-white bg-primary text-sm font-bold text-primary-foreground">
+                <span className="-ml-5 grid size-[53px] shrink-0 place-items-center rounded-full border-2 border-white bg-[var(--orange-dark)] text-sm font-bold text-white">
                   {story.initials}
                 </span>
               </div>
@@ -986,7 +984,7 @@ const INSIGHT_TILE_BG = [
 export function InsightsPreview() {
   const picks = FAQS.slice(0, 3);
   return (
-    <section className="bg-[#FFF7EE] py-24">
+    <section className="bg-background py-24">
       <div className="mx-auto max-w-7xl px-6">
         <h2 className="mx-auto max-w-xl text-center font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
           Trends &amp; Answers for <span className="text-[var(--green-text)]">Online Success</span>
@@ -1007,7 +1005,7 @@ export function InsightsPreview() {
                 </p>
                 <a
                   href="#consult"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--green-text)]"
                 >
                   Read More <ArrowUpRight className="size-3.5" />
                 </a>

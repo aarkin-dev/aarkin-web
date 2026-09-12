@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
+import { Asterisk, Mail, MapPin, Menu, Phone, Sparkles, X } from "lucide-react";
 
 /* Three brand-mark variants, all extracted straight from the master
    file (public/brand/aarkin-master.svg, the untouched original) --
@@ -28,9 +28,19 @@ export function SealMark({
   return <img src={SEAL_SRC[variant]} alt="Aarkin" className={className} decoding="async" />;
 }
 
+// Every real content section on the page gets a nav entry, in the same
+// order they actually appear in <main> (see routes/index.tsx) -- so the
+// nav reads top-to-bottom exactly like the page scrolls. The closing
+// Consultation form is reachable via the header's own "Book Free
+// Consultation" button instead of a redundant nav item, and
+// InsightsPreview/ContactCta are teaser/CTA blocks rather than
+// standalone sections, so they're left out.
 const NAV_LINKS: [string, string][] = [
+  ["About", "#about"],
   ["Services", "#services"],
   ["How It Works", "#process"],
+  ["Why Arkin", "#why"],
+  ["Funding", "#opportunity"],
   ["Schemes", "#schemes"],
   ["Results", "#stories"],
   ["FAQ", "#faq"],
@@ -63,12 +73,12 @@ export function SiteHeader() {
           <SealMark className="h-16 w-auto" />
         </Link>
 
-        <nav className="hidden items-center gap-9 md:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {NAV_LINKS.map(([label, href]) => (
             <a
               key={href}
               href={href}
-              className="nav-link text-sm font-semibold text-foreground/70 transition-colors hover:text-foreground"
+              className="nav-link text-sm font-bold text-foreground/70 transition-colors hover:text-foreground"
             >
               {label}
             </a>
@@ -78,7 +88,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <a
             href="#consult"
-            className="hidden items-center gap-2 rounded-full border border-foreground/15 bg-foreground/5 px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-foreground/10 sm:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-orange px-5 py-2.5 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white sm:inline-flex"
           >
             Book Free Consultation
           </a>
@@ -87,7 +97,7 @@ export function SiteHeader() {
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
-            className="grid size-10 cursor-pointer place-items-center rounded-full border border-foreground/15 bg-foreground/5 text-foreground md:hidden"
+            className="grid size-10 cursor-pointer place-items-center rounded-full border border-foreground/15 bg-foreground/5 text-foreground lg:hidden"
           >
             {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -95,13 +105,13 @@ export function SiteHeader() {
       </div>
 
       {mobileOpen ? (
-        <nav className="border-t border-border bg-background px-6 py-4 shadow-[0_0_10px_3px_rgba(0,0,0,0.05)] md:hidden">
+        <nav className="max-h-[calc(100vh-5rem)] overflow-y-auto border-t border-border bg-background px-6 py-4 shadow-[0_0_10px_3px_rgba(0,0,0,0.05)] lg:hidden">
           {NAV_LINKS.map(([label, href]) => (
             <a
               key={href}
               href={href}
               onClick={() => setMobileOpen(false)}
-              className="block border-b border-border py-3 text-sm font-semibold text-foreground/80 last:border-0"
+              className="block border-b border-border py-3 text-sm font-bold text-foreground/80 last:border-0"
             >
               {label}
             </a>
@@ -109,7 +119,7 @@ export function SiteHeader() {
           <a
             href="#consult"
             onClick={() => setMobileOpen(false)}
-            className="mt-4 block rounded-full bg-orange px-5 py-3 text-center text-sm font-semibold text-foreground"
+            className="mt-4 block rounded-full bg-orange px-5 py-3 text-center text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white"
           >
             Book Free Consultation
           </a>
@@ -167,7 +177,23 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="bg-[var(--mint)] pt-20 text-foreground/70">
+    <footer className="relative overflow-hidden bg-[var(--mint)] pt-20 text-foreground/70">
+      <Sparkles
+        aria-hidden
+        className="animate-[footer-bob_2s_ease-in-out_infinite_alternate] absolute top-16 right-[8%] size-6 text-[var(--green-text)]/40"
+      />
+      <Asterisk
+        aria-hidden
+        className="animate-[footer-pulse_2s_ease-in-out_infinite_alternate] absolute top-[38%] left-[4%] size-10 text-foreground/15"
+      />
+      <svg
+        aria-hidden
+        viewBox="0 0 40 40"
+        className="animate-[footer-bob_2s_ease-in-out_infinite_alternate] absolute right-[18%] bottom-24 size-8 text-[var(--green-text)]/30"
+        style={{ animationDelay: "0.6s" }}
+      >
+        <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      </svg>
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">

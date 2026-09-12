@@ -171,9 +171,9 @@ function Index() {
         <FundingCta />
         <Schemes />
         <FounderStories />
+        <InsightsPreview />
         <Faq />
         <Consultation />
-        <InsightsPreview />
         <ContactCta />
       </main>
       <SiteFooter />

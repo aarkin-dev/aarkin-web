@@ -339,6 +339,43 @@
   }
 }
 
+/* Footer's scattered floating accents -- the reference
+   (themazine.com/mr/dobee, every index-*.html footer) has 2-3 small
+   shape PNGs pinned around its footer, each continuously animated:
+   footer__one__01/02 pulse-scale (scale-up-one: 1 -> 0.5 -> 1, 2s
+   ease-in-out infinite alternate-reverse) and footer__one__03 bobs up
+   and down (scaleUp1: translateY(-15px) at 20%/80%, 2s ease-in-out
+   infinite alternate-reverse) -- read directly off their own computed
+   `animation` + @keyframes. Reproduced as our own vector accents
+   (icons already used elsewhere on the page, not the reference's raster
+   shapes) using the same two motions, same 2s timing. */
+@keyframes footer-pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes footer-bob {
+  0%,
+  40%,
+  100% {
+    transform: translateY(0);
+  }
+
+  20%,
+  80% {
+    transform: translateY(-15px);
+  }
+}
+
 @keyframes header-drop {
   from {
     opacity: 0;
