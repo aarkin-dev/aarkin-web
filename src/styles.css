@@ -248,6 +248,38 @@
   }
 }
 
+/* Continuous auto-advancing strip (Founder Stories): the track renders
+   its content twice back to back and slides by exactly half of its
+   own (doubled) width, so the moment it "resets" is invisible -- the
+   second copy is already sitting exactly where the first one started.
+   -100% would be wrong here: that's for a *pair of separately
+   animated* tracks (see Credentials' own inline keyframe), not one
+   track holding both copies.
+
+   Per an explicit request this only moves once its section has
+   actually scrolled into view, not from page load -- reusing the
+   site-wide reveal-on-scroll system (index.tsx adds .reveal-section
+   then .is-visible as each section enters the viewport) rather than
+   a second bespoke observer. Paused by default, released once the
+   ancestor section is marked visible. */
+.stories-marquee {
+  animation-play-state: paused;
+}
+
+.reveal-section.is-visible .stories-marquee {
+  animation-play-state: running;
+}
+
+@keyframes marquee-loop {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* Hero decorative rings + play-button glow -- durations and the
    pulse's shadow shape are pulled directly off the "Dobee" reference
    (themazine.com/mr/dobee): the ring artwork spins continuously at

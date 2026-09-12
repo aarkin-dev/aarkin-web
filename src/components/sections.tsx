@@ -873,34 +873,22 @@ const FOUNDER_STORIES = [
    same "always auto-advancing, hands off the wheel" effect using the
    exact technique this codebase already has for the Credentials strip,
    rather than pulling in a carousel library for it. ---------- */
-/* ---------- Founder Stories: themazine.com/mr/dobee/about.html's
-   "Hear From Our Happy Customers!" testimonial-three slider, ditto --
-   plain eyebrow + centered heading, a pair of white 15px-radius cards
-   (name + role left, star row right, a big pull-quote, then a lime
-   "quote" badge and stacked avatar circles below), auto-advancing with
-   dot pagination rather than the previous continuous marquee. Content
-   and colours ours; green -> orange. ---------- */
+/* ---------- Founder Stories: same card design as
+   themazine.com/mr/dobee/about.html's "Hear From Our Happy
+   Customers!" (name + role left, star row right, a big pull-quote,
+   then a quote badge and avatar), but per the user's explicit call:
+   ours moves continuously rather than stepping page-by-page, and only
+   once the section has actually been scrolled to -- reusing the
+   site-wide reveal-on-scroll system (index.tsx adds "reveal-section"
+   then "is-visible" to every section as it enters the viewport) to
+   gate the marquee's `animation-play-state` instead of adding a
+   second, bespoke observer just for this one section. Content and
+   colours ours; green -> orange. ---------- */
 export function FounderStories() {
-  const pages = Math.ceil(FOUNDER_STORIES.length / 2);
-  const [page, setPage] = useState(0);
-  // Matches the reference's own swiper.params.autoplay exactly (read
-  // directly off its live swiper instance): a 2500ms delay, and
-  // disableOnInteraction -- autoplay stops for good the moment the
-  // visitor manually picks a page, it does not pause-then-resume on
-  // hover (pauseOnMouseEnter is actually false there, so ours doesn't
-  // pause on hover either).
-  const [autoplay, setAutoplay] = useState(true);
-
-  useEffect(() => {
-    if (!autoplay || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => setPage((p) => (p + 1) % pages), 2500);
-    return () => clearInterval(id);
-  }, [pages, autoplay]);
-
-  const shown = FOUNDER_STORIES.slice(page * 2, page * 2 + 2);
+  const track = [...FOUNDER_STORIES, ...FOUNDER_STORIES];
 
   return (
-    <section id="stories" className="bg-[#FFF7EE] py-24">
+    <section id="stories" className="overflow-hidden bg-[#FFF7EE] py-24">
       <div className="mx-auto max-w-3xl px-6 text-center">
         <p className="text-lg font-semibold text-foreground">Founder Stories</p>
         <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
@@ -908,49 +896,33 @@ export function FounderStories() {
         </h2>
       </div>
 
-      <div className="mx-auto mt-14 grid max-w-6xl gap-8 px-6 md:grid-cols-2">
-        {shown.map((story) => (
-          <div key={story.name} className="rounded-[15px] bg-white p-8 md:p-12">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h3 className="font-display text-lg font-bold text-foreground">{story.name}</h3>
-                <p className="text-sm text-muted-foreground">{story.role}</p>
+      <div className="mt-14 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+        <div className="stories-marquee flex w-max animate-[marquee-loop_46s_linear_infinite] gap-8 px-6 hover:[animation-play-state:paused]">
+          {track.map((story, i) => (
+            <div key={i} className="w-[360px] shrink-0 rounded-[15px] bg-white p-8 sm:w-[420px]">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <h3 className="font-display text-lg font-bold text-foreground">{story.name}</h3>
+                  <p className="text-sm text-muted-foreground">{story.role}</p>
+                </div>
+                <span className="flex gap-1 text-[#F0BF11]" aria-label="5 out of 5 stars">
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <Star key={s} className="size-4 fill-current" aria-hidden="true" />
+                  ))}
+                </span>
               </div>
-              <span className="flex gap-1 text-[#F0BF11]" aria-label="5 out of 5 stars">
-                {Array.from({ length: 5 }).map((_, s) => (
-                  <Star key={s} className="size-4 fill-current" aria-hidden="true" />
-                ))}
-              </span>
+              <p className="mt-8 leading-relaxed text-foreground">{story.quote}</p>
+              <div className="mt-10 flex items-center">
+                <span className="z-10 grid size-[60px] shrink-0 place-items-center rounded-full bg-orange text-white">
+                  <Quote className="size-6" fill="currentColor" strokeWidth={0} />
+                </span>
+                <span className="-ml-5 grid size-[53px] shrink-0 place-items-center rounded-full border-2 border-white bg-primary text-sm font-bold text-primary-foreground">
+                  {story.initials}
+                </span>
+              </div>
             </div>
-            <p className="mt-8 text-lg leading-relaxed text-foreground">{story.quote}</p>
-            <div className="mt-10 flex items-center">
-              <span className="z-10 grid size-[60px] shrink-0 place-items-center rounded-full bg-orange text-white">
-                <Quote className="size-6" fill="currentColor" strokeWidth={0} />
-              </span>
-              <span className="-ml-5 grid size-[53px] shrink-0 place-items-center rounded-full border-2 border-white bg-primary text-sm font-bold text-primary-foreground">
-                {story.initials}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-10 flex items-center justify-center gap-3">
-        {Array.from({ length: pages }).map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => {
-              setPage(i);
-              setAutoplay(false);
-            }}
-            aria-label={`Show founder stories, page ${i + 1}`}
-            aria-current={i === page}
-            className={`size-3 rounded-full border border-foreground transition-colors ${
-              i === page ? "bg-foreground" : "bg-transparent"
-            }`}
-          />
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
