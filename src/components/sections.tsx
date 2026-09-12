@@ -338,34 +338,36 @@ const IMPACT_STATS = [
    count exactly, so nothing invented or cut. ---------- */
 export function FundingCta() {
   return (
-    <section className="bg-[var(--canvas)] py-24 text-white">
+    <section className="bg-[#FFF7EE] py-24">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
         <div>
           <p className="text-lg font-semibold text-orange">Government Opportunity</p>
-          <h2 className="mt-2 font-display text-3xl leading-[1.15] font-bold text-balance md:text-4xl">
+          <h2 className="mt-2 font-display text-3xl leading-[1.15] font-bold text-balance text-foreground md:text-4xl">
             The Government Wants to Fund Your Growth. Let Us Make the Introduction.
           </h2>
-          <p className="mt-5 max-w-md leading-relaxed text-white/65">
+          <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
             Every year, thousands of crores in grants, subsidies and collateral-free loans go
             unclaimed — because founders don&rsquo;t know they qualify. Aarkin changes that
             equation.
           </p>
           <a
             href="#consult"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white hover:text-[var(--canvas)]"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-foreground"
           >
             Check My Eligibility Now <ArrowUpRight className="size-4" />
           </a>
 
-          <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-white/10 pt-10">
+          <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-foreground/10 pt-10">
             {IMPACT_STATS.map(({ icon: Icon, value, label }) => (
               <div key={label} className="flex items-start gap-4">
                 <span className="grid size-11 shrink-0 place-items-center rounded-full bg-orange/15 text-orange">
                   <Icon className="size-5" strokeWidth={1.75} />
                 </span>
                 <div>
-                  <span className="block font-display text-2xl font-bold">{value}</span>
-                  <span className="mt-1 block text-sm text-white/60">{label}</span>
+                  <span className="block font-display text-2xl font-bold text-foreground">
+                    {value}
+                  </span>
+                  <span className="mt-1 block text-sm text-muted-foreground">{label}</span>
                 </div>
               </div>
             ))}
