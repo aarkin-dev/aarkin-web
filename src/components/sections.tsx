@@ -20,6 +20,7 @@ import {
   Star,
   Users,
   X,
+  Zap,
 } from "lucide-react";
 import { toast } from "sonner";
 import aboutVisual from "@/assets/about-visual.jpg";
@@ -316,26 +317,32 @@ export function About() {
 /* ---------- FundingCta: seoq.vercel.app/home-three dark "Get Our Every
    Update, Join With Us" newsletter band — illustration one side,
    heading + copy + CTA the other, on the dark canvas field. ---------- */
+const IMPACT_STATS = [
+  { icon: Users, value: "2,000+", label: "Startups & MSMEs Assisted" },
+  { icon: BadgeCheck, value: "98%", label: "Application Success Rate" },
+  { icon: Banknote, value: "₹50Cr+", label: "Funding Unlocked for Clients" },
+  { icon: Zap, value: "7 Days", label: "Avg. Startup India Turnaround" },
+];
+
+/* ---------- FundingCta / Government Opportunity: loosely ditto
+   seoz-react-nextjs.netlify.app's "Why Choose Us -- Proven Results,
+   And Exceptional Your Services" -- eyebrow + heading + intro + CTA,
+   then the same section's own numbers grid folded in here too, per
+   the user's explicit call ("numbers are also there, so you can use
+   it for Impact/Numbers... improve according to the needs"). Dropped
+   the reference's generic "Our Mission"/"Our Vision" filler blocks
+   (nothing real to say there) and its unrelated mail-marketing
+   illustration -- kept this site's own existing government-opportunity
+   copy and photo instead, on the reference's dark-band CTA energy. The
+   4 real Aarkin stats happen to match the reference's 4-stat grid
+   count exactly, so nothing invented or cut. ---------- */
 export function FundingCta() {
   return (
-    <section className="bg-[var(--canvas)] py-20 text-white">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
-        <div className="relative order-2 lg:order-1">
-          <img
-            src={heroVisual}
-            alt="Founder holding an approved government certificate bearing the national emblem"
-            width={1024}
-            height={1280}
-            loading="lazy"
-            decoding="async"
-            className="aspect-[4/5] w-full max-w-sm rounded-[2rem] object-cover"
-          />
-        </div>
-        <div className="order-1 lg:order-2">
-          <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-orange">
-            Government Opportunity
-          </span>
-          <h2 className="mt-6 font-display text-3xl leading-[1.15] font-bold text-balance md:text-4xl">
+    <section className="bg-[var(--canvas)] py-24 text-white">
+      <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
+        <div>
+          <p className="text-lg font-semibold text-orange">Government Opportunity</p>
+          <h2 className="mt-2 font-display text-3xl leading-[1.15] font-bold text-balance md:text-4xl">
             The Government Wants to Fund Your Growth. Let Us Make the Introduction.
           </h2>
           <p className="mt-5 max-w-md leading-relaxed text-white/65">
@@ -345,10 +352,36 @@ export function FundingCta() {
           </p>
           <a
             href="#consult"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-primary"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white hover:text-[var(--canvas)]"
           >
             Check My Eligibility Now <ArrowUpRight className="size-4" />
           </a>
+
+          <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-white/10 pt-10">
+            {IMPACT_STATS.map(({ icon: Icon, value, label }) => (
+              <div key={label} className="flex items-start gap-4">
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-orange/15 text-orange">
+                  <Icon className="size-5" strokeWidth={1.75} />
+                </span>
+                <div>
+                  <span className="block font-display text-2xl font-bold">{value}</span>
+                  <span className="mt-1 block text-sm text-white/60">{label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative mx-auto w-full max-w-sm">
+          <img
+            src={heroVisual}
+            alt="Founder holding an approved government certificate bearing the national emblem"
+            width={1024}
+            height={1280}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[4/5] w-full rounded-[2rem] object-cover"
+          />
         </div>
       </div>
     </section>
