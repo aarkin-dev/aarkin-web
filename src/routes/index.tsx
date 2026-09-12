@@ -5,15 +5,16 @@ import {
   Hero,
   About,
   Services,
+  Process,
   FundingCta,
   Schemes,
   FounderStories,
   Consultation,
   InsightsPreview,
   ScrollEnquiryPopup,
-  // Parked — no direct seoq.vercel.app/home-three slot yet.
-  // Real, good content; revisit placement in the accommodation pass.
-  // Credentials, Process, WhyArkin, Faq,
+  // Parked — no direct reference match yet. Real, good content;
+  // revisit placement as we work through the pending-sections list.
+  // Credentials, WhyArkin, Faq,
 } from "@/components/sections";
 
 export const Route = createFileRoute("/")({
@@ -162,6 +163,7 @@ function Index() {
         <Hero />
         <Services />
         <About />
+        <Process />
         <FundingCta />
         <Schemes />
         <FounderStories />

@@ -525,75 +525,44 @@ const STEPS = [
   },
 ];
 
-/* ---------- Process: connected timeline with step nodes ---------- */
+/* ---------- Process: themazine.com/mr/dobee/index-2.html's "How We
+   Get Things Done" section, ditto -- plain eyebrow + heading, a row
+   of pale-tinted cards each holding a numbered badge (a solid circle
+   ringed by a second dashed outline, done with a single CSS `outline`
+   + `outline-offset` rather than a second element) that turns solid
+   orange on hover. Green -> orange; content is aarkin.co.in's real
+   4-step process copy, so 4 cards where the reference shows 3 --
+   kept all 4 real steps rather than cutting one to match their count,
+   same call made for Services (8 vs 3) and About (3 vs 2). ---------- */
 export function Process() {
   return (
-    <section id="process" className="paper-rule border-y-2 border-primary bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-24">
-        <span className="eyebrow inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
-          The process
-        </span>
-        <h2 className="mt-8 font-display text-4xl leading-[1.05] font-bold text-balance md:text-5xl">
-          From first call to{" "}
-          <span className="slab-yellow mr-3 -rotate-1 inline-block px-3 py-0.5">
-            approved funding
-          </span>
-        </h2>
+    <section id="process" className="bg-background py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-lg font-semibold text-foreground">How It Works</p>
+          <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
+            From First Call to Approved Funding
+          </h2>
+          <p className="mt-4 leading-relaxed text-muted-foreground">
+            Four clear steps. Zero confusion. One dedicated point of contact throughout.
+          </p>
+        </div>
 
-        <div className="relative mt-16">
-          {/* connecting timeline line — hidden on mobile */}
-          <div className="absolute top-[3.25rem] left-[12.5%] right-[12.5%] hidden h-0.5 bg-primary/20 md:block" />
-
-          <div className="grid gap-8 md:grid-cols-4">
-            {STEPS.map((s, i) => {
-              const Icon = s.icon;
-              const isAccent = i % 2 === 1;
-              return (
-                <div key={s.title} className="group relative flex flex-col">
-                  {/* step node */}
-                  <div className="relative z-10 mx-auto flex size-24 items-center justify-center border-2 border-primary bg-background transition-colors group-hover:border-yellow group-hover:bg-yellow md:mx-0 md:mb-8">
-                    <Icon
-                      className="size-8 text-primary transition-colors group-hover:text-accent-foreground"
-                      strokeWidth={1.5}
-                    />
-                    <span className="tabular eyebrow absolute -top-3 -left-3 border-2 border-primary bg-yellow px-2 py-0.5 text-accent-foreground">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-
-                  {/* card */}
-                  <div
-                    className={`relative flex-1 overflow-hidden border-2 border-primary p-6 pt-10 transition-all duration-300 tile-lift ${
-                      isAccent
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-background text-foreground"
-                    }`}
-                  >
-                    <span
-                      className={`tabular pointer-events-none absolute top-2 right-3 font-display text-6xl font-bold leading-none ${
-                        isAccent ? "text-yellow/30" : "text-primary/10"
-                      }`}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                      className={`eyebrow tabular ${isAccent ? "text-yellow" : "text-primary"}`}
-                    >
-                      {s.phase}
-                    </span>
-                    <h4 className="mt-3 mb-2 font-display text-xl font-bold">{s.title}</h4>
-                    <p
-                      className={`text-sm leading-relaxed ${
-                        isAccent ? "text-primary-foreground/75" : "text-muted-foreground"
-                      }`}
-                    >
-                      {s.body}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {STEPS.map((s, i) => (
+            <div
+              key={s.title}
+              className="group rounded-[10px] border border-foreground/80 bg-[#FFF7EE] p-9 text-center transition-colors duration-300 hover:bg-orange sm:text-left"
+            >
+              <span className="mx-auto grid size-[82px] place-items-center rounded-full border border-foreground/80 bg-white text-xl font-bold text-foreground outline outline-1 outline-dashed outline-offset-[18px] outline-foreground/70 sm:mx-0">
+                {i + 1}
+              </span>
+              <h4 className="mt-9 font-display text-xl font-bold text-foreground">{s.title}</h4>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                {s.body}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
