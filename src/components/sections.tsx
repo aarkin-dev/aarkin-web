@@ -215,47 +215,20 @@ const ABOUT_POINTS = [
 /* ---------- About: seoq.vercel.app/home-three "How Our Strategies
    Transformed Businesses" — heading band, then 3 stacked cards
    (left) beside one illustration (right). ---------- */
+/* ---------- About: themazine.com/mr/dobee/about.html's "Our agency /
+   Our Special Method Of Consulting." section, ditto -- layered photo
+   pair on the left, plain eyebrow + heading + paragraph on the right,
+   a plain (no card/border) icon-and-text list beside a solid stat
+   box. Green -> orange, content and photos ours. The reference layers
+   3 distinct photos; we only have two real, on-brand photos to draw
+   on (the certificate stack and the team photo already used in Hero),
+   so this is a 2-photo version of the same layered composition rather
+   than a 3rd invented image. ---------- */
 export function About() {
   return (
     <section id="about" className="border-b border-border bg-background py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
-              About Aarkin
-            </span>
-            <h2 className="mt-6 max-w-xl font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
-              Government Opportunity Shouldn&rsquo;t Be a{" "}
-              <span className="text-orange">Guessing Game</span>
-            </h2>
-          </div>
-          <p className="max-w-sm leading-relaxed text-muted-foreground">
-            Aarkin sits at the intersection of policy expertise and startup understanding —
-            translating India&rsquo;s government ecosystem into clear, actionable growth.
-          </p>
-        </div>
-
-        <div className="mt-14 grid gap-8 lg:grid-cols-2">
-          <div className="flex flex-col gap-5">
-            {ABOUT_POINTS.map(({ icon: Icon, title, body }, i) => (
-              <div
-                key={title}
-                className="relative flex gap-5 rounded-3xl border border-border bg-card p-7"
-              >
-                <span className="absolute top-6 -left-3 grid size-6 place-items-center rounded-full bg-orange text-xs font-bold text-white">
-                  {i + 1}
-                </span>
-                <div className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
-                  <Icon className="size-5" strokeWidth={1.75} />
-                </div>
-                <div>
-                  <h4 className="font-display text-lg font-bold">{title}</h4>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
+        <div className="grid items-center gap-14 lg:grid-cols-2">
           <div className="relative">
             <img
               src={aboutVisual}
@@ -264,14 +237,56 @@ export function About() {
               height={1024}
               loading="lazy"
               decoding="async"
-              className="aspect-square w-full rounded-[2rem] object-cover"
+              className="aspect-square w-full rounded-[1.25rem] object-cover"
             />
-            <span className="absolute -bottom-5 left-6 rounded-2xl bg-background px-5 py-3 text-center shadow-lg">
-              <span className="block font-display text-2xl font-bold text-primary">200+</span>
-              <span className="block text-xs font-semibold text-muted-foreground">
-                Schemes Mapped
-              </span>
-            </span>
+            <img
+              src={heroTeamVisual}
+              alt="Founders reviewing progress together with the Aarkin team"
+              width={1400}
+              height={1400}
+              loading="lazy"
+              decoding="async"
+              className="absolute -top-10 right-6 hidden aspect-square w-2/5 rounded-[1.25rem] border-4 border-background object-cover shadow-xl sm:block md:-right-10"
+            />
+          </div>
+
+          <div>
+            <p className="text-lg font-semibold text-foreground">About Aarkin</p>
+            <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
+              Government Opportunity Shouldn&rsquo;t Be a{" "}
+              <span className="text-orange">Guessing Game</span>
+            </h2>
+            <p className="mt-4 max-w-lg leading-relaxed text-muted-foreground">
+              Aarkin sits at the intersection of policy expertise and startup understanding —
+              translating India&rsquo;s government ecosystem into clear, actionable growth.
+            </p>
+
+            <div className="mt-10 flex flex-col gap-10 sm:flex-row">
+              <div className="flex flex-col gap-8">
+                {ABOUT_POINTS.map(({ icon: Icon, title, body }) => (
+                  <div key={title} className="flex gap-5">
+                    <span className="grid size-16 shrink-0 place-items-center rounded-full bg-orange text-white">
+                      <Icon className="size-6" strokeWidth={1.5} />
+                    </span>
+                    <div>
+                      <h4 className="font-display text-lg font-bold text-foreground">{title}</h4>
+                      <p className="mt-1.5 max-w-xs text-sm leading-relaxed text-muted-foreground">
+                        {body}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="w-full shrink-0 rounded-[5px] bg-orange p-8 sm:w-[193px]">
+                <span className="block font-display text-[64px] leading-tight font-bold text-foreground">
+                  200+
+                </span>
+                <span className="mt-1 block text-lg font-semibold text-foreground">
+                  Schemes Mapped
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -841,50 +856,79 @@ const FOUNDER_STORIES = [
    same "always auto-advancing, hands off the wheel" effect using the
    exact technique this codebase already has for the Credentials strip,
    rather than pulling in a carousel library for it. ---------- */
+/* ---------- Founder Stories: themazine.com/mr/dobee/about.html's
+   "Hear From Our Happy Customers!" testimonial-three slider, ditto --
+   plain eyebrow + centered heading, a pair of white 15px-radius cards
+   (name + role left, star row right, a big pull-quote, then a lime
+   "quote" badge and stacked avatar circles below), auto-advancing with
+   dot pagination rather than the previous continuous marquee. Content
+   and colours ours; green -> orange. ---------- */
 export function FounderStories() {
-  const track = [...FOUNDER_STORIES, ...FOUNDER_STORIES];
+  const pages = Math.ceil(FOUNDER_STORIES.length / 2);
+  const [page, setPage] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => setPage((p) => (p + 1) % pages), 5000);
+    return () => clearInterval(id);
+  }, [pages, paused]);
+
+  const shown = FOUNDER_STORIES.slice(page * 2, page * 2 + 2);
 
   return (
-    <section id="stories" className="overflow-hidden bg-[#FFF7EE] py-24">
+    <section id="stories" className="bg-[#FFF7EE] py-24">
       <div className="mx-auto max-w-3xl px-6 text-center">
-        <span className="eyebrow inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 text-primary">
-          <Quote className="size-3" /> Founder Stories
-        </span>
-        <h2 className="mt-6 font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
+        <p className="text-lg font-semibold text-foreground">Founder Stories</p>
+        <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
           Founders Who <span className="text-orange">Trusted the Process</span>
         </h2>
       </div>
 
-      <div className="mt-14 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
-        <div className="flex w-max animate-[marquee-loop_54s_linear_infinite] gap-8 px-6 hover:[animation-play-state:paused]">
-          {track.map((story, i) => (
-            <div key={i} className="w-[360px] shrink-0 sm:w-[420px]">
-              <div className="rounded-[14px] border border-primary/10 bg-white p-[30px] shadow-[0_2px_24px_rgba(0,53,102,0.05)]">
-                <div className="flex items-center justify-between">
-                  <span className="flex gap-1 text-[#F0BF11]" aria-label="5 out of 5 stars">
-                    {Array.from({ length: 5 }).map((_, s) => (
-                      <Star key={s} className="size-3.5 fill-current" aria-hidden="true" />
-                    ))}
-                  </span>
-                  <Quote className="size-5 text-orange/30" aria-hidden="true" />
-                </div>
-                <blockquote className="mt-5 leading-relaxed text-balance text-foreground">
-                  “{story.quote}”
-                </blockquote>
+      <div
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        className="mx-auto mt-14 grid max-w-6xl gap-8 px-6 md:grid-cols-2"
+      >
+        {shown.map((story) => (
+          <div key={story.name} className="rounded-[15px] bg-white p-8 md:p-12">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h3 className="font-display text-lg font-bold text-foreground">{story.name}</h3>
+                <p className="text-sm text-muted-foreground">{story.role}</p>
               </div>
-
-              <div className="mt-[30px] flex items-center gap-5">
-                <span className="grid size-[53px] shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                  {story.initials}
-                </span>
-                <div>
-                  <h3 className="font-display font-bold">{story.name}</h3>
-                  <p className="text-sm text-muted-foreground">{story.role}</p>
-                </div>
-              </div>
+              <span className="flex gap-1 text-[#F0BF11]" aria-label="5 out of 5 stars">
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <Star key={s} className="size-4 fill-current" aria-hidden="true" />
+                ))}
+              </span>
             </div>
-          ))}
-        </div>
+            <p className="mt-8 text-lg leading-relaxed text-foreground">{story.quote}</p>
+            <div className="mt-10 flex items-center">
+              <span className="z-10 grid size-[60px] shrink-0 place-items-center rounded-full bg-orange text-white">
+                <Quote className="size-6" fill="currentColor" strokeWidth={0} />
+              </span>
+              <span className="-ml-5 grid size-[53px] shrink-0 place-items-center rounded-full border-2 border-white bg-primary text-sm font-bold text-primary-foreground">
+                {story.initials}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-10 flex items-center justify-center gap-3">
+        {Array.from({ length: pages }).map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => setPage(i)}
+            aria-label={`Show founder stories, page ${i + 1}`}
+            aria-current={i === page}
+            className={`size-3 rounded-full border border-foreground transition-colors ${
+              i === page ? "bg-foreground" : "bg-transparent"
+            }`}
+          />
+        ))}
       </div>
     </section>
   );
