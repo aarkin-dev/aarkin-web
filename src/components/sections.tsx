@@ -883,13 +883,19 @@ const FOUNDER_STORIES = [
 export function FounderStories() {
   const pages = Math.ceil(FOUNDER_STORIES.length / 2);
   const [page, setPage] = useState(0);
-  const [paused, setPaused] = useState(false);
+  // Matches the reference's own swiper.params.autoplay exactly (read
+  // directly off its live swiper instance): a 2500ms delay, and
+  // disableOnInteraction -- autoplay stops for good the moment the
+  // visitor manually picks a page, it does not pause-then-resume on
+  // hover (pauseOnMouseEnter is actually false there, so ours doesn't
+  // pause on hover either).
+  const [autoplay, setAutoplay] = useState(true);
 
   useEffect(() => {
-    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => setPage((p) => (p + 1) % pages), 5000);
+    if (!autoplay || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => setPage((p) => (p + 1) % pages), 2500);
     return () => clearInterval(id);
-  }, [pages, paused]);
+  }, [pages, autoplay]);
 
   const shown = FOUNDER_STORIES.slice(page * 2, page * 2 + 2);
 
@@ -902,11 +908,7 @@ export function FounderStories() {
         </h2>
       </div>
 
-      <div
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        className="mx-auto mt-14 grid max-w-6xl gap-8 px-6 md:grid-cols-2"
-      >
+      <div className="mx-auto mt-14 grid max-w-6xl gap-8 px-6 md:grid-cols-2">
         {shown.map((story) => (
           <div key={story.name} className="rounded-[15px] bg-white p-8 md:p-12">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -938,7 +940,10 @@ export function FounderStories() {
           <button
             key={i}
             type="button"
-            onClick={() => setPage(i)}
+            onClick={() => {
+              setPage(i);
+              setAutoplay(false);
+            }}
             aria-label={`Show founder stories, page ${i + 1}`}
             aria-current={i === page}
             className={`size-3 rounded-full border border-foreground transition-colors ${
