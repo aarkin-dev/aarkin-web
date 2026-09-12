@@ -248,6 +248,34 @@
   }
 }
 
+/* Hero decorative rings + play-button glow -- durations and the
+   pulse's shadow shape are pulled directly off the "Dobee" reference
+   (themazine.com/mr/dobee): the ring artwork spins continuously at
+   9s linear, and the play button pulses a soft ring outward on a 5s
+   linear cycle. The reference's pulse colour is literally blue
+   (rgba(55,140,255,...), left over from the template's original blue
+   theme even on its own green build) -- ours uses our own orange so it
+   actually matches the orange play button it's emanating from. */
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cta-glow {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--orange) 55%, transparent);
+  }
+
+  50% {
+    box-shadow: 0 0 0 22px color-mix(in oklab, var(--orange) 0%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--orange) 0%, transparent);
+  }
+}
+
 @keyframes header-drop {
   from {
     opacity: 0;

@@ -52,7 +52,7 @@ export function Hero() {
             <br />
             Deserves Every
             <br />
-            Rupee of Support
+            <span className="text-orange">Rupee of Support</span>
           </h1>
 
           <p className="mt-7 max-w-md text-base leading-relaxed text-foreground/60 md:text-lg">
@@ -89,40 +89,43 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto aspect-square w-full max-w-md">
-          {/* Decorative ring outlines, exactly as in the reference */}
-          <svg
+        <div className="relative mx-auto aspect-square w-full max-w-xl">
+          {/* Decorative ring outlines -- sized ~1.4x the photo's diameter
+              and spinning continuously, exactly as measured off the
+              reference's own hero__one__02.png (9s linear, no easing). */}
+          <div
             aria-hidden
-            viewBox="0 0 400 400"
-            className="pointer-events-none absolute inset-0 size-full"
+            className="pointer-events-none absolute inset-[-15%] animate-[ring-spin_9s_linear_infinite]"
           >
-            <circle
-              cx="185"
-              cy="195"
-              r="185"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-              className="text-foreground/20"
-            />
-            <circle
-              cx="225"
-              cy="180"
-              r="175"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-              className="text-foreground/15"
-            />
-            <circle
-              cx="205"
-              cy="220"
-              r="165"
-              fill="none"
-              stroke="var(--orange)"
-              strokeWidth="1.5"
-            />
-          </svg>
+            <svg viewBox="0 0 400 400" className="size-full">
+              <circle
+                cx="185"
+                cy="195"
+                r="185"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+                className="text-foreground/20"
+              />
+              <circle
+                cx="225"
+                cy="180"
+                r="175"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+                className="text-foreground/15"
+              />
+              <circle
+                cx="205"
+                cy="220"
+                r="165"
+                fill="none"
+                stroke="var(--orange)"
+                strokeWidth="1.5"
+              />
+            </svg>
+          </div>
 
           <img
             src={heroTeamVisual}
@@ -137,7 +140,7 @@ export function Hero() {
           <button
             type="button"
             aria-label="Play introduction video"
-            className="absolute top-[24%] left-[6%] grid size-16 place-items-center rounded-full bg-orange text-white shadow-lg transition-transform hover:scale-105"
+            className="absolute top-[24%] left-[6%] grid size-16 animate-[cta-glow_5s_linear_infinite] place-items-center rounded-full bg-orange text-white transition-transform hover:scale-105"
           >
             <Play className="size-5 translate-x-0.5" fill="currentColor" strokeWidth={0} />
           </button>
