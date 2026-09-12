@@ -32,6 +32,14 @@ import heroVisual from "@/assets/hero-visual.jpg";
 // frame. Real photo, Unsplash License (free, no attribution required):
 // https://unsplash.com/photos/diverse-team-collaborating-around-a-laptop-in-office-yd_RKGH_RH4
 import heroTeamVisual from "@/assets/hero-visual-team.jpg";
+// About section's photo collage -- real, natural photos, distinct from
+// the Hero photo. Unsplash License (free, no attribution required):
+// main: https://unsplash.com/photos/woman-using-laptop-in-workspace-HA-0i0E7sq4
+// top accent: https://unsplash.com/photos/two-women-talking-at-a-desk-in-an-office-aoweP90-XwM
+// bottom accent: https://unsplash.com/photos/man-signing-a-document-with-a-pen-QI6NLgN5XnM
+import aboutMain from "@/assets/about-main.jpg";
+import aboutAccentTop from "@/assets/about-accent-top.jpg";
+import aboutAccentBottom from "@/assets/about-accent-bottom.jpg";
 
 /* ---------- Hero: matches the "Dobee" reference layout exactly —
    warm off-white field, big left-aligned bold headline, avatar-group
@@ -231,22 +239,31 @@ export function About() {
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div className="relative">
             <img
-              src={aboutVisual}
-              alt="Stack of approved government scheme certificates with official seals"
-              width={1024}
-              height={1024}
+              src={aboutMain}
+              alt="A founder reviewing her business plan at her desk"
+              width={1000}
+              height={1250}
               loading="lazy"
               decoding="async"
-              className="aspect-square w-full rounded-[1.25rem] object-cover"
+              className="aspect-[4/5] w-[68%] rounded-[1.25rem] object-cover"
             />
             <img
-              src={heroTeamVisual}
-              alt="Founders reviewing progress together with the Aarkin team"
-              width={1400}
-              height={1400}
+              src={aboutAccentTop}
+              alt="An Aarkin consultant walking a founder through her options"
+              width={900}
+              height={650}
               loading="lazy"
               decoding="async"
-              className="absolute -top-10 right-6 hidden aspect-square w-2/5 rounded-[1.25rem] border-4 border-background object-cover shadow-xl sm:block md:-right-10"
+              className="absolute -top-8 right-0 hidden aspect-[4/3] w-[42%] rounded-[1.25rem] border-4 border-background object-cover shadow-xl sm:block md:-right-8"
+            />
+            <img
+              src={aboutAccentBottom}
+              alt="Signing an approved registration document"
+              width={900}
+              height={650}
+              loading="lazy"
+              decoding="async"
+              className="absolute right-0 -bottom-8 hidden aspect-[4/3] w-[42%] rounded-[1.25rem] border-4 border-background object-cover shadow-xl sm:block md:-right-8"
             />
           </div>
 
