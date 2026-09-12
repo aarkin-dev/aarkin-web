@@ -18,10 +18,8 @@ import {
   ShieldCheck,
   Sparkles,
   Star,
-  Target,
   Users,
   X,
-  Zap,
 } from "lucide-react";
 import { toast } from "sonner";
 import aboutVisual from "@/assets/about-visual.jpg";
@@ -40,6 +38,10 @@ import heroTeamVisual from "@/assets/hero-visual-team.jpg";
 import aboutMain from "@/assets/about-main.jpg";
 import aboutAccentTop from "@/assets/about-accent-top.jpg";
 import aboutAccentBottom from "@/assets/about-accent-bottom.jpg";
+// Why Arkin's photo -- real, distinct from every other photo already
+// used elsewhere on the page. Unsplash License (free, no attribution
+// required): https://unsplash.com/photos/two-business-people-reviewing-documents-together-8k5j5z6ZYT4
+import whyArkinVisual from "@/assets/why-arkin.jpg";
 
 /* ---------- Hero: matches the "Dobee" reference layout exactly —
    warm off-white field, big left-aligned bold headline, avatar-group
@@ -552,13 +554,15 @@ export function Process() {
           {STEPS.map((s, i) => (
             <div
               key={s.title}
-              className="group rounded-[10px] border border-foreground/80 bg-[#FFF7EE] p-9 text-center transition-colors duration-300 hover:bg-orange sm:text-left"
+              className="group min-h-[326px] rounded-[10px] border border-foreground bg-[color-mix(in_oklab,var(--orange)_10%,white)] p-11 text-left transition-colors duration-300 hover:bg-orange lg:text-center"
             >
-              <span className="mx-auto grid size-[82px] place-items-center rounded-full border border-foreground/80 bg-white text-xl font-bold text-foreground outline outline-1 outline-dashed outline-offset-[18px] outline-foreground/70 sm:mx-0">
+              <span className="mx-0 grid size-[82px] place-items-center rounded-full border border-foreground bg-white text-[32px] font-semibold text-foreground outline outline-1 outline-dashed outline-offset-[18px] outline-foreground/70 lg:mx-auto">
                 {i + 1}
               </span>
-              <h4 className="mt-9 font-display text-xl font-bold text-foreground">{s.title}</h4>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+              <h4 className="mt-[30px] text-[28px] leading-9 font-medium text-foreground">
+                {s.title}
+              </h4>
+              <p className="mt-3 text-base leading-7 text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
                 {s.body}
               </p>
             </div>
@@ -571,91 +575,80 @@ export function Process() {
 
 /* ---------- Why Aarkin: differentiators + hard numbers ---------- */
 const WHY = [
-  {
-    icon: Target,
-    title: "Founder-first thinking",
-    body: "Every recommendation is benchmarked against your actual stage, sector and growth goals — not a generic checklist.",
-  },
-  {
-    icon: Zap,
-    title: "Faster than self-filing",
-    body: "Thousands of applications filed. We know the exact formats, officer preferences and timelines — results roughly 3x faster.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Zero paperwork burden",
-    body: "Send your KYC and business details once. We handle applications, follow-ups, revisions and confirmations.",
-  },
-  {
-    icon: Map,
-    title: "Deep ecosystem knowledge",
-    body: "From DPIIT to DST, SIDBI to Make in India — we navigate every ministry, portal and process with precision.",
-  },
+  "Founder-First Thinking",
+  "Faster Than Self-Filing",
+  "Zero Paperwork Burden",
+  "Deep Government Ecosystem Knowledge",
 ];
 
+/* ---------- Why Arkin: themazine.com/mr/dobee/index-2.html's "Why
+   Choose Us" section, ditto -- plain eyebrow + heading, a grid of
+   numbered circle items (66px, near-white at rest, dark ink + white
+   number on hover -- no dashed ring here, unlike Process's badge),
+   a single big stat next to a supporting line, and a plain photo on
+   the right. Green -> orange; content and photo ours.
+
+   Reference shows exactly 2 numbered items and 1 stat; we have 4 real
+   differentiators and 4 real stats (aarkin.co.in), so kept all 4
+   items as a 2x2 grid rather than cutting 2 real ones to match their
+   count (same call as Services/About/Process). Only one stat fits
+   this layout's "single big number" treatment -- used the one closest
+   in kind to the reference's own "1m Total Active user" (a reach
+   metric); the other 3 real stats belong in the dedicated Impact/
+   Numbers section still pending, not invented or dropped. ---------- */
 export function WhyArkin() {
   return (
-    <section id="why" className="ledger-grain border-b border-border">
-      <div className="mx-auto max-w-7xl px-6 py-24">
-        <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <span className="eyebrow inline-flex items-center gap-2 border-2 border-primary px-3 py-1.5 text-primary">
-              Why Aarkin
-            </span>
-            <h2 className="mt-8 font-display text-4xl leading-[1.05] font-bold text-balance md:text-5xl">
-              We don&rsquo;t just advise.{" "}
-              <span className="slab-yellow -rotate-1 inline-block px-3 py-0.5">We execute.</span>
+    <section id="why" className="border-t border-border bg-background py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid items-center gap-16 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <p className="text-lg font-semibold text-foreground">Why Arkin</p>
+            <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
+              We Don&rsquo;t Just Advise. We Execute.
             </h2>
-            <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
-              Most consultants hand you a report. We hand you outcomes — approved registrations,
+            <p className="mt-4 max-w-lg text-lg leading-relaxed text-muted-foreground">
+              Most consultants give you a report. We give you outcomes — approved registrations,
               disbursed funds and filed returns.
             </p>
-          </div>
 
-          <div className="hairline-grid grid self-start border border-border sm:grid-cols-2 lg:col-span-7">
-            {WHY.map(({ icon: Icon, title, body }, i) => (
-              <div
-                key={title}
-                className={
-                  i === 1 || i === 2
-                    ? "bg-primary p-8 text-primary-foreground"
-                    : "bg-background p-8"
-                }
-              >
-                <Icon
-                  className={`size-6 ${i === 1 || i === 2 ? "text-yellow" : "text-primary"}`}
-                  strokeWidth={1.5}
-                />
-                <h4 className="mt-5 font-display text-lg font-bold">{title}</h4>
-                <p
-                  className={`mt-2 text-sm leading-relaxed ${i === 1 || i === 2 ? "text-primary-foreground/75" : "text-muted-foreground"}`}
-                >
-                  {body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="hairline-grid mt-8 grid grid-cols-2 border border-border md:grid-cols-4">
-          {[
-            ["2,000+", "Startups & MSMEs assisted"],
-            ["98%", "Application success rate"],
-            ["₹50Cr+", "Funding unlocked for clients"],
-            ["7 days", "Average Startup India turnaround"],
-          ].map(([v, l], i) => (
-            <div
-              key={l}
-              className={i % 2 === 0 ? "bg-yellow p-7 text-accent-foreground" : "bg-background p-7"}
-            >
-              <div className="tabular font-display text-2xl font-bold">{v}</div>
-              <div
-                className={`eyebrow mt-2 ${i % 2 === 0 ? "opacity-70" : "text-muted-foreground"}`}
-              >
-                {l}
-              </div>
+            <div className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+              {WHY.map((title, i) => (
+                <div key={title} className="flex items-center gap-5">
+                  <span className="grid size-[66px] shrink-0 place-items-center rounded-full border border-foreground bg-[color-mix(in_oklab,var(--orange)_6%,white)] text-lg font-medium text-foreground transition-colors duration-300 hover:border-transparent hover:bg-foreground hover:text-white">
+                    {i + 1}
+                  </span>
+                  <h5 className="text-xl leading-tight font-semibold text-foreground">{title}</h5>
+                </div>
+              ))}
             </div>
-          ))}
+
+            <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-border pt-10">
+              <div>
+                <span className="block font-display text-5xl leading-tight font-bold text-foreground">
+                  2,000+
+                </span>
+                <span className="mt-1 block text-2xl font-semibold text-muted-foreground">
+                  Startups &amp; MSMEs Assisted
+                </span>
+              </div>
+              <p className="max-w-xs flex-1 text-lg leading-relaxed text-muted-foreground">
+                Businesses across India trust Aarkin to turn government opportunity into approved,
+                disbursed outcomes.
+              </p>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5">
+            <img
+              src={whyArkinVisual}
+              alt="An Aarkin consultant reviewing a client's registration documents"
+              width={1000}
+              height={1200}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/5] w-full rounded-[1.25rem] object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>

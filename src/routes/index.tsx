@@ -6,6 +6,7 @@ import {
   About,
   Services,
   Process,
+  WhyArkin,
   FundingCta,
   Schemes,
   FounderStories,
@@ -14,7 +15,7 @@ import {
   ScrollEnquiryPopup,
   // Parked — no direct reference match yet. Real, good content;
   // revisit placement as we work through the pending-sections list.
-  // Credentials, WhyArkin, Faq,
+  // Credentials, Faq,
 } from "@/components/sections";
 
 export const Route = createFileRoute("/")({
@@ -164,6 +165,7 @@ function Index() {
         <Services />
         <About />
         <Process />
+        <WhyArkin />
         <FundingCta />
         <Schemes />
         <FounderStories />
