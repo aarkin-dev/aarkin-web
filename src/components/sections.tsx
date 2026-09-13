@@ -619,14 +619,29 @@ const STEPS = [
 ];
 
 /* ---------- Process: themazine.com/mr/dobee/index-2.html's "How We
-   Get Things Done" section, ditto -- plain eyebrow + heading, a row
-   of pale-tinted cards each holding a numbered badge (a solid circle
-   ringed by a second dashed outline, done with a single CSS `outline`
-   + `outline-offset` rather than a second element) that turns solid
-   orange on hover. Green -> orange; content is aarkin.co.in's real
-   4-step process copy, so 4 cards where the reference shows 3 --
-   kept all 4 real steps rather than cutting one to match their count,
-   same call made for Services (8 vs 3) and About (3 vs 2). ---------- */
+   Get Things Done" section, ditto -- plain eyebrow + heading, cards
+   each holding a numbered badge (a solid circle ringed by a second
+   dashed outline, done with a single CSS `outline` + `outline-offset`
+   rather than a second element) that turns solid orange on hover.
+   Green -> orange; content is aarkin.co.in's real 4-step process
+   copy, so 4 cards where the reference shows 3 -- kept all 4 real
+   steps rather than cutting one to match their count, same call made
+   for Services (8 vs 3) and About (3 vs 2).
+
+   The 4 cards originally sat in a plain grid with no visual link
+   between them -- each numbered badge was its own island, so despite
+   being labelled a "process" it read as four unrelated cards, not one
+   sequence (direct feedback). Added a dashed line threading through
+   every badge in order: a left-rail vertical line on mobile/tablet
+   (badges stacked, title/body beside each one -- the classic
+   left-aligned timeline), rotating to a horizontal line across the
+   row from lg up (matching the original desktop layout, just now
+   actually connected). The line sits behind everything (z-index auto
+   vs. the badge's explicit z-10) and is only ever visible in the gaps
+   between steps, since it's positioned to pass exactly through each
+   82px badge's own centre (41px = half its diameter) and both the
+   badge and the card content are fully opaque where they'd otherwise
+   overlap it. ---------- */
 export function Process() {
   return (
     <section id="process" className="bg-background py-24">
@@ -641,21 +656,28 @@ export function Process() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="relative mt-16 flex flex-col gap-10 lg:flex-row lg:gap-6">
+          <div
+            aria-hidden
+            className="absolute top-0 bottom-0 left-[41px] z-0 w-0 border-l-2 border-dashed border-foreground/25 lg:top-[41px] lg:right-0 lg:bottom-auto lg:left-0 lg:h-0 lg:w-auto lg:border-l-0 lg:border-t-2"
+          />
+
           {STEPS.map((s, i) => (
             <div
               key={s.title}
-              className="group min-h-[326px] rounded-[10px] border border-foreground bg-[color-mix(in_oklab,var(--orange)_10%,white)] p-11 text-left transition-colors duration-300 hover:bg-orange lg:text-center"
+              className="group relative flex items-start gap-5 lg:flex-1 lg:flex-col lg:items-center lg:gap-0 lg:text-center"
             >
-              <span className="mx-0 grid size-[82px] place-items-center rounded-full border border-foreground bg-white text-[32px] font-semibold text-foreground outline outline-1 outline-dashed outline-offset-[18px] outline-foreground/70 lg:mx-auto">
+              <span className="relative z-10 grid size-[82px] shrink-0 place-items-center rounded-full border border-foreground bg-background text-[32px] font-semibold text-foreground outline outline-1 outline-dashed outline-offset-[18px] outline-foreground/70 transition-colors duration-300 group-hover:bg-orange">
                 {i + 1}
               </span>
-              <h4 className="mt-[30px] text-[28px] leading-9 font-medium text-foreground">
-                {s.title}
-              </h4>
-              <p className="mt-3 text-base leading-7 text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-                {s.body}
-              </p>
+              <div className="rounded-[10px] border border-foreground bg-[color-mix(in_oklab,var(--orange)_10%,white)] p-6 transition-colors duration-300 group-hover:bg-orange lg:mt-[30px] lg:w-full lg:p-9">
+                <h4 className="text-[22px] leading-8 font-medium text-foreground lg:text-[26px] lg:leading-9">
+                  {s.title}
+                </h4>
+                <p className="mt-3 text-base leading-7 text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                  {s.body}
+                </p>
+              </div>
             </div>
           ))}
         </div>
