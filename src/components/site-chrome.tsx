@@ -88,7 +88,7 @@ export function Preloader() {
   return (
     <div
       aria-hidden
-      className={`fixed inset-0 z-[100] grid place-items-center bg-[var(--hero-green)] transition-opacity duration-500 ${
+      className={`dotted-bg fixed inset-0 z-[100] grid place-items-center transition-opacity duration-500 ${
         fading ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
