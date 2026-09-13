@@ -63,7 +63,21 @@ import consultationVisual from "@/assets/consultation-visual.jpg";
    the reference's real colours sitewide; its near-black text/button
    colour is just a dark neutral, so it stays as our regular ink/navy
    foreground. ---------- */
+/* ---------- Skeleton loader: a soft pulsing placeholder shown over
+   every real photo on the page until it actually finishes loading --
+   so a slow connection sees a shape-accurate placeholder instead of
+   blank space or a layout jump, rather than only a one-time page-load
+   spinner. Sits as an absolute sibling inside a `relative
+   overflow-hidden` wrapper that now carries the photo's own
+   position/size/rounding classes (moved off the <img> itself, which
+   becomes a plain `size-full object-cover` and fades in on load). ---------- */
+function PhotoSkeleton({ show }: { show: boolean }) {
+  if (!show) return null;
+  return <div aria-hidden className="absolute inset-0 animate-pulse bg-foreground/10" />;
+}
+
 export function Hero() {
+  const [heroImgLoaded, setHeroImgLoaded] = useState(false);
   return (
     <section className="dotted-bg relative overflow-hidden pt-44 pb-24">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
@@ -84,7 +98,7 @@ export function Hero() {
           <div className="mt-9 flex flex-wrap items-center gap-6">
             <a
               href="#consult"
-              className="inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white"
+              className="inline-flex items-center justify-center rounded-full bg-[var(--orange-dark)] px-8 py-4 text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
             >
               Learn More
             </a>
@@ -148,15 +162,19 @@ export function Hero() {
             </svg>
           </div>
 
-          <img
-            src={heroTeamVisual}
-            alt="A founding team gathered around a laptop, reviewing their progress together"
-            width={1400}
-            height={1400}
-            loading="eager"
-            decoding="async"
-            className="absolute inset-[7%] size-[86%] rounded-full object-cover shadow-2xl"
-          />
+          <div className="absolute inset-[7%] size-[86%] overflow-hidden rounded-full shadow-2xl">
+            <PhotoSkeleton show={!heroImgLoaded} />
+            <img
+              src={heroTeamVisual}
+              alt="A founding team gathered around a laptop, reviewing their progress together"
+              width={1400}
+              height={1400}
+              loading="eager"
+              decoding="async"
+              onLoad={() => setHeroImgLoaded(true)}
+              className={`size-full object-cover transition-opacity duration-700 ${heroImgLoaded ? "opacity-100" : "opacity-0"}`}
+            />
+          </div>
 
           <button
             type="button"
@@ -248,38 +266,53 @@ const ABOUT_POINTS = [
    so this is a 2-photo version of the same layered composition rather
    than a 3rd invented image. ---------- */
 export function About() {
+  const [mainLoaded, setMainLoaded] = useState(false);
+  const [topLoaded, setTopLoaded] = useState(false);
+  const [bottomLoaded, setBottomLoaded] = useState(false);
   return (
     <section id="about" className="bg-[#FFF7EE] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div className="relative">
-            <img
-              src={aboutMain}
-              alt="A founder reviewing her business plan at her desk"
-              width={1000}
-              height={1250}
-              loading="lazy"
-              decoding="async"
-              className="aspect-[4/5] w-[68%] rounded-[1.25rem] object-cover"
-            />
-            <img
-              src={aboutAccentTop}
-              alt="An Aarkin consultant walking a founder through her options"
-              width={900}
-              height={650}
-              loading="lazy"
-              decoding="async"
-              className="absolute -top-8 right-0 hidden aspect-[4/3] w-[42%] rounded-[1.25rem] border-4 border-background object-cover shadow-xl sm:block md:-right-8"
-            />
-            <img
-              src={aboutAccentBottom}
-              alt="Signing an approved registration document"
-              width={900}
-              height={650}
-              loading="lazy"
-              decoding="async"
-              className="absolute right-0 -bottom-8 hidden aspect-[4/3] w-[42%] rounded-[1.25rem] border-4 border-background object-cover shadow-xl sm:block md:-right-8"
-            />
+            <div className="relative aspect-[4/5] w-[68%] overflow-hidden rounded-[1.25rem]">
+              <PhotoSkeleton show={!mainLoaded} />
+              <img
+                src={aboutMain}
+                alt="A founder reviewing her business plan at her desk"
+                width={1000}
+                height={1250}
+                loading="lazy"
+                decoding="async"
+                onLoad={() => setMainLoaded(true)}
+                className={`size-full object-cover transition-opacity duration-700 ${mainLoaded ? "opacity-100" : "opacity-0"}`}
+              />
+            </div>
+            <div className="absolute -top-8 right-0 hidden aspect-[4/3] w-[42%] overflow-hidden rounded-[1.25rem] border-4 border-background shadow-xl sm:block md:-right-8">
+              <PhotoSkeleton show={!topLoaded} />
+              <img
+                src={aboutAccentTop}
+                alt="An Aarkin consultant walking a founder through her options"
+                width={900}
+                height={650}
+                loading="lazy"
+                decoding="async"
+                onLoad={() => setTopLoaded(true)}
+                className={`size-full object-cover transition-opacity duration-700 ${topLoaded ? "opacity-100" : "opacity-0"}`}
+              />
+            </div>
+            <div className="absolute right-0 -bottom-8 hidden aspect-[4/3] w-[42%] overflow-hidden rounded-[1.25rem] border-4 border-background shadow-xl sm:block md:-right-8">
+              <PhotoSkeleton show={!bottomLoaded} />
+              <img
+                src={aboutAccentBottom}
+                alt="Signing an approved registration document"
+                width={900}
+                height={650}
+                loading="lazy"
+                decoding="async"
+                onLoad={() => setBottomLoaded(true)}
+                className={`size-full object-cover transition-opacity duration-700 ${bottomLoaded ? "opacity-100" : "opacity-0"}`}
+              />
+            </div>
           </div>
 
           <div>
@@ -349,6 +382,7 @@ const IMPACT_STATS = [
    4 real Aarkin stats happen to match the reference's 4-stat grid
    count exactly, so nothing invented or cut. ---------- */
 export function FundingCta() {
+  const [imgLoaded, setImgLoaded] = useState(false);
   return (
     <section id="opportunity" className="bg-background py-24">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
@@ -364,7 +398,7 @@ export function FundingCta() {
           </p>
           <a
             href="#consult"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--orange-dark)] px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
           >
             Check My Eligibility Now <ArrowUpRight className="size-4" />
           </a>
@@ -386,7 +420,8 @@ export function FundingCta() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-sm">
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem]">
+          <PhotoSkeleton show={!imgLoaded} />
           <img
             src={governmentOpportunityVisual}
             alt="The Central Secretariat dome in New Delhi, seat of the Government of India"
@@ -394,7 +429,8 @@ export function FundingCta() {
             height={1250}
             loading="lazy"
             decoding="async"
-            className="aspect-[4/5] w-full rounded-[2rem] object-cover"
+            onLoad={() => setImgLoaded(true)}
+            className={`size-full object-cover transition-opacity duration-700 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
           />
         </div>
       </div>
@@ -498,7 +534,7 @@ export function Services() {
             </p>
             <a
               href="#consult"
-              className="inline-flex shrink-0 items-center justify-center rounded-full bg-orange px-7 py-3.5 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white"
+              className="inline-flex shrink-0 items-center justify-center rounded-full bg-[var(--orange-dark)] px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
             >
               More Services
             </a>
@@ -659,21 +695,26 @@ const WHY = [
    line that used to introduce it now stands alone as the supporting
    sentence before the CTA. ---------- */
 export function WhyArkin() {
+  const [imgLoaded, setImgLoaded] = useState(false);
   return (
     <section id="why" className="bg-[#FFF7EE] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-16 lg:grid-cols-12">
           <div className="order-2 lg:order-1 lg:col-span-6">
             <div className="relative mx-auto max-w-md pt-8 pl-8">
-              <img
-                src={whyArkinVisual}
-                alt="An Aarkin consultant reviewing a client's registration documents"
-                width={1000}
-                height={1000}
-                loading="lazy"
-                decoding="async"
-                className="aspect-square w-full rounded-[40%_60%_60%_40%/50%_40%_60%_50%] object-cover"
-              />
+              <div className="relative aspect-square w-full overflow-hidden rounded-[40%_60%_60%_40%/50%_40%_60%_50%]">
+                <PhotoSkeleton show={!imgLoaded} />
+                <img
+                  src={whyArkinVisual}
+                  alt="An Aarkin consultant reviewing a client's registration documents"
+                  width={1000}
+                  height={1000}
+                  loading="lazy"
+                  decoding="async"
+                  onLoad={() => setImgLoaded(true)}
+                  className={`size-full object-cover transition-opacity duration-700 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
+                />
+              </div>
               <div className="absolute top-0 left-0 rounded-[5px] bg-orange p-6 md:p-8">
                 <span className="block font-display text-4xl leading-tight font-bold text-foreground md:text-5xl">
                   2,000+
@@ -721,7 +762,7 @@ export function WhyArkin() {
 
             <a
               href="#consult"
-              className="mt-8 inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white"
+              className="mt-8 inline-flex items-center justify-center rounded-full bg-[var(--orange-dark)] px-8 py-4 text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
             >
               Learn More
             </a>
@@ -1217,6 +1258,7 @@ export function Faq() {
 
 export function Consultation() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   async function submitEnquiry(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -1253,7 +1295,8 @@ export function Consultation() {
     <section id="consult" className="bg-background py-24">
       <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2">
         <div>
-          <div className="relative">
+          <div className="relative aspect-square w-full overflow-hidden rounded-[2rem]">
+            <PhotoSkeleton show={!imgLoaded} />
             <img
               src={consultationVisual}
               alt="Two people in a relaxed one-on-one consultation meeting over laptops"
@@ -1261,7 +1304,8 @@ export function Consultation() {
               height={798}
               loading="lazy"
               decoding="async"
-              className="aspect-square w-full rounded-[2rem] object-cover"
+              onLoad={() => setImgLoaded(true)}
+              className={`size-full object-cover transition-opacity duration-700 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
             />
           </div>
 
@@ -1376,7 +1420,7 @@ export function Consultation() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-full bg-orange py-3.5 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white disabled:cursor-wait disabled:opacity-70"
+            className="w-full rounded-full bg-[var(--orange-dark)] py-3.5 text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground disabled:cursor-wait disabled:opacity-70"
           >
             {isSubmitting ? "Sending…" : "Get My Free Consultation"}
           </button>
@@ -1551,7 +1595,7 @@ export function ScrollEnquiryPopup() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-full bg-orange py-3.5 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white disabled:cursor-wait disabled:opacity-70"
+          className="w-full rounded-full bg-[var(--orange-dark)] py-3.5 text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground disabled:cursor-wait disabled:opacity-70"
         >
           {isSubmitting ? "Sending…" : "Check My Eligibility"}
         </button>

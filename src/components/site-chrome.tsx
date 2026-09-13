@@ -28,6 +28,87 @@ export function SealMark({
   return <img src={SEAL_SRC[variant]} alt="Aarkin" className={className} decoding="async" />;
 }
 
+/* ---------- Preloader: shown once, on first load, before the site is
+   interactive -- the AARKIN mark scales/fades in, breathes with a
+   gentle pulse, then the whole overlay fades out once the page's own
+   resources are actually ready (window "load"), not on a fixed timer
+   alone. A short minimum hold (900ms) keeps it from flashing on a fast
+   cache hit, and a hard cap (4s) keeps a slow asset from trapping the
+   user behind it indefinitely. Body scroll is locked while it's up so
+   there's nothing to scroll to underneath. */
+export function Preloader() {
+  const [visible, setVisible] = useState(true);
+  const [fading, setFading] = useState(false);
+
+  useEffect(() => {
+    const MIN_HOLD_MS = 900;
+    const FADE_MS = 500;
+    const HARD_CAP_MS = 4000;
+    const start = Date.now();
+    let settled = false;
+
+    function settle() {
+      if (settled) return;
+      settled = true;
+      const remaining = Math.max(MIN_HOLD_MS - (Date.now() - start), 0);
+      window.setTimeout(() => {
+        setFading(true);
+        window.setTimeout(() => setVisible(false), FADE_MS);
+      }, remaining);
+    }
+
+    if (document.readyState === "complete") {
+      settle();
+    } else {
+      window.addEventListener("load", settle);
+    }
+    const cap = window.setTimeout(settle, HARD_CAP_MS);
+
+    return () => {
+      window.removeEventListener("load", settle);
+      window.clearTimeout(cap);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+    const prevOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = prevOverflow;
+    };
+  }, [visible]);
+
+  if (!visible) return null;
+
+  return (
+    <div
+      aria-hidden
+      className={`fixed inset-0 z-[100] grid place-items-center bg-[var(--hero-green)] transition-opacity duration-500 ${
+        fading ? "pointer-events-none opacity-0" : "opacity-100"
+      }`}
+    >
+      <div className="relative grid place-items-center">
+        <svg
+          viewBox="0 0 200 200"
+          className="absolute size-36 animate-[ring-spin_9s_linear_infinite] text-foreground/15 sm:size-44"
+        >
+          <circle
+            cx="100"
+            cy="100"
+            r="90"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeDasharray="8 10"
+          />
+        </svg>
+        <SealMark variant="lockup" className="preloader-mark h-14 w-auto sm:h-16" />
+      </div>
+    </div>
+  );
+}
+
 // Every real content section on the page gets a nav entry, in the same
 // order they actually appear in <main> (see routes/index.tsx) -- so the
 // nav reads top-to-bottom exactly like the page scrolls. The closing
@@ -88,7 +169,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <a
             href="#consult"
-            className="hidden items-center gap-2 rounded-full bg-orange px-5 py-2.5 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white sm:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-[var(--orange-dark)] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground sm:inline-flex"
           >
             Book Free Consultation
           </a>
@@ -119,7 +200,7 @@ export function SiteHeader() {
           <a
             href="#consult"
             onClick={() => setMobileOpen(false)}
-            className="mt-4 block rounded-full bg-orange px-5 py-3 text-center text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white"
+            className="mt-4 block rounded-full bg-[var(--orange-dark)] px-5 py-3 text-center text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
           >
             Book Free Consultation
           </a>

@@ -376,6 +376,35 @@
   }
 }
 
+/* Full-screen preloader shown once, on first load, before the site
+   itself is interactive: the mark scales/fades in, holds a gentle
+   breathing pulse while the page's own resources finish loading, then
+   the whole overlay fades out. A thin dashed ring spins around it at
+   the same speed as Hero's own ring accent (ring-spin, 9s -- reusing
+   that keyframe here too rather than adding a redundant one). */
+@keyframes preloader-mark-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes preloader-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
 @keyframes header-drop {
   from {
     opacity: 0;
@@ -451,6 +480,18 @@
    (hero__three__bg.png). Reproduced as an SVG feTurbulence noise
    tile rather than shipping their exact PNG -- same organic-noise
    look, tileable, no binary asset. */
+/* Preloader mark: scale/fade in once, then hold a gentle breathing
+   pulse. Two comma-separated animations on one element -- valid plain
+   CSS, but Tailwind's `animate-[a,b]` arbitrary-value bracket syntax
+   doesn't reliably parse a comma-separated shorthand (confirmed via
+   computed `animationName` coming back "none" when tried that way),
+   so this is a real utility class instead. */
+@utility preloader-mark {
+  animation:
+    preloader-mark-in 500ms ease-out both,
+    preloader-pulse 1.6s ease-in-out 500ms infinite;
+}
+
 @utility dotted-bg {
   background-color: var(--hero-green);
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix in='noise' type='matrix' values='0 0 0 0 0.09  0 0 0 0 0.22  0 0 0 0 0.18  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");

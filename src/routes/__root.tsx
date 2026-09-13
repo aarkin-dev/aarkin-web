@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Toaster } from "sonner";
+import { Preloader } from "@/components/site-chrome";
 
 import appCss from "../styles.css?url";
 
@@ -128,6 +129,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   return (
     <>
+      <Preloader />
       <Outlet />
       <Toaster richColors position="bottom-right" />
     </>
