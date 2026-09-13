@@ -622,79 +622,109 @@ export function Process() {
 
 /* ---------- Why Aarkin: differentiators + hard numbers ---------- */
 const WHY = [
-  "Founder-First Thinking",
-  "Faster Than Self-Filing",
-  "Zero Paperwork Burden",
-  "Deep Government Ecosystem Knowledge",
+  { title: "Founder-First Thinking", icon: Users },
+  { title: "Faster Than Self-Filing", icon: Zap },
+  { title: "Zero Paperwork Burden", icon: FileStack },
+  { title: "Deep Government Ecosystem Knowledge", icon: Landmark },
 ];
 
-/* ---------- Why Arkin: themazine.com/mr/dobee/index-2.html's "Why
-   Choose Us" section, ditto -- plain eyebrow + heading, a grid of
-   numbered circle items (66px, near-white at rest, dark ink + white
-   number on hover -- no dashed ring here, unlike Process's badge),
-   a single big stat next to a supporting line, and a plain photo on
-   the right. Green -> orange; content and photo ours.
+/* ---------- Why Arkin: themazine.com/mr/dobee/index-2.html's "Our
+   Agency" section (about__section__two), copied directly per later
+   request -- confirmed this is the right block via its own "Our
+   Agency" eyebrow, not the home page's separate "Why Choose Us" grid
+   this section used to be based on.
 
-   Reference shows exactly 2 numbered items and 1 stat; we have 4 real
-   differentiators and 4 real stats (aarkin.co.in), so kept all 4
-   items as a 2x2 grid rather than cutting 2 real ones to match their
-   count (same call as Services/About/Process). Only one stat fits
-   this layout's "single big number" treatment -- used the one closest
-   in kind to the reference's own "1m Total Active user" (a reach
-   metric); the other 3 real stats belong in the dedicated Impact/
-   Numbers section still pending, not invented or dropped. ---------- */
+   Structure measured off the live page: an organic blob-shaped photo
+   (the reference bakes the blob into the PNG's alpha channel itself;
+   ours gets the same silhouette from a CSS asymmetric border-radius
+   since we're using a plain photo, not a pre-masked asset) with a
+   lime stat badge (rgb(190,232,71), 5px radius, big bold number +
+   label, measured padding 34px) overlapping its top-left corner,
+   text column with eyebrow + heading + description, a row of 66px
+   lime icon circles with bold labels (their "Providing Quality
+   Services" / "Leader of Creative Agency", 2 items -- we have 4 real
+   differentiators, kept all 4 as a 2x2 grid rather than cutting real
+   ones to match their count, same call as every other section), a
+   supporting line, and a lime pill "Learn More" button (30px radius,
+   20px/46px padding). Column order flips on mobile (text first, image
+   second) exactly as the reference does it via order-2/order-1.
+
+   The small dark sparkle accent top-right of their heading animates
+   (scale-up-one, 1s ease-in-out infinite alternate-reverse, read off
+   its own computed style) -- reused here via the footer's
+   `footer-pulse` keyframe at that same 1s duration instead of adding
+   a redundant one. Green -> orange, content and photo stay ours; the
+   "2,000+ Startups & MSMEs Assisted" stat moved from its own line
+   into the new photo badge (the reference's badge slot), and the
+   line that used to introduce it now stands alone as the supporting
+   sentence before the CTA. ---------- */
 export function WhyArkin() {
   return (
     <section id="why" className="bg-[#FFF7EE] py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-16 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <p className="text-lg font-semibold text-foreground">Why Arkin</p>
-            <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
-              We Don&rsquo;t Just Advise. We Execute.
-            </h2>
+          <div className="order-2 lg:order-1 lg:col-span-6">
+            <div className="relative mx-auto max-w-md pt-8 pl-8">
+              <img
+                src={whyArkinVisual}
+                alt="An Aarkin consultant reviewing a client's registration documents"
+                width={1000}
+                height={1000}
+                loading="lazy"
+                decoding="async"
+                className="aspect-square w-full rounded-[40%_60%_60%_40%/50%_40%_60%_50%] object-cover"
+              />
+              <div className="absolute top-0 left-0 rounded-[5px] bg-orange p-6 md:p-8">
+                <span className="block font-display text-4xl leading-tight font-bold text-foreground md:text-5xl">
+                  2,000+
+                </span>
+                <span className="mt-1 block text-base font-semibold text-foreground md:text-lg">
+                  Startups &amp; MSMEs Assisted
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="order-1 lg:order-2 lg:col-span-6">
+            <div className="flex items-start justify-between gap-6">
+              <div>
+                <p className="text-lg font-semibold text-[var(--green-text)]">Why Arkin</p>
+                <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
+                  We Don&rsquo;t Just Advise. We Execute.
+                </h2>
+              </div>
+              <Asterisk
+                aria-hidden
+                className="animate-[footer-pulse_1s_ease-in-out_infinite_alternate-reverse] mt-2 hidden size-8 shrink-0 text-foreground/20 sm:block"
+              />
+            </div>
             <p className="mt-4 max-w-lg text-lg leading-relaxed text-muted-foreground">
               Most consultants give you a report. We give you outcomes — approved registrations,
               disbursed funds and filed returns.
             </p>
 
-            <div className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
-              {WHY.map((title, i) => (
-                <div key={title} className="flex items-center gap-5">
-                  <span className="grid size-[66px] shrink-0 place-items-center rounded-full border border-foreground bg-[color-mix(in_oklab,var(--orange)_6%,white)] text-lg font-medium text-foreground transition-colors duration-300 hover:border-transparent hover:bg-foreground hover:text-white">
-                    {i + 1}
+            <div className="mt-10 grid gap-x-8 gap-y-8 sm:grid-cols-2">
+              {WHY.map(({ title, icon: Icon }) => (
+                <div key={title} className="flex items-center gap-4">
+                  <span className="grid size-[66px] shrink-0 place-items-center rounded-full bg-orange text-foreground">
+                    <Icon className="size-6" strokeWidth={1.75} />
                   </span>
-                  <h5 className="text-xl leading-tight font-semibold text-foreground">{title}</h5>
+                  <h5 className="text-lg leading-tight font-semibold text-foreground">{title}</h5>
                 </div>
               ))}
             </div>
 
-            <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-border pt-10">
-              <div>
-                <span className="block font-display text-5xl leading-tight font-bold text-foreground">
-                  2,000+
-                </span>
-                <span className="mt-1 block text-2xl font-semibold text-muted-foreground">
-                  Startups &amp; MSMEs Assisted
-                </span>
-              </div>
-              <p className="max-w-xs flex-1 text-lg leading-relaxed text-muted-foreground">
-                Businesses across India trust Aarkin to turn government opportunity into approved,
-                disbursed outcomes.
-              </p>
-            </div>
-          </div>
+            <p className="mt-10 max-w-lg text-lg leading-relaxed text-muted-foreground">
+              Businesses across India trust Aarkin to turn government opportunity into approved,
+              disbursed outcomes.
+            </p>
 
-          <div className="lg:col-span-5">
-            <img
-              src={whyArkinVisual}
-              alt="An Aarkin consultant reviewing a client's registration documents"
-              width={1000}
-              height={1200}
-              loading="lazy"
-              decoding="async"
-              className="aspect-[4/5] w-full rounded-[1.25rem] object-cover"
-            />
+            <a
+              href="#consult"
+              className="mt-8 inline-flex items-center justify-center rounded-full bg-orange px-8 py-4 text-sm font-bold text-foreground transition-colors hover:bg-foreground hover:text-white"
+            >
+              Learn More
+            </a>
           </div>
         </div>
       </div>
