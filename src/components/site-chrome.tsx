@@ -29,13 +29,17 @@ export function SealMark({
 }
 
 /* ---------- Preloader: shown once, on first load, before the site is
-   interactive -- the AARKIN mark scales/fades in, breathes with a
-   gentle pulse, then the whole overlay fades out once the page's own
-   resources are actually ready (window "load"), not on a fixed timer
-   alone. A short minimum hold (900ms) keeps it from flashing on a fast
-   cache hit, and a hard cap (4s) keeps a slow asset from trapping the
-   user behind it indefinitely. Body scroll is locked while it's up so
-   there's nothing to scroll to underneath. */
+   interactive. The mark's icon literally is a rocket -- so instead of a
+   generic spinner, the rocket launches: it lifts off from a pulsing
+   engine-glow, accelerates up out of frame, and the loop resets for
+   another launch, on repeat, while the page's own resources finish
+   loading (the "AARKIN" wordmark stays put underneath, big and still,
+   so it isn't flying off with it). Overlay fades out once the page is
+   actually ready (window "load"), not on a fixed timer alone. A short
+   minimum hold (900ms) keeps it from flashing on a fast cache hit, and
+   a hard cap (4s) keeps a slow asset from trapping the user behind it
+   indefinitely. Body scroll is locked while it's up so there's nothing
+   to scroll to underneath. */
 export function Preloader() {
   const [visible, setVisible] = useState(true);
   const [fading, setFading] = useState(false);
@@ -88,22 +92,16 @@ export function Preloader() {
         fading ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
-      <div className="relative grid place-items-center">
-        <svg
-          viewBox="0 0 200 200"
-          className="absolute size-36 animate-[ring-spin_9s_linear_infinite] text-foreground/15 sm:size-44"
-        >
-          <circle
-            cx="100"
-            cy="100"
-            r="90"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeDasharray="8 10"
-          />
-        </svg>
-        <SealMark variant="lockup" className="preloader-mark h-14 w-auto sm:h-16" />
+      <div className="flex flex-col items-center">
+        <div className="relative flex h-56 w-40 items-end justify-center overflow-hidden sm:h-72 sm:w-52">
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+            <div className="preloader-exhaust h-6 w-24 rounded-full bg-[var(--orange-dark)] opacity-0 blur-lg sm:h-7 sm:w-28" />
+          </div>
+          <SealMark variant="icon" className="preloader-rocket h-28 w-auto sm:h-36" />
+        </div>
+        <p className="-mt-2 font-display text-3xl font-extrabold tracking-tight text-[var(--orange-dark)] sm:text-4xl">
+          AARKIN
+        </p>
       </div>
     </div>
   );

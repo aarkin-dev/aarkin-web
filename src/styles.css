@@ -377,31 +377,49 @@
 }
 
 /* Full-screen preloader shown once, on first load, before the site
-   itself is interactive: the mark scales/fades in, holds a gentle
-   breathing pulse while the page's own resources finish loading, then
-   the whole overlay fades out. A thin dashed ring spins around it at
-   the same speed as Hero's own ring accent (ring-spin, 9s -- reusing
-   that keyframe here too rather than adding a redundant one). */
-@keyframes preloader-mark-in {
-  from {
+   itself is interactive. The mark's icon is a rocket, so instead of a
+   generic spinner it actually launches: lifts off, accelerates
+   upward and fades out near the top of its (overflow-hidden) travel
+   box, then resets instantly for another launch -- ease-in timing so
+   it reads as acceleration, not a linear bounce. The engine-glow
+   ellipse underneath flickers on its own faster cycle, timed to lead
+   the launch by starting brighter just before liftoff. */
+@keyframes preloader-launch {
+  0% {
+    transform: translateY(0) scale(0.94);
     opacity: 0;
-    transform: scale(0.85);
   }
 
-  to {
+  8% {
     opacity: 1;
-    transform: scale(1);
+  }
+
+  75% {
+    transform: translateY(-210px) scale(1.02);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-260px) scale(1.02);
+    opacity: 0;
   }
 }
 
-@keyframes preloader-pulse {
+@keyframes preloader-exhaust {
   0%,
   100% {
-    transform: scale(1);
+    opacity: 0;
+    transform: scaleY(0.5);
   }
 
-  50% {
-    transform: scale(1.05);
+  15% {
+    opacity: 0.9;
+    transform: scaleY(1.2);
+  }
+
+  75% {
+    opacity: 0.6;
+    transform: scaleY(0.8);
   }
 }
 
@@ -480,16 +498,19 @@
    (hero__three__bg.png). Reproduced as an SVG feTurbulence noise
    tile rather than shipping their exact PNG -- same organic-noise
    look, tileable, no binary asset. */
-/* Preloader mark: scale/fade in once, then hold a gentle breathing
-   pulse. Two comma-separated animations on one element -- valid plain
-   CSS, but Tailwind's `animate-[a,b]` arbitrary-value bracket syntax
-   doesn't reliably parse a comma-separated shorthand (confirmed via
-   computed `animationName` coming back "none" when tried that way),
-   so this is a real utility class instead. */
-@utility preloader-mark {
-  animation:
-    preloader-mark-in 500ms ease-out both,
-    preloader-pulse 1.6s ease-in-out 500ms infinite;
+/* Preloader's rocket + engine glow. Plain @utility classes rather than
+   Tailwind's `animate-[...]` arbitrary value: that bracket syntax
+   doesn't reliably parse a comma-separated multi-animation shorthand
+   (confirmed via computed `animationName` coming back "none" when
+   tried that way) -- moot here since each of these is a single
+   animation, but kept as real classes for the readable, named,
+   easy-to-retime rule instead of a long inline bracket string. */
+@utility preloader-rocket {
+  animation: preloader-launch 1.9s ease-in infinite;
+}
+
+@utility preloader-exhaust {
+  animation: preloader-exhaust 1.9s ease-in-out infinite;
 }
 
 @utility dotted-bg {
