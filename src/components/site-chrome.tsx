@@ -1,6 +1,30 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Asterisk, Mail, MapPin, Menu, Phone, Sparkles, X } from "lucide-react";
+import {
+  Asterisk,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Menu,
+  Phone,
+  Sparkles,
+  X,
+} from "lucide-react";
+import { toast } from "sonner";
+
+/* Lucide has no WhatsApp mark (it ships generic icons, not brand
+   logos) -- inlined the standard WhatsApp glyph (simple-icons, CC0)
+   at the same 24x24 box/currentColor convention as the lucide icons
+   it sits next to, so it drops in without a visual mismatch. */
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+      <path d="M12.05 0C5.495 0 .16 5.335.16 11.89c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.89-11.89 0-3.176-1.237-6.163-3.481-8.407A11.82 11.82 0 0 0 12.05 0zm0 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.511-5.263c0-5.454 4.437-9.891 9.891-9.891a9.82 9.82 0 0 1 6.99 2.898 9.82 9.82 0 0 1 2.898 6.994c0 5.454-4.437 9.891-9.891 9.891z" />
+    </svg>
+  );
+}
 
 /* Three brand-mark variants, all extracted straight from the master
    file (public/brand/aarkin-master.svg, the untouched original) --
@@ -225,6 +249,39 @@ export function SiteHeader() {
    asked to add here, so it's additive to the reference's layout
    rather than a literal copy of it. ---------- */
 export function SiteFooter() {
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  // Previously just called preventDefault() and did nothing else -- a
+  // real, visible signup form that silently discarded whatever a
+  // visitor typed into it. Wired to the same formsubmit.co endpoint
+  // the two consultation forms already use for real.
+  async function submitNewsletter(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const email = new FormData(form).get("email");
+
+    setIsSubscribing(true);
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/aarkin2024@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          email,
+          _subject: "New Aarkin newsletter signup",
+          _template: "table",
+        }),
+      });
+
+      if (!response.ok) throw new Error("Unable to subscribe");
+      form.reset();
+      toast.success("You're subscribed — scheme and funding updates only.");
+    } catch {
+      toast.error("We couldn't subscribe that email. Please try again.");
+    } finally {
+      setIsSubscribing(false);
+    }
+  }
+
   const serviceLinks: [string, string][] = [
     ["Startup India Registration", "#services"],
     ["MSME / Udyam Registration", "#services"],
@@ -285,14 +342,25 @@ export function SiteFooter() {
               <span aria-hidden>🇮🇳</span> Proudly Serving Indian Builders
             </p>
             <div className="mt-6 flex gap-3">
-              {["LinkedIn", "Instagram", "WhatsApp"].map((s) => (
+              {[
+                // Real destinations still pending from the client for
+                // LinkedIn/Instagram -- "#" until they're supplied.
+                // WhatsApp already has a real number (used elsewhere in
+                // this footer), so it's a genuine click-to-chat link,
+                // not a placeholder.
+                { label: "LinkedIn", href: "#", Icon: Linkedin },
+                { label: "Instagram", href: "#", Icon: Instagram },
+                { label: "WhatsApp", href: "https://wa.me/918130557358", Icon: WhatsAppIcon },
+              ].map(({ label, href, Icon }) => (
                 <a
-                  key={s}
-                  href="#"
-                  aria-label={s}
-                  className="grid size-9 place-items-center rounded-full bg-foreground/10 text-xs font-bold text-foreground transition-colors hover:bg-orange"
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="grid size-9 place-items-center rounded-full bg-foreground/10 text-foreground transition-colors hover:bg-orange"
                 >
-                  {s[0]}
+                  <Icon className="size-4" />
                 </a>
               ))}
             </div>
@@ -334,10 +402,11 @@ export function SiteFooter() {
             <h4 className="font-display text-sm font-bold text-foreground">Subscribe Newsletter</h4>
             <form
               className="mt-5 flex items-center rounded-full border border-foreground/15 bg-white p-1.5"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={submitNewsletter}
             >
               <input
                 type="email"
+                name="email"
                 required
                 placeholder="Enter your email"
                 className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none"
@@ -345,7 +414,8 @@ export function SiteFooter() {
               <button
                 type="submit"
                 aria-label="Subscribe"
-                className="grid size-9 shrink-0 place-items-center rounded-full bg-orange text-foreground"
+                disabled={isSubscribing}
+                className="grid size-9 shrink-0 place-items-center rounded-full bg-orange text-foreground transition-colors hover:bg-foreground hover:text-white disabled:cursor-wait disabled:opacity-70"
               >
                 →
               </button>

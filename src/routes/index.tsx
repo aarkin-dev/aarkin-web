@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect } from "react";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import {
   Hero,
+  Credentials,
   About,
   Services,
   Process,
@@ -15,9 +16,6 @@ import {
   Consultation,
   ContactCta,
   ScrollEnquiryPopup,
-  // Parked — no direct reference match yet. Real, good content;
-  // revisit placement as we work through the pending-sections list.
-  // Credentials,
 } from "@/components/sections";
 
 export const Route = createFileRoute("/")({
@@ -164,6 +162,7 @@ function Index() {
       <SiteHeader />
       <main>
         <Hero />
+        <Credentials />
         <About />
         <Services />
         <Process />

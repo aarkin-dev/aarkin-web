@@ -205,6 +205,14 @@ export function Hero() {
   );
 }
 
+/* ---------- Credentials: an infinite-scroll lime trust-badge strip,
+   real credentials only. Was built early on but never placed on the
+   page -- sits right after Hero (before About), a thin credibility
+   bridge between the hero claim and the detailed content that
+   follows; a common pattern right below the fold on agency/SaaS
+   pages, and distinct enough from Hero's own compact avatar-trust
+   line (specific, itemised claims vs. one aggregate stat) to not
+   read as repetition. ---------- */
 export function Credentials() {
   const items = [
     "Startup India registered partners",
@@ -818,19 +826,20 @@ const SCHEMES = [
   },
 ];
 
-const SCHEME_TILE_BG = [
-  "from-violet-400 to-violet-600",
-  "from-orange to-orange-dark",
-  "from-primary to-azure",
-  "from-rose-400 to-rose-600",
-  "from-sky-400 to-sky-600",
-  "from-amber-400 to-amber-600",
-];
-
 /* ---------- Schemes: seoq.vercel.app/home-three "Real-Life Case
-   Studies That Inspire" — heading + filter-tab row, then a
-   colour-tiled grid (their 3D illustration tiles stand in as
-   gradient tiles here, since Aarkin has no equivalent imagery). ---------- */
+   Studies That Inspire" — heading + filter-tab row, then a tiled
+   grid (their 3D illustration tiles stand in as colour tiles here,
+   since Aarkin has no equivalent imagery). The tiles were originally
+   a 6-colour rotation (violet/lime/navy/rose/sky/amber) as a stand-in
+   for "distinguishable at a glance" -- polish pass: that rainbow was
+   never actually on-brand (one swatch was literally the pre-revert
+   navy), and nothing else on the page colour-codes cards that way, so
+   every tile now gets the same dark-ink-green treatment with a lime
+   corner glow instead of a per-card hue -- the tag pill and scheme
+   name already do the differentiating. Card hover was `tile-lift`, a
+   hard-shadow "neubrutalism" slab effect left over from the original
+   template that threw a bright yellow shadow/border -- replaced with
+   the same soft lift used elsewhere on the page. ---------- */
 export function Schemes() {
   const categories = ["All", ...Array.from(new Set(SCHEMES.map((s) => s.tag)))];
   const [active, setActive] = useState("All");
@@ -864,18 +873,20 @@ export function Schemes() {
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {shown.map((s, i) => (
+          {shown.map((s) => (
             <article
               key={s.name}
-              className="tile-lift group overflow-hidden rounded-3xl bg-background shadow-sm"
+              className="group overflow-hidden rounded-3xl bg-background shadow-sm transition-transform duration-300 hover:-translate-y-1"
             >
-              <div
-                className={`relative flex aspect-[4/3] items-center justify-center bg-gradient-to-br p-6 text-white ${SCHEME_TILE_BG[i % SCHEME_TILE_BG.length]}`}
-              >
-                <span className="absolute top-4 right-4 rounded-full bg-white/20 px-3 py-1 text-xs font-bold">
+              <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-[var(--orange-dark)] p-6 text-white">
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,color-mix(in_oklab,var(--orange)_35%,transparent),transparent_60%)]"
+                />
+                <span className="absolute top-4 right-4 rounded-full bg-white/15 px-3 py-1 text-xs font-bold">
                   {s.tag}
                 </span>
-                <span className="font-display text-3xl font-bold">{s.amount}</span>
+                <span className="relative font-display text-3xl font-bold">{s.amount}</span>
               </div>
               <div className="p-6">
                 <h3 className="font-display text-lg font-bold">{s.name}</h3>
@@ -1043,7 +1054,7 @@ const FAQS: [string, string][] = [
 
 /* ---------- FAQ: numbered hairline accordion ---------- */
 const INSIGHT_TILE_BG = [
-  "from-primary to-azure",
+  "from-[var(--orange-dark)] to-foreground",
   "from-orange to-orange-dark",
   "from-violet-400 to-violet-600",
 ];
