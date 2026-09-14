@@ -54,6 +54,40 @@ import whyArkinVisual from "@/assets/why-arkin.jpg";
 // https://unsplash.com/photos/gray-laptop-computer-7aakZdIl4vg
 import consultationVisual from "@/assets/consultation-visual.jpg";
 
+/* Mirrors every real enquiry (Consultation form + the scroll popup --
+   not the newsletter box, which the user explicitly said doesn't need
+   to be logged) into a Google Sheet the user owns, as a second,
+   best-effort channel alongside the formsubmit.co email that already
+   sends. The Apps Script web app appends one row per submission with
+   server-side date/time, so nothing here needs to compute a
+   timestamp.
+
+   Fired with `mode: "no-cors"` and a `text/plain` content type (not
+   `application/json`) on purpose: Apps Script web apps don't handle a
+   CORS preflight, and `application/json` is not one of the
+   CORS-safelisted content types, so the browser would send an OPTIONS
+   request first and the whole call would fail silently. `text/plain`
+   keeps this a "simple request" that skips preflight entirely --
+   Apps Script itself doesn't care what Content-Type header arrives,
+   it just reads e.postData.contents as text and JSON.parses it.
+   `no-cors` means the response is opaque (can't be read, ok flag is
+   meaningless) by design: this call must never block or fail the
+   primary email send/success toast, so it's fired and forgotten with
+   a swallowed catch rather than awaited into the try/catch above it. */
+const ENQUIRY_SHEET_URL =
+  "https://script.google.com/macros/s/AKfycbw1fTtQ-b40Q08a1NoUQxE1mDsaFUQ2OB8MC_Gef3lqf4zOrUc2-m6Vwyaf4rjUwqoW1A/exec";
+
+function logEnquiryToSheet(data: Record<string, FormDataEntryValue>) {
+  fetch(ENQUIRY_SHEET_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(data),
+  }).catch(() => {
+    // Best-effort only -- the email above is the source of truth.
+  });
+}
+
 /* ---------- Hero: matches the "Dobee" reference layout exactly —
    warm off-white field, big left-aligned bold headline, avatar-group
    trust line, and a right-side circular photo inside decorative ring
@@ -1313,6 +1347,7 @@ export function Consultation() {
       });
 
       if (!response.ok) throw new Error("Unable to submit enquiry");
+      logEnquiryToSheet({ ...data, source: "Consultation form" });
       form.reset();
       sessionStorage.setItem("aarkin-enquiry-completed", "true");
       window.dispatchEvent(new Event("aarkin:enquiry-completed"));
@@ -1531,6 +1566,7 @@ export function ScrollEnquiryPopup() {
       });
 
       if (!response.ok) throw new Error("Unable to submit enquiry");
+      logEnquiryToSheet({ ...data, source: "Scroll consultation prompt" });
       form.reset();
       sessionStorage.setItem("aarkin-enquiry-completed", "true");
       setIsOpen(false);
