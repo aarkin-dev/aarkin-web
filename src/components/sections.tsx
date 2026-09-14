@@ -1477,8 +1477,9 @@ export function Consultation() {
               </select>
             </Field>
           </div>
-          <Field label="Brief about your business (optional)">
+          <Field label="Brief about your business">
             <textarea
+              required
               name="message"
               rows={3}
               className={inputClass}

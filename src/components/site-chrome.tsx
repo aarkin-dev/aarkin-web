@@ -343,13 +343,19 @@ export function SiteFooter() {
             </p>
             <div className="mt-6 flex gap-3">
               {[
-                // Real destinations still pending from the client for
-                // LinkedIn/Instagram -- "#" until they're supplied.
-                // WhatsApp already has a real number (used elsewhere in
-                // this footer), so it's a genuine click-to-chat link,
-                // not a placeholder.
-                { label: "LinkedIn", href: "#", Icon: Linkedin },
-                { label: "Instagram", href: "#", Icon: Instagram },
+                {
+                  label: "LinkedIn",
+                  href: "https://www.linkedin.com/in/aarkin-biz-solutions-private-limited-33959b405/",
+                  Icon: Linkedin,
+                },
+                // Trimmed the "igsi=..." tracking token off the URL the
+                // client sent -- that's a short-lived Instagram
+                // share-session id, not part of the actual profile link.
+                {
+                  label: "Instagram",
+                  href: "https://www.instagram.com/aarkin.biz",
+                  Icon: Instagram,
+                },
                 { label: "WhatsApp", href: "https://wa.me/918130557358", Icon: WhatsAppIcon },
               ].map(({ label, href, Icon }) => (
                 <a
