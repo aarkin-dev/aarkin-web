@@ -1376,11 +1376,11 @@ export function Certifications() {
             return (
               <div
                 key={c.title}
-                className="reveal-card group flex h-full flex-col rounded-[5px] bg-white p-6 transition-colors duration-300 hover:bg-orange"
+                className="reveal-card group flex h-full flex-col rounded-[5px] bg-[var(--orange-light)] p-6 transition-colors duration-300 hover:bg-orange"
                 data-reveal-delay-ms={300 + (i % 4) * 150}
               >
                 <div className="flex items-center gap-4">
-                  <span className="grid size-12 shrink-0 place-items-center rounded-full border-2 border-dashed border-[var(--orange-dark)]/50 bg-orange/15 text-[var(--orange-dark)] transition-colors duration-300 group-hover:border-white/60 group-hover:bg-white/25 hover:!bg-[var(--orange-dark)] hover:!text-white">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-full border-2 border-dashed border-[var(--orange-dark)]/40 bg-white/70 text-[var(--orange-dark)] transition-colors duration-300 group-hover:border-white/60 group-hover:bg-white/30 hover:!bg-[var(--orange-dark)] hover:!text-white">
                     <Icon className="size-5" strokeWidth={1.5} />
                   </span>
                   <h3 className="font-display text-base leading-tight font-semibold text-foreground">
@@ -1388,7 +1388,7 @@ export function Certifications() {
                   </h3>
                 </div>
 
-                <span className="mt-3 inline-flex w-fit items-center rounded-full bg-foreground/5 px-2.5 py-1 text-[10px] font-bold tracking-wide text-muted-foreground uppercase transition-colors duration-300 group-hover:bg-white/40 group-hover:text-foreground">
+                <span className="mt-3 inline-flex w-fit items-center rounded-full bg-white/50 px-2.5 py-1 text-[10px] font-bold tracking-wide text-muted-foreground uppercase transition-colors duration-300 group-hover:bg-white/40 group-hover:text-foreground">
                   {c.authority}
                 </span>
 
