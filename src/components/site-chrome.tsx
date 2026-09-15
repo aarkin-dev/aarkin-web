@@ -120,9 +120,6 @@ export function Preloader() {
     >
       <div className="flex flex-col items-center">
         <div className="relative flex h-56 w-40 items-end justify-center overflow-hidden sm:h-72 sm:w-52">
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-            <div className="preloader-exhaust h-6 w-24 rounded-full bg-[var(--orange-dark)] opacity-0 blur-lg sm:h-7 sm:w-28" />
-          </div>
           <SealMark variant="icon" className="preloader-rocket h-28 w-auto sm:h-36" />
         </div>
         <p className="-mt-2 font-display text-3xl font-extrabold tracking-tight text-[var(--orange-dark)] sm:text-4xl">
@@ -137,12 +134,13 @@ export function Preloader() {
 // order they actually appear in <main> (see routes/index.tsx) -- so the
 // nav reads top-to-bottom exactly like the page scrolls. The closing
 // Consultation form is reachable via the header's own "Book Free
-// Consultation" button instead of a redundant nav item, and
-// InsightsPreview/ContactCta are teaser/CTA blocks rather than
-// standalone sections, so they're left out.
+// Consultation" button instead of a redundant nav item, and ContactCta
+// is a closing CTA block rather than a standalone section, so it's
+// left out. Careers is a separate page, not a homepage section, so it
+// trails the list rather than slotting into scroll order.
 const NAV_LINKS: [string, string][] = [
-  ["About", "/#about"],
   ["Services", "/#services"],
+  ["About", "/#about"],
   ["How It Works", "/#process"],
   ["Why Arkin", "/#why"],
   ["Funding", "/#opportunity"],

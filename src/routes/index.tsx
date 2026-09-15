@@ -164,8 +164,8 @@ function Index() {
         <Hero />
         <Credentials />
         <Impact />
-        <About />
         <Services />
+        <About />
         <Process />
         <WhyArkin />
         <FundingCta />

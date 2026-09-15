@@ -381,9 +381,9 @@
    generic spinner it actually launches: lifts off, accelerates
    upward and fades out near the top of its (overflow-hidden) travel
    box, then resets instantly for another launch -- ease-in timing so
-   it reads as acceleration, not a linear bounce. The engine-glow
-   ellipse underneath flickers on its own faster cycle, timed to lead
-   the launch by starting brighter just before liftoff. */
+   it reads as acceleration, not a linear bounce. (A blurred exhaust-
+   glow ellipse used to sit under the mark here; removed -- it read as
+   an unwanted shadow rather than a launch effect.) */
 @keyframes preloader-launch {
   0% {
     transform: translateY(0) scale(0.94);
@@ -402,24 +402,6 @@
   100% {
     transform: translateY(-260px) scale(1.02);
     opacity: 0;
-  }
-}
-
-@keyframes preloader-exhaust {
-  0%,
-  100% {
-    opacity: 0;
-    transform: scaleY(0.5);
-  }
-
-  15% {
-    opacity: 0.9;
-    transform: scaleY(1.2);
-  }
-
-  75% {
-    opacity: 0.6;
-    transform: scaleY(0.8);
   }
 }
 
@@ -507,10 +489,6 @@
    easy-to-retime rule instead of a long inline bracket string. */
 @utility preloader-rocket {
   animation: preloader-launch 1.9s ease-in infinite;
-}
-
-@utility preloader-exhaust {
-  animation: preloader-exhaust 1.9s ease-in-out infinite;
 }
 
 @utility dotted-bg {
