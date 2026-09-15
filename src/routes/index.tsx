@@ -12,7 +12,6 @@ import {
   FundingCta,
   Certifications,
   FounderStories,
-  InsightsPreview,
   Faq,
   Consultation,
   ContactCta,
@@ -172,7 +171,6 @@ function Index() {
         <FundingCta />
         <Certifications />
         <FounderStories />
-        <InsightsPreview />
         <Faq />
         <Consultation />
         <ContactCta />

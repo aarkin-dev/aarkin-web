@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   Asterisk,
+  BadgeCheck,
+  Calendar,
   Instagram,
   Linkedin,
   Mail,
@@ -139,14 +141,15 @@ export function Preloader() {
 // InsightsPreview/ContactCta are teaser/CTA blocks rather than
 // standalone sections, so they're left out.
 const NAV_LINKS: [string, string][] = [
-  ["About", "#about"],
-  ["Services", "#services"],
-  ["How It Works", "#process"],
-  ["Why Arkin", "#why"],
-  ["Funding", "#opportunity"],
-  ["Certifications", "#certifications"],
-  ["Results", "#stories"],
-  ["FAQ", "#faq"],
+  ["About", "/#about"],
+  ["Services", "/#services"],
+  ["How It Works", "/#process"],
+  ["Why Arkin", "/#why"],
+  ["Funding", "/#opportunity"],
+  ["Certifications", "/#certifications"],
+  ["Results", "/#stories"],
+  ["FAQ", "/#faq"],
+  ["Careers", "/careers"],
 ];
 
 export function SiteHeader() {
@@ -190,7 +193,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-3">
           <a
-            href="#consult"
+            href="/#consult"
             className="hidden items-center gap-2 rounded-full bg-[var(--orange-dark)] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground sm:inline-flex"
           >
             Book Free Consultation
@@ -220,7 +223,7 @@ export function SiteHeader() {
             </a>
           ))}
           <a
-            href="#consult"
+            href="/#consult"
             onClick={() => setMobileOpen(false)}
             className="mt-4 block rounded-full bg-[var(--orange-dark)] px-5 py-3 text-center text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
           >
@@ -283,20 +286,20 @@ export function SiteFooter() {
   }
 
   const serviceLinks: [string, string][] = [
-    ["Startup India Registration", "#services"],
-    ["MSME / Udyam Registration", "#services"],
-    ["Government Grants", "#services"],
-    ["Business Loans", "#services"],
-    ["Investment Readiness", "#services"],
-    ["Compliance Support", "#services"],
+    ["Startup India Registration", "/#services"],
+    ["MSME / Udyam Registration", "/#services"],
+    ["Government Grants", "/#services"],
+    ["Business Loans", "/#services"],
+    ["Investment Readiness", "/#services"],
+    ["Compliance Support", "/#services"],
   ];
   const quickLinks: [string, string][] = [
-    ["About Aarkin", "#about"],
-    ["How It Works", "#process"],
-    ["Government Schemes", "#opportunity"],
-    ["Our Impact", "#impact"],
-    ["Success Stories", "#stories"],
-    ["FAQ", "#faq"],
+    ["About Aarkin", "/#about"],
+    ["How It Works", "/#process"],
+    ["Government Schemes", "/#opportunity"],
+    ["Our Impact", "/#impact"],
+    ["Success Stories", "/#stories"],
+    ["FAQ", "/#faq"],
     ["Careers", "/careers"],
   ];
   const offices: { label: string; city: string; address: string }[] = [
@@ -474,15 +477,25 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-foreground/10 py-6 text-xs text-foreground/45">
-          <p>
-            <span className="font-semibold text-foreground/60">
-              Aarkin Biz Solutions Private Limited
-            </span>
-            {" (trading as Aarkin)"}
-            {" · "}CIN: U70200GJ2025PTC158343{" · "}GSTIN: 24ABCCA0649M1Z0
-            {" · "}Incorporated 28 Jan 2025
+        <div className="mt-10 border-t border-foreground/10 py-6">
+          <p className="text-sm font-semibold text-foreground/70">
+            Aarkin Biz Solutions Private Limited{" "}
+            <span className="font-normal text-foreground/45">(trading as Aarkin)</span>
           </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-foreground/5 px-3 py-1.5 text-xs font-semibold text-foreground/70">
+              <BadgeCheck className="size-3.5 text-[var(--green-text)]" />
+              CIN: U70200GJ2025PTC158343
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-foreground/5 px-3 py-1.5 text-xs font-semibold text-foreground/70">
+              <BadgeCheck className="size-3.5 text-[var(--green-text)]" />
+              GSTIN: 24ABCCA0649M1Z0
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-foreground/5 px-3 py-1.5 text-xs font-semibold text-foreground/70">
+              <Calendar className="size-3.5 text-[var(--green-text)]" />
+              Incorporated 28 Jan 2025
+            </span>
+          </div>
         </div>
 
         <div className="flex flex-col gap-3 border-t border-foreground/10 py-8 text-xs text-foreground/45 sm:flex-row sm:items-center sm:justify-between">

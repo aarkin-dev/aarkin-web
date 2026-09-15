@@ -1791,52 +1791,6 @@ const FAQS: [string, string][] = [
 ];
 
 /* ---------- FAQ: numbered hairline accordion ---------- */
-const INSIGHT_TILE_BG = [
-  "from-[var(--orange-dark)] to-foreground",
-  "from-orange to-orange-dark",
-  "from-violet-400 to-violet-600",
-];
-
-/* ---------- InsightsPreview: fills the seoq.vercel.app/home-three
-   "Trends and Predictions" blog-card slot. Aarkin has no blog yet,
-   so this borrows 3 FAQ entries as teaser cards for now — flagged
-   as a content gap to revisit. ---------- */
-export function InsightsPreview() {
-  const picks = FAQS.slice(0, 3);
-  return (
-    <section className="bg-background py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <h2 className="mx-auto max-w-xl text-center font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
-          Trends &amp; Answers for <span className="text-[var(--green-text)]">Online Success</span>
-        </h2>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {picks.map(([q, a], i) => (
-            <article key={q} className="overflow-hidden rounded-3xl bg-background shadow-sm">
-              <div
-                className={`flex aspect-[16/10] items-center justify-center bg-gradient-to-br p-6 text-white ${INSIGHT_TILE_BG[i]}`}
-              >
-                <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-bold">FAQ</span>
-              </div>
-              <div className="p-6">
-                <h3 className="font-display text-lg font-bold text-balance">{q}</h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-                  {a}
-                </p>
-                <a
-                  href="#consult"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--green-text)]"
-                >
-                  Read More <ArrowUpRight className="size-3.5" />
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------- ContactCta: themazine.com/mr/dobee/index-3.html's
    subscribe__section__three, ditto -- pale lime band, a plain heading
