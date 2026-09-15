@@ -1199,11 +1199,15 @@ export function Schemes() {
 
 /* Content ported from the client's existing site
    (127.0.0.1:8000/#certifications), which has 8 certifications the
-   redesign had dropped entirely. Body copy and the "authority" line
-   come straight from that page's own "About" + eligibility text;
-   "highlight" pulls the single most concrete benefit out of each
-   one's (often much longer) benefits list, so all 8 cards stay one
-   consistent length instead of a wall of bullet points. */
+   redesign had dropped entirely. `body`/"about", `benefits`,
+   `eligibility`, `process` and `documents` all come straight from
+   that page's own "View Details" modal for each certification --
+   `process`/`documents` are omitted on the 6 where that modal itself
+   says "Not specified in the Aarkin PDF", rather than showing a dead
+   placeholder. `highlight` pulls the single most concrete benefit out
+   of each one's (often longer) benefits list, so all 8 cards stay one
+   consistent length on the card face -- the full benefits list moves
+   into the "Learn More" detail popup instead. */
 const CERTIFICATIONS = [
   {
     icon: Leaf,
@@ -1211,6 +1215,12 @@ const CERTIFICATIONS = [
     authority: "ISO Standard",
     body: "An internationally recognized framework for structured environmental management practices.",
     highlight: "Supports enterprise vendor empanelment",
+    benefits: [
+      "Supports structured environmental management practices.",
+      "Helps organizations meet environmental management requirements.",
+      "Supports enterprise vendor empanelment requirements.",
+    ],
+    eligibility: "Organizations seeking Environmental Management System certification.",
   },
   {
     icon: Factory,
@@ -1218,6 +1228,13 @@ const CERTIFICATIONS = [
     authority: "QCI · Ministry of MSME",
     body: "Zero Defect Zero Effect accreditation for manufacturing MSMEs, backed by QCI and the Ministry of MSME.",
     highlight: "Up to 100% fee subsidy + ₹10,000 joining reward",
+    benefits: [
+      "₹10,000 joining reward on taking the ZED pledge.",
+      "80% to 100% government fee subsidy, with 100% for women MSMEs.",
+      "Bank loan processing fee waiver and 85% CGTMSE coverage.",
+      "Bronze, Silver, and Gold level capability upgrades.",
+    ],
+    eligibility: "Manufacturing MSMEs.",
   },
   {
     icon: UtensilsCrossed,
@@ -1225,6 +1242,11 @@ const CERTIFICATIONS = [
     authority: "FSSAI",
     body: "Mandatory 14-digit food hygiene clearance for businesses handling, processing or trading food.",
     highlight: "Required to list on Swiggy, Zomato, Blinkit & Amazon",
+    benefits: [
+      "Enables compliance for food-related businesses.",
+      "Mandatory for listing on Swiggy, Zomato, Blinkit and Amazon.",
+    ],
+    eligibility: "Businesses involved in food handling, processing, and trading.",
   },
   {
     icon: Flag,
@@ -1232,6 +1254,13 @@ const CERTIFICATIONS = [
     authority: "DPIIT",
     body: "Formal audit verification of domestic value addition under the DPIIT Public Procurement Order.",
     highlight: "Top purchase preference on GeM tenders",
+    benefits: [
+      "Class-I Local Supplier (≥50%): top purchase preference on GeM tenders.",
+      "Class-II Local Supplier (20%–50%): bidding eligibility and L1 price matching.",
+      "Exemption from global tender barriers for domestic contracts.",
+    ],
+    eligibility:
+      "Businesses seeking recognition as local suppliers under the DPIIT Public Procurement Order.",
   },
   {
     icon: Ship,
@@ -1239,6 +1268,11 @@ const CERTIFICATIONS = [
     authority: "DGFT",
     body: "A 10-digit mandatory registration issued by DGFT for businesses in international commerce.",
     highlight: "Required for customs clearance & export benefits",
+    benefits: [
+      "Mandatory for customs shipment clearance and foreign currency accounts.",
+      "Enables eligibility for government export promotion benefits such as RoDTEP.",
+    ],
+    eligibility: "Businesses engaged in international commerce.",
   },
   {
     icon: IdCard,
@@ -1246,6 +1280,13 @@ const CERTIFICATIONS = [
     authority: "Ministry of MSME",
     body: "The foundational digital identity for Indian micro, small and medium enterprises.",
     highlight: "Lifetime validity, zero renewal fees",
+    benefits: [
+      "Mandatory for collateral-free CGTMSE loans and MUDRA bank facilities.",
+      "50% fee subsidy on Trademarks and 80% rebate on Patent filings.",
+      "Protection against delayed payments under MSME Samadhaan.",
+      "Lifetime validity with zero annual renewal fees.",
+    ],
+    eligibility: "Indian micro, small, and medium enterprises.",
   },
   {
     icon: ShieldCheck,
@@ -1253,6 +1294,35 @@ const CERTIFICATIONS = [
     authority: "ISO Standard",
     body: "An internationally recognized standard for managing information security risks.",
     highlight: "Strengthens customer trust & data security",
+    benefits: [
+      "Helps protect confidential business information.",
+      "Supports information risk management.",
+      "Improves data confidentiality, integrity and availability.",
+      "Strengthens customer confidence.",
+      "Supports better cybersecurity and information security practices.",
+      "Encourages organization-wide information security controls.",
+    ],
+    eligibility:
+      "Suitable for organizations of any size that handle sensitive business, customer or operational information — IT companies, software businesses, financial service providers, consulting firms, startups and organizations managing confidential data.",
+    process: [
+      "Information security consultation and scope assessment.",
+      "Identification of information assets and security risks.",
+      "Gap analysis of existing security practices.",
+      "Development of Information Security Management System documentation.",
+      "Implementation of security controls.",
+      "Internal review and management evaluation.",
+      "Certification audit through an appropriate certification body.",
+    ],
+    documents: [
+      "Company registration details.",
+      "Information security policy.",
+      "Risk assessment and risk treatment records.",
+      "Asset and information inventory.",
+      "Access control procedures.",
+      "Data security and backup procedures.",
+      "Incident management procedures.",
+      "Internal audit and management review records.",
+    ],
   },
   {
     icon: BadgeCheck,
@@ -1260,16 +1330,32 @@ const CERTIFICATIONS = [
     authority: "ISO Standard",
     body: "A standard for establishing and maintaining an effective quality management system.",
     highlight: "Builds credibility with customers & partners",
+    benefits: ["Improved quality management, customer trust and business credibility."],
+    eligibility: "Businesses and organizations seeking a quality management system certification.",
+    process: ["Documentation review, implementation, audit and certification process."],
+    documents: [
+      "Company registration documents, process documents and quality management records.",
+    ],
   },
 ] as const;
+
+type Certification = (typeof CERTIFICATIONS)[number];
 
 /* ---------- Certifications: same compact icon-beside-title card as
    Services (kept intentionally consistent -- see the note on that
    section about card height), but the icon sits in a dashed "seal"
    ring instead of a solid-fill circle, and each card carries an
    issuing-authority pill + a single highlighted benefit line, so
-   these read as official approvals rather than more services. ---------- */
+   these read as official approvals rather than more services.
+   "Learn More" opens the full detail (About/Benefits/Eligibility/
+   Process/Documents) in a popup -- mirroring the client's own "View
+   Details" modal -- and only 4 cards show at first with a "Load More"
+   reveal for the rest, per explicit request. ---------- */
 export function Certifications() {
+  const [visibleCount, setVisibleCount] = useState(4);
+  const [activeCert, setActiveCert] = useState<Certification | null>(null);
+  const shown = CERTIFICATIONS.slice(0, visibleCount);
+
   return (
     <section id="certifications" className="bg-background py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -1285,7 +1371,7 @@ export function Certifications() {
         </div>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {CERTIFICATIONS.map((c, i) => {
+          {shown.map((c, i) => {
             const Icon = c.icon;
             return (
               <div
@@ -1316,26 +1402,179 @@ export function Certifications() {
                 </p>
 
                 <div className="mt-5 flex items-center justify-between">
-                  <a
-                    href="#consult"
+                  <button
+                    type="button"
+                    onClick={() => setActiveCert(c)}
                     className="inline-flex items-center justify-center rounded-[5px] bg-foreground px-5 py-3 text-sm font-semibold text-white"
                   >
                     Learn More
-                  </a>
-                  <a
-                    href="#consult"
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveCert(c)}
                     aria-label={`Learn more about ${c.title}`}
                     className="text-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                   >
                     <ArrowUpRight className="size-5" strokeWidth={1.5} />
-                  </a>
+                  </button>
                 </div>
               </div>
             );
           })}
         </div>
+
+        {visibleCount < CERTIFICATIONS.length && (
+          <div className="mt-10 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setVisibleCount((n) => Math.min(n + 4, CERTIFICATIONS.length))}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--orange-dark)] px-7 py-3.5 text-sm font-bold text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
+            >
+              Load More Certifications
+              <ChevronDown className="size-4" strokeWidth={2} />
+            </button>
+          </div>
+        )}
       </div>
+
+      {activeCert && <CertificationModal cert={activeCert} onClose={() => setActiveCert(null)} />}
     </section>
+  );
+}
+
+/* Detail popup for a single certification -- mirrors the content
+   depth of the client's own "View Details" modal (About, Benefits,
+   Eligibility, and Process/Required Documents where that data
+   exists), styled as a centered dialog rather than the site's other
+   corner-anchored popup (ScrollEnquiryPopup), since this is a
+   read-then-close info panel, not a form. */
+function CertificationModal({ cert, onClose }: { cert: Certification; onClose: () => void }) {
+  const Icon = cert.icon;
+  const process = "process" in cert ? cert.process : undefined;
+  const documents = "documents" in cert ? cert.documents : undefined;
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      role="presentation"
+      onClick={onClose}
+      className="animate-in fade-in fixed inset-0 z-[70] flex items-center justify-center bg-foreground/60 p-4 duration-200"
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="certification-modal-title"
+        onClick={(event) => event.stopPropagation()}
+        className="animate-in fade-in zoom-in-95 max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-background shadow-2xl duration-200"
+      >
+        <div className="flex items-start justify-between gap-6 rounded-t-2xl bg-[var(--orange-dark)] p-6 text-white">
+          <div className="flex items-start gap-4">
+            <span className="grid size-12 shrink-0 place-items-center rounded-full border-2 border-dashed border-white/40 bg-white/10 text-white">
+              <Icon className="size-5" strokeWidth={1.5} />
+            </span>
+            <div>
+              <span className="eyebrow text-orange">{cert.authority}</span>
+              <h2 id="certification-modal-title" className="mt-1 font-display text-xl font-bold">
+                {cert.title}
+              </h2>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="grid size-9 shrink-0 place-items-center rounded-full border border-white/30 transition-colors hover:border-transparent hover:bg-orange hover:text-foreground"
+            aria-label="Close certification details"
+          >
+            <X className="size-4" />
+          </button>
+        </div>
+
+        <div className="space-y-6 p-6">
+          <p className="text-[15px] leading-relaxed text-muted-foreground">{cert.body}</p>
+
+          <div>
+            <p className="eyebrow text-[var(--green-text)]">Benefits</p>
+            <ul className="mt-3 space-y-2">
+              {cert.benefits.map((b) => (
+                <li
+                  key={b}
+                  className="flex items-start gap-2 text-sm leading-relaxed text-foreground/80"
+                >
+                  <CheckCircle2
+                    className="mt-0.5 size-4 shrink-0 text-[var(--green-text)]"
+                    strokeWidth={2}
+                  />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-xl bg-[var(--mint)] p-4">
+            <p className="eyebrow text-[var(--orange-dark)]">Eligibility</p>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/80">{cert.eligibility}</p>
+          </div>
+
+          {process && (
+            <div>
+              <p className="eyebrow text-[var(--green-text)]">Process</p>
+              <ol className="mt-3 space-y-2">
+                {process.map((step, i) => (
+                  <li
+                    key={step}
+                    className="flex items-start gap-3 text-sm leading-relaxed text-foreground/80"
+                  >
+                    <span className="grid size-5 shrink-0 place-items-center rounded-full bg-orange/20 text-[11px] font-bold text-[var(--orange-dark)]">
+                      {i + 1}
+                    </span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {documents && (
+            <div>
+              <p className="eyebrow text-[var(--green-text)]">Required Documents</p>
+              <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                {documents.map((d) => (
+                  <li
+                    key={d}
+                    className="flex items-start gap-2 text-sm leading-relaxed text-foreground/80"
+                  >
+                    <FileText
+                      className="mt-0.5 size-3.5 shrink-0 text-muted-foreground"
+                      strokeWidth={2}
+                    />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <a
+            href="#consult"
+            onClick={onClose}
+            className="block w-full rounded-full bg-[var(--orange-dark)] py-3.5 text-center text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
+          >
+            Book a Free Consultation
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }
 
