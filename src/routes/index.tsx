@@ -4,6 +4,7 @@ import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import {
   Hero,
   Credentials,
+  Impact,
   About,
   Services,
   Process,
@@ -163,6 +164,7 @@ function Index() {
       <main>
         <Hero />
         <Credentials />
+        <Impact />
         <About />
         <Services />
         <Process />

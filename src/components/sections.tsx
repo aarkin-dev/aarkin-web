@@ -7,7 +7,9 @@ import {
   Banknote,
   CheckCircle2,
   ChevronDown,
+  Clock,
   FileStack,
+  FileText,
   Landmark,
   LineChart,
   Map,
@@ -17,6 +19,8 @@ import {
   ShieldCheck,
   Sparkles,
   Star,
+  Target,
+  TrendingUp,
   Users,
   X,
   Zap,
@@ -274,6 +278,41 @@ export function Credentials() {
       </div>
       <style>{`@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-100%) } }`}</style>
     </div>
+  );
+}
+
+const IMPACT_METRICS = [
+  { icon: Users, value: "2,000+", label: "Customers Served" },
+  { icon: FileText, value: "1,500+", label: "Projects Completed" },
+  { icon: Clock, value: "10+", label: "Years of Experience" },
+  { icon: Target, value: "98%", label: "Client Satisfaction" },
+  { icon: TrendingUp, value: "₹500Cr+", label: "Funding Facilitated" },
+];
+
+/* ---------- Impact: the "Our Impact" stats strip from the client's
+   existing site (127.0.0.1:8000/#our-impact-section) -- 5 genuine
+   business metrics (customers served, projects completed, years of
+   experience, client satisfaction, funding facilitated) that this
+   redesign had dropped. Real numbers ported as-is (2000 / 1500 / 10 /
+   98 / 500Cr, per that page's own counter-number data-target values),
+   not invented. Placed right after the hero/credentials marquee,
+   mirroring where the original site has it -- immediately before the
+   first real content section. ---------- */
+export function Impact() {
+  return (
+    <section className="bg-[var(--orange-dark)] py-16">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-10 px-6 sm:grid-cols-5">
+        {IMPACT_METRICS.map(({ icon: Icon, value, label }) => (
+          <div key={label} className="flex flex-col items-center text-center">
+            <span className="grid size-12 place-items-center rounded-full bg-orange/15 text-orange">
+              <Icon className="size-5" strokeWidth={1.75} />
+            </span>
+            <span className="mt-3 font-display text-3xl font-bold text-white">{value}</span>
+            <span className="mt-1 text-sm text-white/70">{label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
