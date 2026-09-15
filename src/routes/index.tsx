@@ -10,7 +10,6 @@ import {
   Process,
   WhyArkin,
   FundingCta,
-  Schemes,
   Certifications,
   FounderStories,
   InsightsPreview,
@@ -171,7 +170,6 @@ function Index() {
         <Process />
         <WhyArkin />
         <FundingCta />
-        <Schemes />
         <Certifications />
         <FounderStories />
         <InsightsPreview />

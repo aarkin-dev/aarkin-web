@@ -144,7 +144,6 @@ const NAV_LINKS: [string, string][] = [
   ["How It Works", "#process"],
   ["Why Arkin", "#why"],
   ["Funding", "#opportunity"],
-  ["Schemes", "#schemes"],
   ["Certifications", "#certifications"],
   ["Results", "#stories"],
   ["FAQ", "#faq"],
@@ -294,7 +293,7 @@ export function SiteFooter() {
   const quickLinks: [string, string][] = [
     ["About Aarkin", "#about"],
     ["How It Works", "#process"],
-    ["Government Schemes", "#schemes"],
+    ["Government Schemes", "#opportunity"],
     ["Our Impact", "#impact"],
     ["Success Stories", "#stories"],
     ["FAQ", "#faq"],

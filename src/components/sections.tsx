@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   Asterisk,
@@ -8,6 +8,8 @@ import {
   Building2,
   CheckCircle2,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   Copyright,
   Factory,
@@ -73,6 +75,17 @@ import whyArkinVisual from "@/assets/why-arkin.jpg";
 // other section's, Unsplash License (free, no attribution required):
 // https://unsplash.com/photos/gray-laptop-computer-7aakZdIl4vg
 import consultationVisual from "@/assets/consultation-visual.jpg";
+// Government Opportunity's 4 scheme cards -- one real, distinct photo
+// per scheme (not a repeated stock image), each Unsplash License
+// (free, no attribution required):
+// AIF/NAIFF: https://unsplash.com/photos/a-large-warehouse-filled-with-lots-of-boxes--aCrA9FmT8Y
+import schemeAifVisual from "@/assets/scheme-aif-warehouse.jpg";
+// PMEGP: https://unsplash.com/photos/workers-operating-a-large-industrial-machine-together-V7BRdLkbzpY
+import schemePmegpVisual from "@/assets/scheme-pmegp-manufacturing.jpg";
+// CGTMSE: https://unsplash.com/photos/two-people-shaking-hands-over-a-piece-of-paper-4mEyvORkbN0
+import schemeCgtmseVisual from "@/assets/scheme-cgtmse-handshake.jpg";
+// MUDRA: https://unsplash.com/photos/a-man-smiles-as-he-uses-a-sewing-machine-cU3xxfbB9Es
+import schemeMudraVisual from "@/assets/scheme-mudra-artisan.jpg";
 
 /* Mirrors every real enquiry (Consultation form + the scroll popup --
    not the newsletter box, which the user explicitly said doesn't need
@@ -316,7 +329,7 @@ const IMPACT_METRICS = [
    first real content section. ---------- */
 export function Impact() {
   return (
-    <section className="bg-[var(--orange-dark)] py-16">
+    <section id="impact" className="bg-[var(--orange-dark)] py-16">
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-10 px-6 sm:grid-cols-5">
         {IMPACT_METRICS.map(({ icon: Icon, value, label }) => (
           <div key={label} className="flex flex-col items-center text-center">
@@ -456,67 +469,87 @@ export function About() {
   );
 }
 
-/* ---------- FundingCta: seoq.vercel.app/home-three dark "Get Our Every
-   Update, Join With Us" newsletter band — illustration one side,
-   heading + copy + CTA the other, on the dark canvas field. ---------- */
-const IMPACT_STATS = [
-  { icon: Users, value: "2,000+", label: "Startups & MSMEs Assisted" },
-  { icon: BadgeCheck, value: "98%", label: "Application Success Rate" },
-  { icon: Banknote, value: "₹50Cr+", label: "Funding Unlocked for Clients" },
-  { icon: Zap, value: "7 Days", label: "Avg. Startup India Turnaround" },
-];
+/* Content ported from the client's existing site's "Financial
+   Opportunities" scheme carousel (127.0.0.1:8000, "Government Support
+   For Your Business" -- AIF/NAIFF, PMEGP, CGTMSE, PMMY/MUDRA), per
+   explicit instruction to fold these 4 schemes into this section
+   instead of the standalone "Scheme Library" section (removed --
+   8000 has no equivalent of that section, only this carousel). Name,
+   authority, amount and short body come from that page's card; `about`
+   comes from its "View Details" modal. Each gets its own real,
+   distinct photo -- Eligibility/Documents/Process are omitted for all
+   4, same as the source modals, which leave them empty. */
+const OPPORTUNITY_SCHEMES = [
+  {
+    image: schemeAifVisual,
+    imageAlt: "Crates stacked inside a cold-storage warehouse",
+    name: "AIF / NAIFF",
+    authority: "Agri Infrastructure Fund",
+    amount: "Up to ₹2 Crore",
+    tag: "Collateral-Free",
+    body: "Agri infrastructure financing for post-harvest and food-related infrastructure.",
+    about:
+      "AIF / NAIFF supports post-harvest infrastructure including cold storage, grading and food processing. Financing is available up to ₹2 Crore on a collateral-free basis.",
+  },
+  {
+    image: schemePmegpVisual,
+    imageAlt: "Workers operating industrial manufacturing machinery",
+    name: "PMEGP",
+    authority: "Ministry of MSME, Government of India",
+    amount: "Mfg: ₹50L · Service: ₹20L",
+    tag: "Capital Subsidy",
+    body: "A credit-linked subsidy programme designed to support new manufacturing and service enterprises.",
+    about:
+      "PMEGP provides 15% to 35% capital subsidy on project cost. It supports new units and offers higher subsidies for women, rural, SC/ST and OBC entrepreneurs.",
+  },
+  {
+    image: schemeCgtmseVisual,
+    imageAlt: "Two people shaking hands over a signed agreement",
+    name: "CGTMSE Credit Guarantee",
+    authority: "Credit Guarantee Fund Trust for MSEs",
+    amount: "₹2 Cr – ₹5 Cr (up to ₹20 Cr in CGSS)",
+    tag: "Loan Guarantee",
+    body: "Credit guarantee support for eligible micro and small enterprises.",
+    about:
+      "CGTMSE provides credit guarantee coverage for eligible micro and small enterprises, covering 75% to 85% of the credit facility and supporting business scaling and expansion.",
+  },
+  {
+    image: schemeMudraVisual,
+    imageAlt: "An artisan working at a sewing machine in his workshop",
+    name: "MUDRA — Shishu to Tarun",
+    authority: "Dept. of Financial Services, Ministry of Finance",
+    amount: "Up to ₹20 Lakhs",
+    tag: "Micro Credit",
+    body: "Collateral-free micro loans for eligible micro units, from Shishu to Tarun.",
+    about:
+      "MUDRA provides collateral-free micro loans to eligible micro units across Shishu, Kishore and Tarun categories, supporting overdraft and term loan facilities.",
+  },
+] as const;
 
-/* ---------- FundingCta / Government Opportunity: loosely ditto
-   seoz-react-nextjs.netlify.app's "Why Choose Us -- Proven Results,
-   And Exceptional Your Services" -- eyebrow + heading + intro + CTA,
-   then the same section's own numbers grid folded in here too, per
-   the user's explicit call ("numbers are also there, so you can use
-   it for Impact/Numbers... improve according to the needs"). Dropped
-   the reference's generic "Our Mission"/"Our Vision" filler blocks
-   (nothing real to say there) and its unrelated mail-marketing
-   illustration -- kept this site's own existing government-opportunity
-   copy and photo instead, on the reference's dark-band CTA energy. The
-   4 real Aarkin stats happen to match the reference's 4-stat grid
-   count exactly, so nothing invented or cut. ---------- */
+type OpportunityScheme = (typeof OPPORTUNITY_SCHEMES)[number];
+
+/* ---------- FundingCta / Government Opportunity: rebuilt per explicit
+   instruction -- left side keeps the existing government photo exactly
+   as it was (just moved from right to left), with no text alongside
+   it; right side is a one-at-a-time slidable card carousel (peeking
+   the next card, snap-scroll + prev/next arrows) holding the 4
+   scheme cards above. The section's previous heading, copy, CTA and
+   stat grid are dropped entirely, per instruction, not relocated. ---------- */
 export function FundingCta() {
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [activeScheme, setActiveScheme] = useState<OpportunityScheme | null>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  function scrollByCard(direction: 1 | -1) {
+    const track = trackRef.current;
+    const card = track?.firstElementChild as HTMLElement | null;
+    if (!track || !card) return;
+    track.scrollBy({ left: (card.offsetWidth + 16) * direction, behavior: "smooth" });
+  }
+
   return (
     <section id="opportunity" className="bg-background py-24">
-      <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
-        <div>
-          <p className="text-lg font-semibold text-[var(--green-text)]">Government Opportunity</p>
-          <h2 className="mt-2 font-display text-3xl leading-[1.15] font-bold text-balance text-foreground md:text-4xl">
-            The Government Wants to Fund Your Growth. Let Us Make the Introduction.
-          </h2>
-          <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
-            Every year, thousands of crores in grants, subsidies and collateral-free loans go
-            unclaimed — because founders don&rsquo;t know they qualify. Aarkin changes that
-            equation.
-          </p>
-          <a
-            href="#consult"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--orange-dark)] px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
-          >
-            Check My Eligibility Now <ArrowUpRight className="size-4" />
-          </a>
-
-          <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-foreground/10 pt-10">
-            {IMPACT_STATS.map(({ icon: Icon, value, label }) => (
-              <div key={label} className="flex items-start gap-4">
-                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-orange/15 text-[var(--green-text)]">
-                  <Icon className="size-5" strokeWidth={1.75} />
-                </span>
-                <div>
-                  <span className="block font-display text-2xl font-bold text-foreground">
-                    {value}
-                  </span>
-                  <span className="mt-1 block text-sm text-muted-foreground">{label}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
         <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem]">
           <PhotoSkeleton show={!imgLoaded} />
           <img
@@ -530,8 +563,150 @@ export function FundingCta() {
             className={`size-full object-cover transition-opacity duration-700 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
           />
         </div>
+
+        <div className="min-w-0">
+          <div
+            ref={trackRef}
+            className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {OPPORTUNITY_SCHEMES.map((s) => (
+              <article
+                key={s.name}
+                className="group w-[86%] shrink-0 snap-start overflow-hidden rounded-3xl bg-white shadow-sm sm:w-[75%]"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={s.image}
+                    alt={s.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-gradient-to-t from-[var(--orange-dark)]/85 via-[var(--orange-dark)]/10 to-transparent"
+                  />
+                  <span className="absolute top-4 right-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-[var(--orange-dark)]">
+                    {s.tag}
+                  </span>
+                  <span className="absolute bottom-4 left-4 font-display text-xl font-bold text-white">
+                    {s.amount}
+                  </span>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-display text-lg font-bold text-foreground">{s.name}</h3>
+                  <p className="mt-1 text-[11px] font-bold tracking-wide text-muted-foreground uppercase">
+                    {s.authority}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+                  <button
+                    type="button"
+                    onClick={() => setActiveScheme(s)}
+                    className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--green-text)]"
+                  >
+                    Learn More <ArrowUpRight className="size-3.5" />
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-6 flex items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => scrollByCard(-1)}
+              aria-label="Previous scheme"
+              className="grid size-10 place-items-center rounded-full border-2 border-[var(--orange-dark)] text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
+            >
+              <ChevronLeft className="size-4" strokeWidth={2.5} />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByCard(1)}
+              aria-label="Next scheme"
+              className="grid size-10 place-items-center rounded-full border-2 border-[var(--orange-dark)] text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
+            >
+              <ChevronRight className="size-4" strokeWidth={2.5} />
+            </button>
+          </div>
+        </div>
       </div>
+
+      {activeScheme && <SchemeModal scheme={activeScheme} onClose={() => setActiveScheme(null)} />}
     </section>
+  );
+}
+
+/* Detail popup for a single scheme card -- same centered-dialog
+   pattern as CertificationModal, styled around the card's own photo
+   instead of a seal icon. */
+function SchemeModal({ scheme, onClose }: { scheme: OpportunityScheme; onClose: () => void }) {
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      role="presentation"
+      onClick={onClose}
+      className="animate-in fade-in fixed inset-0 z-[70] flex items-center justify-center bg-foreground/60 p-4 duration-200"
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="scheme-modal-title"
+        onClick={(event) => event.stopPropagation()}
+        className="animate-in fade-in zoom-in-95 max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-background shadow-2xl duration-200"
+      >
+        <div className="relative aspect-[16/9] overflow-hidden">
+          <img src={scheme.image} alt={scheme.imageAlt} className="size-full object-cover" />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-t from-[var(--orange-dark)]/90 via-[var(--orange-dark)]/25 to-transparent"
+          />
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute top-4 right-4 grid size-9 place-items-center rounded-full border border-white/30 text-white transition-colors hover:border-transparent hover:bg-orange hover:text-foreground"
+            aria-label="Close scheme details"
+          >
+            <X className="size-4" />
+          </button>
+          <div className="absolute right-6 bottom-4 left-6">
+            <span className="eyebrow text-orange">{scheme.tag}</span>
+            <h2 id="scheme-modal-title" className="mt-1 font-display text-2xl font-bold text-white">
+              {scheme.name}
+            </h2>
+          </div>
+        </div>
+
+        <div className="space-y-5 p-6">
+          <p className="text-xs font-bold tracking-wide text-muted-foreground uppercase">
+            {scheme.authority}
+          </p>
+          <p className="font-display text-2xl font-bold text-[var(--orange-dark)]">
+            {scheme.amount}
+          </p>
+          <p className="text-[15px] leading-relaxed text-muted-foreground">{scheme.about}</p>
+
+          <a
+            href="#consult"
+            onClick={onClose}
+            className="block w-full rounded-full bg-[var(--orange-dark)] py-3.5 text-center text-sm font-bold text-white transition-colors hover:bg-orange hover:text-foreground"
+          >
+            Check My Eligibility
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -1065,132 +1240,6 @@ export function WhyArkin() {
               Learn More
             </a>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-const SCHEMES = [
-  {
-    code: "01",
-    name: "Startup India Seed Fund",
-    amount: "Up to ₹50L",
-    body: "Proof-of-concept, prototype and market-entry capital for DPIIT-recognised startups.",
-    tag: "Non-dilutive",
-  },
-  {
-    code: "02",
-    name: "CGTMSE Credit Guarantee",
-    amount: "Up to ₹5Cr",
-    body: "Collateral-free working capital and term loans backed by a government guarantee cover.",
-    tag: "Collateral-free",
-  },
-  {
-    code: "03",
-    name: "PMEGP Subsidy",
-    amount: "15–35% subsidy",
-    body: "Margin-money subsidy for new manufacturing and service units, rural and urban.",
-    tag: "Capital subsidy",
-  },
-  {
-    code: "04",
-    name: "MUDRA — Shishu to Tarun",
-    amount: "Up to ₹10L",
-    body: "Micro-enterprise credit with no collateral and quick sanction through PSU banks.",
-    tag: "Micro credit",
-  },
-  {
-    code: "05",
-    name: "BIRAC BIG Grant",
-    amount: "Up to ₹50L",
-    body: "Biotech and life-science innovation grants for early product development.",
-    tag: "Deep tech",
-  },
-  {
-    code: "06",
-    name: "80-IAC Tax Exemption",
-    amount: "3-year 100% relief",
-    body: "Full profit tax exemption for recognised startups, plus Section 56 angel tax relief.",
-    tag: "Tax benefit",
-  },
-];
-
-/* ---------- Schemes: seoq.vercel.app/home-three "Real-Life Case
-   Studies That Inspire" — heading + filter-tab row, then a tiled
-   grid (their 3D illustration tiles stand in as colour tiles here,
-   since Aarkin has no equivalent imagery). The tiles were originally
-   a 6-colour rotation (violet/lime/navy/rose/sky/amber) as a stand-in
-   for "distinguishable at a glance" -- polish pass: that rainbow was
-   never actually on-brand (one swatch was literally the pre-revert
-   navy), and nothing else on the page colour-codes cards that way, so
-   every tile now gets the same dark-ink-green treatment with a lime
-   corner glow instead of a per-card hue -- the tag pill and scheme
-   name already do the differentiating. Card hover was `tile-lift`, a
-   hard-shadow "neubrutalism" slab effect left over from the original
-   template that threw a bright yellow shadow/border -- replaced with
-   the same soft lift used elsewhere on the page. ---------- */
-export function Schemes() {
-  const categories = ["All", ...Array.from(new Set(SCHEMES.map((s) => s.tag)))];
-  const [active, setActive] = useState("All");
-  const shown = active === "All" ? SCHEMES : SCHEMES.filter((s) => s.tag === active);
-
-  return (
-    <section id="schemes" className="bg-[var(--mint)] py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="text-lg font-semibold text-foreground">Scheme Library</p>
-            <h2 className="mt-2 max-w-xl font-display text-4xl leading-[1.1] font-bold text-balance md:text-5xl">
-              The Schemes Founders Miss <span className="text-[var(--green-text)]">Most Often</span>
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {categories.map((c) => (
-              <button
-                key={c}
-                onClick={() => setActive(c)}
-                className={`rounded-full px-4 py-2 text-sm font-bold transition-colors ${
-                  active === c
-                    ? "bg-foreground text-white"
-                    : "bg-background text-muted-foreground hover:bg-orange/20 hover:text-foreground"
-                }`}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {shown.map((s) => (
-            <article
-              key={s.name}
-              className="group overflow-hidden rounded-3xl bg-background shadow-sm transition-transform duration-300 hover:-translate-y-1"
-            >
-              <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-[var(--orange-dark)] p-6 text-white">
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,color-mix(in_oklab,var(--orange)_35%,transparent),transparent_60%)]"
-                />
-                <span className="absolute top-4 right-4 rounded-full bg-white/15 px-3 py-1 text-xs font-bold">
-                  {s.tag}
-                </span>
-                <span className="relative font-display text-3xl font-bold">{s.amount}</span>
-              </div>
-              <div className="p-6">
-                <h3 className="font-display text-lg font-bold">{s.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-                <a
-                  href="#consult"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--green-text)]"
-                >
-                  Check Eligibility{" "}
-                  <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </a>
-              </div>
-            </article>
-          ))}
         </div>
       </div>
     </section>
