@@ -44,13 +44,6 @@ import {
   Zap,
 } from "lucide-react";
 import { toast } from "sonner";
-// Government Opportunity's photo -- symbolises the government itself
-// (the Central Secretariat / Rashtrapati Bhavan dome in New Delhi),
-// replacing the old navy/yellow duotone illustration, same real-photo
-// treatment as every other section's image. Unsplash License (free,
-// no attribution required):
-// https://unsplash.com/photos/rashtrapati-bhavan-indias-presidential-palace-lRDBtGx_c9A
-import governmentOpportunityVisual from "@/assets/government-opportunity.jpg";
 // Natural, warm-toned photo for the Hero circle -- the site's other
 // visuals are a deliberate navy/orange duotone illustration style, which
 // reads as flatly yellow/orange in the reference's photo-realistic circle
@@ -528,25 +521,13 @@ const OPPORTUNITY_SCHEMES = [
 
 type OpportunityScheme = (typeof OPPORTUNITY_SCHEMES)[number];
 
-/* ---------- FundingCta / Government Opportunity: rebuilt per explicit
-   instruction -- a real section eyebrow + heading restores the page's
-   usual rhythm (every other section opens this way; a bare image next
-   to a carousel with no heading broke that pattern). Left column
-   keeps the existing government photo exactly as it was (just moved
-   from right to left), now paired with a title/subtitle/description +
-   3 points underneath it instead of sitting bare -- the 3 points are
-   the section's own previous stat grid, reworded as concrete claims
-   rather than dropped. Right side is unchanged: a one-at-a-time
-   slidable card carousel (peeking the next card, snap-scroll +
-   prev/next arrows) holding the 4 scheme cards above. ---------- */
-const OPPORTUNITY_POINTS = [
-  "₹50Cr+ funding unlocked for clients",
-  "2,000+ startups & MSMEs assisted",
-  "7-day average Startup India turnaround",
-];
-
+/* ---------- FundingCta / Government Opportunity: left-side photo +
+   caption removed per explicit instruction -- the 4-scheme carousel
+   now runs the section's full width instead of sharing it with an
+   image. Same slide mechanic (snap-scroll + prev/next arrows,
+   peeking the next card); card widths widened for the extra room so
+   roughly 3 cards show on desktop instead of 1. ---------- */
 export function FundingCta() {
-  const [imgLoaded, setImgLoaded] = useState(false);
   const [activeScheme, setActiveScheme] = useState<OpportunityScheme | null>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -567,118 +548,73 @@ export function FundingCta() {
           </h2>
         </div>
 
-        <div className="mt-14 grid items-start gap-12 lg:grid-cols-2">
-          <div>
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem]">
-              <PhotoSkeleton show={!imgLoaded} />
-              <img
-                src={governmentOpportunityVisual}
-                alt="The Central Secretariat dome in New Delhi, seat of the Government of India"
-                width={1000}
-                height={1250}
-                loading="lazy"
-                decoding="async"
-                onLoad={() => setImgLoaded(true)}
-                className={`size-full object-cover transition-opacity duration-700 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
-              />
-            </div>
-
-            <div className="mx-auto mt-6 max-w-sm">
-              <p className="eyebrow text-[var(--green-text)]">Government of India</p>
-              <h3 className="mt-1 font-display text-xl leading-tight font-bold text-foreground">
-                Central Secretariat, New Delhi
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Every year, thousands of crores in grants, subsidies and collateral-free loans go
-                unclaimed — because founders don&rsquo;t know they qualify. Aarkin changes that
-                equation.
-              </p>
-              <ul className="mt-4 space-y-2">
-                {OPPORTUNITY_POINTS.map((point) => (
-                  <li
-                    key={point}
-                    className="flex items-start gap-2 text-sm font-semibold text-foreground"
+        <div className="mt-14">
+          <div
+            ref={trackRef}
+            className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {OPPORTUNITY_SCHEMES.map((s) => (
+              <article
+                key={s.name}
+                className="group w-[86%] shrink-0 snap-start overflow-hidden rounded-3xl bg-white shadow-sm sm:w-[55%] lg:w-[31%]"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={s.image}
+                    alt={s.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-gradient-to-t from-[var(--orange-dark)]/85 via-[var(--orange-dark)]/10 to-transparent"
+                  />
+                  <span className="absolute top-4 right-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-[var(--orange-dark)]">
+                    {s.tag}
+                  </span>
+                  <span className="absolute bottom-4 left-4 font-display text-xl font-bold text-white">
+                    {s.amount}
+                  </span>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-display text-lg font-bold text-foreground">{s.name}</h3>
+                  <p className="mt-1 text-[11px] font-bold tracking-wide text-muted-foreground uppercase">
+                    {s.authority}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+                  <button
+                    type="button"
+                    onClick={() => setActiveScheme(s)}
+                    className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--green-text)]"
                   >
-                    <CheckCircle2
-                      className="mt-0.5 size-4 shrink-0 text-[var(--green-text)]"
-                      strokeWidth={2}
-                    />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    Learn More <ArrowUpRight className="size-3.5" />
+                  </button>
+                </div>
+              </article>
+            ))}
           </div>
 
-          <div className="min-w-0">
-            <div
-              ref={trackRef}
-              className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          <div className="mt-6 flex items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => scrollByCard(-1)}
+              aria-label="Previous scheme"
+              className="grid size-10 place-items-center rounded-full border-2 border-[var(--orange-dark)] text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
             >
-              {OPPORTUNITY_SCHEMES.map((s) => (
-                <article
-                  key={s.name}
-                  className="group w-[86%] shrink-0 snap-start overflow-hidden rounded-3xl bg-white shadow-sm sm:w-[75%]"
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
-                      src={s.image}
-                      alt={s.imageAlt}
-                      loading="lazy"
-                      decoding="async"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 bg-gradient-to-t from-[var(--orange-dark)]/85 via-[var(--orange-dark)]/10 to-transparent"
-                    />
-                    <span className="absolute top-4 right-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-[var(--orange-dark)]">
-                      {s.tag}
-                    </span>
-                    <span className="absolute bottom-4 left-4 font-display text-xl font-bold text-white">
-                      {s.amount}
-                    </span>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-display text-lg font-bold text-foreground">{s.name}</h3>
-                    <p className="mt-1 text-[11px] font-bold tracking-wide text-muted-foreground uppercase">
-                      {s.authority}
-                    </p>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-                    <button
-                      type="button"
-                      onClick={() => setActiveScheme(s)}
-                      className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--green-text)]"
-                    >
-                      Learn More <ArrowUpRight className="size-3.5" />
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="mt-6 flex items-center justify-center gap-3">
-              <button
-                type="button"
-                onClick={() => scrollByCard(-1)}
-                aria-label="Previous scheme"
-                className="grid size-10 place-items-center rounded-full border-2 border-[var(--orange-dark)] text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
-              >
-                <ChevronLeft className="size-4" strokeWidth={2.5} />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollByCard(1)}
-                aria-label="Next scheme"
-                className="grid size-10 place-items-center rounded-full border-2 border-[var(--orange-dark)] text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
-              >
-                <ChevronRight className="size-4" strokeWidth={2.5} />
-              </button>
-            </div>
+              <ChevronLeft className="size-4" strokeWidth={2.5} />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByCard(1)}
+              aria-label="Next scheme"
+              className="grid size-10 place-items-center rounded-full border-2 border-[var(--orange-dark)] text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
+            >
+              <ChevronRight className="size-4" strokeWidth={2.5} />
+            </button>
           </div>
         </div>
       </div>
-
       {activeScheme && <SchemeModal scheme={activeScheme} onClose={() => setActiveScheme(null)} />}
     </section>
   );
