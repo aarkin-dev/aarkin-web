@@ -304,11 +304,11 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
             to:
           </p>
           <a
-            href="mailto:info@aarkin.co.in?subject=Application%20%E2%80%94%20Sales%20Executive"
+            href="mailto:hr@aarkin.co.in?subject=Application%20%E2%80%94%20Sales%20Executive"
             className="flex items-center gap-3 rounded-xl bg-[var(--mint)] p-4 text-sm font-bold text-[var(--orange-dark)]"
           >
             <Mail className="size-5 shrink-0" />
-            info@aarkin.co.in
+            hr@aarkin.co.in
           </a>
           <p className="text-xs text-muted-foreground">
             We reply to every genuine application — usually within a few business days.
