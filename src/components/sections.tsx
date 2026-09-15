@@ -5,23 +5,33 @@ import {
   Award,
   BadgeCheck,
   Banknote,
+  Building2,
   CheckCircle2,
   ChevronDown,
   Clock,
+  Copyright,
   FileStack,
   FileText,
+  Globe,
+  Handshake,
   Landmark,
+  Lightbulb,
   LineChart,
   Map,
+  Megaphone,
   Play,
   Quote,
+  Receipt,
+  Rocket,
   Search,
   ShieldCheck,
   Sparkles,
   Star,
   Target,
   TrendingUp,
+  UserCircle,
   Users,
+  Wallet,
   X,
   Zap,
 } from "lucide-react";
@@ -519,56 +529,210 @@ export function FundingCta() {
   );
 }
 
+/* Categories mirror the client's existing site's 4 service tabs
+   (127.0.0.1:8000/#services -- "Start / Fund / Protect / Digitalize
+   Your Business", 20 named services total). "Digitalize" is spelled
+   without the "-d" here for grammatical parallelism with the other 3
+   imperative labels -- the original site has "Digitalized Your
+   Business", inconsistent with its own "Start/Fund/Protect Your
+   Business" siblings. Two extra services from this redesign that have
+   no equivalent on the old site (Government Scheme Consulting, Subsidy
+   & Incentive Assistance) are kept and folded into "Fund Your
+   Business", since they're genuine, already-approved content, not
+   filler -- so this list runs to 22 real services, not 20. */
+const SERVICE_CATEGORIES = [
+  "Start Your Business",
+  "Fund Your Business",
+  "Protect Your Business",
+  "Digitalize Your Business",
+] as const;
+
+const CATEGORY_STYLES: Record<
+  (typeof SERVICE_CATEGORIES)[number],
+  { active: string; inactive: string }
+> = {
+  "Start Your Business": {
+    active: "bg-orange text-foreground",
+    inactive: "bg-orange/15 text-[var(--green-text)] hover:bg-orange/30",
+  },
+  "Fund Your Business": {
+    active: "bg-[var(--yellow)] text-foreground",
+    inactive: "bg-[var(--yellow)]/15 text-foreground/70 hover:bg-[var(--yellow)]/30",
+  },
+  "Protect Your Business": {
+    active: "bg-[var(--orange-dark)] text-white",
+    inactive:
+      "bg-[var(--orange-dark)]/10 text-[var(--orange-dark)] hover:bg-[var(--orange-dark)]/20",
+  },
+  "Digitalize Your Business": {
+    active: "bg-[var(--green-text)] text-white",
+    inactive: "bg-[var(--green-text)]/10 text-[var(--green-text)] hover:bg-[var(--green-text)]/20",
+  },
+};
+
 const SERVICES = [
+  // ---------- Start Your Business (5) ----------
   {
+    category: "Start Your Business",
     icon: Landmark,
     title: "Startup India Registration",
     body: "Get your DPIIT recognition certificate and unlock 3 years of tax exemption, IPR benefits, and government scheme priority access.",
     tag: "DPIIT Approved",
   },
   {
+    category: "Start Your Business",
     icon: Award,
     title: "MSME / Udyam Registration",
     body: "Official Udyam certification gives you priority lending, lower interest rates, and access to ₹1000+ crore subsidy schemes.",
     tag: "Udyam Portal",
   },
   {
+    category: "Start Your Business",
+    icon: Building2,
+    title: "Private Limited Company",
+    body: "Incorporate with a clear legal identity built for outside funding, hiring and long-term growth — the most common structure for scaling startups.",
+    tag: "Most Popular Structure",
+  },
+  {
+    category: "Start Your Business",
+    icon: Handshake,
+    title: "Limited Liability Partnership (LLP)",
+    body: "Register as an LLP — liability protection for founding partners, without the compliance load of a full private limited company.",
+    tag: "Partnership Structure",
+  },
+  {
+    category: "Start Your Business",
+    icon: UserCircle,
+    title: "One Person Company (OPC)",
+    body: "Incorporate solo with full liability protection and a formal legal identity — built for single-founder businesses.",
+    tag: "Solo Founder Friendly",
+  },
+
+  // ---------- Fund Your Business (8) ----------
+  {
+    category: "Fund Your Business",
     icon: Banknote,
     title: "Government Grants",
     body: "We identify and apply for grants you qualify for — SIDBI, DST, NASSCOM, state-level schemes, and more. You don't miss what we handle.",
     tag: "Non-Dilutive Capital",
   },
   {
-    icon: Landmark,
-    title: "Business & MSME Loans",
-    body: "Structured loan applications for CGTMSE-backed credit, MUDRA, Standup India, and PSU bank schemes at the lowest eligible rates.",
-    tag: "Collateral-Free Options",
-  },
-  {
+    category: "Fund Your Business",
     icon: LineChart,
-    title: "Investment Readiness",
+    title: "Investment / Pitch Deck Readiness",
     body: "Pitch decks, financial models, due-diligence prep, and investor introductions — we get you ready before you walk into any room.",
     tag: "Angel & VC Connects",
   },
   {
-    icon: FileStack,
-    title: "Compliance & Documentation",
-    body: "GST returns, startup filings, MCA compliance, annual reporting — we manage your regulatory obligations so you don't have to.",
-    tag: "Zero Penalties",
+    category: "Fund Your Business",
+    icon: ShieldCheck,
+    title: "CGTMSE Credit Guarantee",
+    body: "Collateral-free working capital and term loans for eligible MSMEs, backed by a government credit guarantee cover.",
+    tag: "Collateral-Free",
   },
   {
+    category: "Fund Your Business",
+    icon: Landmark,
+    title: "MSME Loans",
+    body: "Structured loan applications to eligible banks and institutions, prepared and filed at the lowest rate your business qualifies for.",
+    tag: "Bank & PSU Tie-ups",
+  },
+  {
+    category: "Fund Your Business",
+    icon: Wallet,
+    title: "MUDRA — Shishu to Tarun",
+    body: "Micro-enterprise credit with no collateral and quick sanction through PSU banks, from Shishu up to Tarun.",
+    tag: "Up to ₹10L",
+  },
+  {
+    category: "Fund Your Business",
+    icon: Rocket,
+    title: "SIDBI / DST / NASSCOM Funding Support",
+    body: "Access to startup and innovation-ecosystem funding programmes — from eligibility assessment through to application and incubation support.",
+    tag: "Ecosystem Funding",
+  },
+  {
+    category: "Fund Your Business",
     icon: Map,
     title: "Government Scheme Consulting",
     body: "A full audit of your business against 200+ central and state schemes — with a personalized roadmap to unlock what you qualify for.",
     tag: "200+ Schemes Mapped",
   },
   {
+    category: "Fund Your Business",
     icon: BadgeCheck,
     title: "Subsidy & Incentive Assistance",
     body: "Capital subsidy, technology upgrade subsidies, export incentives, and electricity tariff concessions — claimed and documented properly.",
     tag: "State & Central Level",
   },
-];
+
+  // ---------- Protect Your Business (5) ----------
+  {
+    category: "Protect Your Business",
+    icon: ShieldCheck,
+    title: "Trademark Registration",
+    body: "Protect your brand name, logo and identity through professional trademark registration support.",
+    tag: "Brand Protection",
+  },
+  {
+    category: "Protect Your Business",
+    icon: Lightbulb,
+    title: "Patent Registration",
+    body: "Protect eligible inventions and innovations with guided patent registration — from documentation through to filing.",
+    tag: "IP Protection",
+  },
+  {
+    category: "Protect Your Business",
+    icon: Copyright,
+    title: "Copyright Registration",
+    body: "Register and protect your original creative and written work under copyright law.",
+    tag: "Creative Work",
+  },
+  {
+    category: "Protect Your Business",
+    icon: Receipt,
+    title: "GST Registration",
+    body: "GST registration and ongoing compliance support for businesses that need indirect-tax registration.",
+    tag: "Indirect Tax",
+  },
+  {
+    category: "Protect Your Business",
+    icon: FileStack,
+    title: "MCA / ROC Compliance",
+    body: "Corporate filings and ROC compliance handled on schedule — annual returns, resolutions and statutory filings, so you don't have to.",
+    tag: "Zero Penalties",
+  },
+
+  // ---------- Digitalize Your Business (4) ----------
+  {
+    category: "Digitalize Your Business",
+    icon: Globe,
+    title: "Website Development",
+    body: "A professional, conversion-ready website built around your services, brand and customers.",
+    tag: "Custom Build",
+  },
+  {
+    category: "Digitalize Your Business",
+    icon: Search,
+    title: "SEO Management",
+    body: "Structured SEO to improve your search visibility and help the right customers find you organically.",
+    tag: "Organic Growth",
+  },
+  {
+    category: "Digitalize Your Business",
+    icon: Megaphone,
+    title: "Social Media Marketing",
+    body: "Consistent, on-brand content and campaigns across social platforms to build audience and engagement.",
+    tag: "Brand Presence",
+  },
+  {
+    category: "Digitalize Your Business",
+    icon: Target,
+    title: "Lead Generation",
+    body: "Targeted campaigns that connect your business with customers who are actually ready to buy.",
+    tag: "Qualified Leads",
+  },
+] as const;
 
 /* ---------- Services: seoq.vercel.app/home-three "features box" —
    one rounded light band holding a 4-column grid. Reference has NO
@@ -592,11 +756,13 @@ const SERVICES = [
    hover specifically -- both measured off the live site's actual CSS,
    not approximated. Green -> orange, content and copy ours. ---------- */
 export function Services() {
-  const shown = SERVICES;
+  const [active, setActive] = useState<(typeof SERVICE_CATEGORIES)[number]>(SERVICE_CATEGORIES[0]);
+  const shown = SERVICES.filter((s) => s.category === active);
+
   return (
     <section id="services" className="bg-[var(--mint)] py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="grid items-center gap-10 pb-14 lg:grid-cols-2">
+        <div className="grid items-center gap-10 pb-10 lg:grid-cols-2">
           <div className="reveal-card" data-reveal-delay-ms="150">
             <p className="text-lg font-semibold text-foreground">Our Services</p>
             <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
@@ -620,6 +786,27 @@ export function Services() {
               More Services
             </a>
           </div>
+        </div>
+
+        {/* Category chips -- one colour per category (not the site's usual
+            monochrome filter pill) so all 22 services stay scannable in 4
+            groups instead of one long wall of cards, mirroring the 4 tabs
+            on the client's existing site. */}
+        <div className="flex flex-wrap gap-2 pb-10">
+          {SERVICE_CATEGORIES.map((c) => {
+            const style = CATEGORY_STYLES[c];
+            return (
+              <button
+                key={c}
+                onClick={() => setActive(c)}
+                className={`rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+                  active === c ? style.active : style.inactive
+                }`}
+              >
+                {c}
+              </button>
+            );
+          })}
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
