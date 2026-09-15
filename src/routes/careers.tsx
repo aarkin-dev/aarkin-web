@@ -16,7 +16,7 @@ import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 // Same real team photo used in the homepage Hero -- appropriate reuse
 // for a "join the team" context, not a new stock image. Unsplash
 // License (free, no attribution required):
-// https://unsplash.com/photos/diverse-team-collaborating-around-a-laptop-in-office-yd_RKGH_RH4
+// https://unsplash.com/photos/six-colleagues-collaborating-around-a-conference-table-with-laptops-RdEFWm0N84o
 import heroTeamVisual from "@/assets/hero-visual-team.jpg";
 
 export const Route = createFileRoute("/careers")({

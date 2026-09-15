@@ -44,28 +44,29 @@ import {
   Zap,
 } from "lucide-react";
 import { toast } from "sonner";
-// Natural, warm-toned photo for the Hero circle -- the site's other
-// visuals are a deliberate navy/orange duotone illustration style, which
-// reads as flatly yellow/orange in the reference's photo-realistic circle
-// frame. Real photo, Unsplash License (free, no attribution required):
-// https://unsplash.com/photos/diverse-team-collaborating-around-a-laptop-in-office-yd_RKGH_RH4
+// Hero photo -- swapped for an Indian office/team photo (the previous
+// stock photo showed a visibly non-Indian team, inconsistent with an
+// India-focused advisory site). Unsplash License (free, no
+// attribution required):
+// https://unsplash.com/photos/six-colleagues-collaborating-around-a-conference-table-with-laptops-RdEFWm0N84o
 import heroTeamVisual from "@/assets/hero-visual-team.jpg";
-// About section's photo collage -- real, natural photos, distinct from
-// the Hero photo. Unsplash License (free, no attribution required):
-// main: https://unsplash.com/photos/woman-using-laptop-in-workspace-HA-0i0E7sq4
-// top accent: https://unsplash.com/photos/two-women-talking-at-a-desk-in-an-office-aoweP90-XwM
+// About section's photo collage. `main` and `top accent` swapped for
+// Indian professionals, same reason as the Hero photo above; `bottom
+// accent` (a hand signing a document, no face visible) is unchanged.
+// Unsplash License (free, no attribution required):
+// main: https://unsplash.com/photos/a-woman-sitting-at-a-desk-with-a-laptop-7eSLtuTYmbU
+// top accent: https://unsplash.com/photos/five-colleagues-collaborating-around-a-table-in-a-modern-office-_zxvCsGzi8Y
 // bottom accent: https://unsplash.com/photos/man-signing-a-document-with-a-pen-QI6NLgN5XnM
 import aboutMain from "@/assets/about-main.jpg";
 import aboutAccentTop from "@/assets/about-accent-top.jpg";
 import aboutAccentBottom from "@/assets/about-accent-bottom.jpg";
-// Why Arkin's photo -- real, distinct from every other photo already
-// used elsewhere on the page. Unsplash License (free, no attribution
-// required): https://unsplash.com/photos/two-business-people-reviewing-documents-together-8k5j5z6ZYT4
+// Why Arkin's photo -- swapped for an Indian office photo, same reason
+// as the Hero photo above. Unsplash License (free, no attribution
+// required): https://unsplash.com/photos/a-man-and-a-woman-sitting-in-front-of-a-computer-BUHf7bGbjOI
 import whyArkinVisual from "@/assets/why-arkin.jpg";
-// Consultation section's photo -- replaces the old navy/yellow duotone
-// illustration (about-visual.jpg), which was the last leftover of that
-// retired style still on the page. Real photo, distinct from every
-// other section's, Unsplash License (free, no attribution required):
+// Consultation section's photo -- generic hands on a laptop, no face
+// visible, left unchanged. Real photo, distinct from every other
+// section's, Unsplash License (free, no attribution required):
 // https://unsplash.com/photos/gray-laptop-computer-7aakZdIl4vg
 import consultationVisual from "@/assets/consultation-visual.jpg";
 // Government Opportunity's 4 scheme cards -- one real, distinct photo
@@ -74,10 +75,17 @@ import consultationVisual from "@/assets/consultation-visual.jpg";
 // AIF/NAIFF: https://unsplash.com/photos/a-large-warehouse-filled-with-lots-of-boxes--aCrA9FmT8Y
 import schemeAifVisual from "@/assets/scheme-aif-warehouse.jpg";
 // PMEGP: https://unsplash.com/photos/workers-operating-a-large-industrial-machine-together-V7BRdLkbzpY
+// (already an Indian workshop; not swapped)
 import schemePmegpVisual from "@/assets/scheme-pmegp-manufacturing.jpg";
-// CGTMSE: https://unsplash.com/photos/two-people-shaking-hands-over-a-piece-of-paper-4mEyvORkbN0
+// CGTMSE: swapped -- the previous photo (a handshake) didn't read as
+// Indian. Now an Indian small-business shop owner, fitting "credit
+// guarantee for micro and small enterprises":
+// https://unsplash.com/photos/a-man-sitting-in-front-of-a-display-of-shoes-5qts6QndgKI
 import schemeCgtmseVisual from "@/assets/scheme-cgtmse-handshake.jpg";
-// MUDRA: https://unsplash.com/photos/a-man-smiles-as-he-uses-a-sewing-machine-cU3xxfbB9Es
+// MUDRA: swapped -- the previous photo showed a tailor who wasn't
+// Indian, a real mismatch for a named Indian government scheme. Now an
+// Indian tailor's shop:
+// https://unsplash.com/photos/an-old-tailor-sewing-clothes-in-his-small-cluttered-workshop-E3rxgwVAtKE
 import schemeMudraVisual from "@/assets/scheme-mudra-artisan.jpg";
 
 /* Mirrors every real enquiry (Consultation form + the scroll popup --
@@ -394,7 +402,7 @@ export function About() {
               <PhotoSkeleton show={!topLoaded} />
               <img
                 src={aboutAccentTop}
-                alt="An Aarkin consultant walking a founder through her options"
+                alt="A team of founders collaborating around a conference table"
                 width={900}
                 height={650}
                 loading="lazy"
@@ -497,7 +505,7 @@ const OPPORTUNITY_SCHEMES = [
   },
   {
     image: schemeCgtmseVisual,
-    imageAlt: "Two people shaking hands over a signed agreement",
+    imageAlt: "A small business shop owner smiling in his shop",
     name: "CGTMSE Credit Guarantee",
     authority: "Credit Guarantee Fund Trust for MSEs",
     amount: "₹2 Cr – ₹5 Cr (up to ₹20 Cr in CGSS)",
@@ -1150,7 +1158,7 @@ export function WhyArkin() {
                 <PhotoSkeleton show={!imgLoaded} />
                 <img
                   src={whyArkinVisual}
-                  alt="An Aarkin consultant reviewing a client's registration documents"
+                  alt="An Aarkin consultant reviewing a client's application on screen"
                   width={1000}
                   height={1000}
                   loading="lazy"
