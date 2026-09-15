@@ -297,6 +297,7 @@ export function SiteFooter() {
     ["Our Impact", "#impact"],
     ["Success Stories", "#stories"],
     ["FAQ", "#faq"],
+    ["Careers", "/careers"],
   ];
   const offices: { label: string; city: string; address: string }[] = [
     {
