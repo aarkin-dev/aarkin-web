@@ -815,19 +815,21 @@ export function Services() {
             return (
               <div
                 key={s.title}
-                className="reveal-card group flex h-full flex-col rounded-[5px] bg-white p-7 transition-colors duration-300 hover:bg-orange"
+                className="reveal-card group flex h-full flex-col rounded-[5px] bg-white p-6 transition-colors duration-300 hover:bg-orange"
                 data-reveal-delay-ms={300 + (i % 4) * 150}
               >
-                <span className="grid size-16 shrink-0 place-items-center rounded-full bg-orange text-foreground transition-colors duration-300 hover:bg-foreground hover:text-white">
-                  <Icon className="size-7" strokeWidth={1.5} />
-                </span>
-                <h3 className="mt-6 font-display text-xl leading-tight font-semibold text-foreground">
-                  {s.title}
-                </h3>
+                <div className="flex items-center gap-4">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-full bg-orange text-foreground transition-colors duration-300 hover:bg-foreground hover:text-white">
+                    <Icon className="size-5" strokeWidth={1.5} />
+                  </span>
+                  <h3 className="font-display text-lg leading-tight font-semibold text-foreground">
+                    {s.title}
+                  </h3>
+                </div>
                 <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
                   {s.body}
                 </p>
-                <div className="mt-6 flex items-center justify-between">
+                <div className="mt-5 flex items-center justify-between">
                   <a
                     href="#consult"
                     className="inline-flex items-center justify-center rounded-[5px] bg-foreground px-5 py-3 text-sm font-semibold text-white"
