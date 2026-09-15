@@ -993,21 +993,9 @@ export function Services() {
                 <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
                   {s.body}
                 </p>
-                <div className="mt-5 flex items-center justify-between">
-                  <a
-                    href="#consult"
-                    className="inline-flex items-center justify-center rounded-[5px] bg-foreground px-5 py-3 text-sm font-semibold text-white"
-                  >
-                    Learn More
-                  </a>
-                  <a
-                    href="#consult"
-                    aria-label={`Learn more about ${s.title}`}
-                    className="text-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                  >
-                    <ArrowUpRight className="size-5" strokeWidth={1.5} />
-                  </a>
-                </div>
+                <span className="mt-5 inline-flex w-fit items-center rounded-full bg-foreground/5 px-3 py-1.5 text-xs font-bold tracking-wide text-muted-foreground uppercase transition-colors duration-300 group-hover:bg-white/40 group-hover:text-foreground">
+                  {s.tag}
+                </span>
               </div>
             );
           })}
