@@ -145,6 +145,7 @@ const NAV_LINKS: [string, string][] = [
   ["Why Arkin", "#why"],
   ["Funding", "#opportunity"],
   ["Schemes", "#schemes"],
+  ["Certifications", "#certifications"],
   ["Results", "#stories"],
   ["FAQ", "#faq"],
 ];

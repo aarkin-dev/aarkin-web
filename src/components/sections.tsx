@@ -10,11 +10,15 @@ import {
   ChevronDown,
   Clock,
   Copyright,
+  Factory,
   FileStack,
   FileText,
+  Flag,
   Globe,
   Handshake,
+  IdCard,
   Landmark,
+  Leaf,
   Lightbulb,
   LineChart,
   Map,
@@ -24,6 +28,7 @@ import {
   Receipt,
   Rocket,
   Search,
+  Ship,
   ShieldCheck,
   Sparkles,
   Star,
@@ -31,6 +36,7 @@ import {
   TrendingUp,
   UserCircle,
   Users,
+  UtensilsCrossed,
   Wallet,
   X,
   Zap,
@@ -1185,6 +1191,148 @@ export function Schemes() {
               </div>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* Content ported from the client's existing site
+   (127.0.0.1:8000/#certifications), which has 8 certifications the
+   redesign had dropped entirely. Body copy and the "authority" line
+   come straight from that page's own "About" + eligibility text;
+   "highlight" pulls the single most concrete benefit out of each
+   one's (often much longer) benefits list, so all 8 cards stay one
+   consistent length instead of a wall of bullet points. */
+const CERTIFICATIONS = [
+  {
+    icon: Leaf,
+    title: "ISO 14001: Environmental Management",
+    authority: "ISO Standard",
+    body: "An internationally recognized framework for structured environmental management practices.",
+    highlight: "Supports enterprise vendor empanelment",
+  },
+  {
+    icon: Factory,
+    title: "ZED Certification",
+    authority: "QCI · Ministry of MSME",
+    body: "Zero Defect Zero Effect accreditation for manufacturing MSMEs, backed by QCI and the Ministry of MSME.",
+    highlight: "Up to 100% fee subsidy + ₹10,000 joining reward",
+  },
+  {
+    icon: UtensilsCrossed,
+    title: "FSSAI Food Licensing",
+    authority: "FSSAI",
+    body: "Mandatory 14-digit food hygiene clearance for businesses handling, processing or trading food.",
+    highlight: "Required to list on Swiggy, Zomato, Blinkit & Amazon",
+  },
+  {
+    icon: Flag,
+    title: "Make in India Certification",
+    authority: "DPIIT",
+    body: "Formal audit verification of domestic value addition under the DPIIT Public Procurement Order.",
+    highlight: "Top purchase preference on GeM tenders",
+  },
+  {
+    icon: Ship,
+    title: "IEC (Import Export Code)",
+    authority: "DGFT",
+    body: "A 10-digit mandatory registration issued by DGFT for businesses in international commerce.",
+    highlight: "Required for customs clearance & export benefits",
+  },
+  {
+    icon: IdCard,
+    title: "Udyam / MSME Registration",
+    authority: "Ministry of MSME",
+    body: "The foundational digital identity for Indian micro, small and medium enterprises.",
+    highlight: "Lifetime validity, zero renewal fees",
+  },
+  {
+    icon: ShieldCheck,
+    title: "ISO/IEC 27001:2022",
+    authority: "ISO Standard",
+    body: "An internationally recognized standard for managing information security risks.",
+    highlight: "Strengthens customer trust & data security",
+  },
+  {
+    icon: BadgeCheck,
+    title: "ISO 9001:2015",
+    authority: "ISO Standard",
+    body: "A standard for establishing and maintaining an effective quality management system.",
+    highlight: "Builds credibility with customers & partners",
+  },
+] as const;
+
+/* ---------- Certifications: same compact icon-beside-title card as
+   Services (kept intentionally consistent -- see the note on that
+   section about card height), but the icon sits in a dashed "seal"
+   ring instead of a solid-fill circle, and each card carries an
+   issuing-authority pill + a single highlighted benefit line, so
+   these read as official approvals rather than more services. ---------- */
+export function Certifications() {
+  return (
+    <section id="certifications" className="bg-background py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="reveal-card text-lg font-semibold text-foreground">Certifications</p>
+          <h2 className="reveal-card mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
+            Certifications & Approvals We Help You Get
+          </h2>
+          <p className="reveal-card mt-4 text-[15px] leading-relaxed text-muted-foreground">
+            Explore the certifications and compliance approvals we help businesses obtain — each one
+            backed by the relevant government body or standard.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {CERTIFICATIONS.map((c, i) => {
+            const Icon = c.icon;
+            return (
+              <div
+                key={c.title}
+                className="reveal-card group flex h-full flex-col rounded-[5px] bg-white p-6 transition-colors duration-300 hover:bg-orange"
+                data-reveal-delay-ms={300 + (i % 4) * 150}
+              >
+                <div className="flex items-center gap-4">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-full border-2 border-dashed border-[var(--orange-dark)]/50 bg-orange/15 text-[var(--orange-dark)] transition-colors duration-300 group-hover:border-white/60 group-hover:bg-white/25 hover:!bg-[var(--orange-dark)] hover:!text-white">
+                    <Icon className="size-5" strokeWidth={1.5} />
+                  </span>
+                  <h3 className="font-display text-base leading-tight font-semibold text-foreground">
+                    {c.title}
+                  </h3>
+                </div>
+
+                <span className="mt-3 inline-flex w-fit items-center rounded-full bg-foreground/5 px-2.5 py-1 text-[10px] font-bold tracking-wide text-muted-foreground uppercase transition-colors duration-300 group-hover:bg-white/40 group-hover:text-foreground">
+                  {c.authority}
+                </span>
+
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                  {c.body}
+                </p>
+
+                <p className="mt-3 flex flex-1 items-start gap-1.5 text-[13px] font-semibold text-[var(--green-text)] transition-colors duration-300 group-hover:text-foreground">
+                  <CheckCircle2 className="mt-0.5 size-3.5 shrink-0" strokeWidth={2} />
+                  {c.highlight}
+                </p>
+
+                <div className="mt-5 flex items-center justify-between">
+                  <a
+                    href="#consult"
+                    className="inline-flex items-center justify-center rounded-[5px] bg-foreground px-5 py-3 text-sm font-semibold text-white"
+                  >
+                    Learn More
+                  </a>
+                  <a
+                    href="#consult"
+                    aria-label={`Learn more about ${c.title}`}
+                    className="text-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  >
+                    <ArrowUpRight className="size-5" strokeWidth={1.5} />
+                  </a>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

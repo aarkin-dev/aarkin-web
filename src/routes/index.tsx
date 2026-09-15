@@ -11,6 +11,7 @@ import {
   WhyArkin,
   FundingCta,
   Schemes,
+  Certifications,
   FounderStories,
   InsightsPreview,
   Faq,
@@ -171,6 +172,7 @@ function Index() {
         <WhyArkin />
         <FundingCta />
         <Schemes />
+        <Certifications />
         <FounderStories />
         <InsightsPreview />
         <Faq />
