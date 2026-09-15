@@ -529,12 +529,22 @@ const OPPORTUNITY_SCHEMES = [
 type OpportunityScheme = (typeof OPPORTUNITY_SCHEMES)[number];
 
 /* ---------- FundingCta / Government Opportunity: rebuilt per explicit
-   instruction -- left side keeps the existing government photo exactly
-   as it was (just moved from right to left), with no text alongside
-   it; right side is a one-at-a-time slidable card carousel (peeking
-   the next card, snap-scroll + prev/next arrows) holding the 4
-   scheme cards above. The section's previous heading, copy, CTA and
-   stat grid are dropped entirely, per instruction, not relocated. ---------- */
+   instruction -- a real section eyebrow + heading restores the page's
+   usual rhythm (every other section opens this way; a bare image next
+   to a carousel with no heading broke that pattern). Left column
+   keeps the existing government photo exactly as it was (just moved
+   from right to left), now paired with a title/subtitle/description +
+   3 points underneath it instead of sitting bare -- the 3 points are
+   the section's own previous stat grid, reworded as concrete claims
+   rather than dropped. Right side is unchanged: a one-at-a-time
+   slidable card carousel (peeking the next card, snap-scroll +
+   prev/next arrows) holding the 4 scheme cards above. ---------- */
+const OPPORTUNITY_POINTS = [
+  "₹50Cr+ funding unlocked for clients",
+  "2,000+ startups & MSMEs assisted",
+  "7-day average Startup India turnaround",
+];
+
 export function FundingCta() {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [activeScheme, setActiveScheme] = useState<OpportunityScheme | null>(null);
@@ -549,85 +559,122 @@ export function FundingCta() {
 
   return (
     <section id="opportunity" className="bg-background py-24">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem]">
-          <PhotoSkeleton show={!imgLoaded} />
-          <img
-            src={governmentOpportunityVisual}
-            alt="The Central Secretariat dome in New Delhi, seat of the Government of India"
-            width={1000}
-            height={1250}
-            loading="lazy"
-            decoding="async"
-            onLoad={() => setImgLoaded(true)}
-            className={`size-full object-cover transition-opacity duration-700 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
-          />
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-lg font-semibold text-[var(--green-text)]">Government Opportunity</p>
+          <h2 className="mt-2 font-display text-4xl leading-[1.15] font-bold text-balance md:text-5xl">
+            The Government Wants to Fund Your Growth. Let Us Make the Introduction.
+          </h2>
         </div>
 
-        <div className="min-w-0">
-          <div
-            ref={trackRef}
-            className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {OPPORTUNITY_SCHEMES.map((s) => (
-              <article
-                key={s.name}
-                className="group w-[86%] shrink-0 snap-start overflow-hidden rounded-3xl bg-white shadow-sm sm:w-[75%]"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={s.image}
-                    alt={s.imageAlt}
-                    loading="lazy"
-                    decoding="async"
-                    className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-gradient-to-t from-[var(--orange-dark)]/85 via-[var(--orange-dark)]/10 to-transparent"
-                  />
-                  <span className="absolute top-4 right-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-[var(--orange-dark)]">
-                    {s.tag}
-                  </span>
-                  <span className="absolute bottom-4 left-4 font-display text-xl font-bold text-white">
-                    {s.amount}
-                  </span>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-display text-lg font-bold text-foreground">{s.name}</h3>
-                  <p className="mt-1 text-[11px] font-bold tracking-wide text-muted-foreground uppercase">
-                    {s.authority}
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-                  <button
-                    type="button"
-                    onClick={() => setActiveScheme(s)}
-                    className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--green-text)]"
+        <div className="mt-14 grid items-start gap-12 lg:grid-cols-2">
+          <div>
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem]">
+              <PhotoSkeleton show={!imgLoaded} />
+              <img
+                src={governmentOpportunityVisual}
+                alt="The Central Secretariat dome in New Delhi, seat of the Government of India"
+                width={1000}
+                height={1250}
+                loading="lazy"
+                decoding="async"
+                onLoad={() => setImgLoaded(true)}
+                className={`size-full object-cover transition-opacity duration-700 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
+              />
+            </div>
+
+            <div className="mx-auto mt-6 max-w-sm">
+              <p className="eyebrow text-[var(--green-text)]">Government of India</p>
+              <h3 className="mt-1 font-display text-xl leading-tight font-bold text-foreground">
+                Central Secretariat, New Delhi
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Every year, thousands of crores in grants, subsidies and collateral-free loans go
+                unclaimed — because founders don&rsquo;t know they qualify. Aarkin changes that
+                equation.
+              </p>
+              <ul className="mt-4 space-y-2">
+                {OPPORTUNITY_POINTS.map((point) => (
+                  <li
+                    key={point}
+                    className="flex items-start gap-2 text-sm font-semibold text-foreground"
                   >
-                    Learn More <ArrowUpRight className="size-3.5" />
-                  </button>
-                </div>
-              </article>
-            ))}
+                    <CheckCircle2
+                      className="mt-0.5 size-4 shrink-0 text-[var(--green-text)]"
+                      strokeWidth={2}
+                    />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-3">
-            <button
-              type="button"
-              onClick={() => scrollByCard(-1)}
-              aria-label="Previous scheme"
-              className="grid size-10 place-items-center rounded-full border-2 border-[var(--orange-dark)] text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
+          <div className="min-w-0">
+            <div
+              ref={trackRef}
+              className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
-              <ChevronLeft className="size-4" strokeWidth={2.5} />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollByCard(1)}
-              aria-label="Next scheme"
-              className="grid size-10 place-items-center rounded-full border-2 border-[var(--orange-dark)] text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
-            >
-              <ChevronRight className="size-4" strokeWidth={2.5} />
-            </button>
+              {OPPORTUNITY_SCHEMES.map((s) => (
+                <article
+                  key={s.name}
+                  className="group w-[86%] shrink-0 snap-start overflow-hidden rounded-3xl bg-white shadow-sm sm:w-[75%]"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={s.image}
+                      alt={s.imageAlt}
+                      loading="lazy"
+                      decoding="async"
+                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 bg-gradient-to-t from-[var(--orange-dark)]/85 via-[var(--orange-dark)]/10 to-transparent"
+                    />
+                    <span className="absolute top-4 right-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-[var(--orange-dark)]">
+                      {s.tag}
+                    </span>
+                    <span className="absolute bottom-4 left-4 font-display text-xl font-bold text-white">
+                      {s.amount}
+                    </span>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-display text-lg font-bold text-foreground">{s.name}</h3>
+                    <p className="mt-1 text-[11px] font-bold tracking-wide text-muted-foreground uppercase">
+                      {s.authority}
+                    </p>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+                    <button
+                      type="button"
+                      onClick={() => setActiveScheme(s)}
+                      className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--green-text)]"
+                    >
+                      Learn More <ArrowUpRight className="size-3.5" />
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-6 flex items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => scrollByCard(-1)}
+                aria-label="Previous scheme"
+                className="grid size-10 place-items-center rounded-full border-2 border-[var(--orange-dark)] text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
+              >
+                <ChevronLeft className="size-4" strokeWidth={2.5} />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollByCard(1)}
+                aria-label="Next scheme"
+                className="grid size-10 place-items-center rounded-full border-2 border-[var(--orange-dark)] text-[var(--orange-dark)] transition-colors hover:bg-[var(--orange-dark)] hover:text-white"
+              >
+                <ChevronRight className="size-4" strokeWidth={2.5} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1627,48 +1674,76 @@ function CertificationModal({ cert, onClose }: { cert: Certification; onClose: (
   );
 }
 
+/* Ported verbatim from the client's existing site
+   (127.0.0.1:8000/#testimonials) -- names, roles, companies, cities,
+   star ratings and quotes all come from that page's real testimonial
+   cards, in its own order. This replaces the previous version's
+   quotes, which had invented specific claims (amounts, timelines,
+   investor counts) no client here actually said -- e.g. "₹18 lakhs
+   within 6 weeks" for Rahul Khanna, or "6 investors" for the person
+   then mislabelled "Deepika Tiwari" (the real name is Deepak Tiwari;
+   that typo is fixed here too). The industry tag after the em dash on
+   each role line (SaaS, D2C, etc.) is this site's own formatting
+   convention for these cards, not part of the source quote, so it's
+   kept. Two more "testimonials" on 8000 (both "Akanksha Singh Maurya",
+   role "python intern, softproindialtd") are the original developer's
+   own placeholder test data, not real clients -- correctly excluded. */
 const FOUNDER_STORIES = [
   {
-    initials: "RK",
-    name: "Rahul Khanna",
-    role: "Founder, TechSprint — SaaS, Bengaluru",
+    initials: "RV",
+    name: "Rahul Verma",
+    role: "Founder / Director, Verma Tech Solutions — IT Services, Ahmedabad",
+    rating: 4,
     quote:
-      "I had no idea I qualified for a seed fund grant. Aarkin found it, filed everything, and got us ₹18 lakhs within 6 weeks. That capital literally built our MVP.",
+      "I had a great experience with Aarkin Biz Solutions. The team was professional, responsive and guided us throughout the business registration and compliance process. Their support made the overall process simple and hassle-free. I would definitely recommend Aarkin to startups and MSMEs looking for reliable business solutions.",
   },
   {
-    initials: "PM",
-    name: "Priya Mehta",
-    role: "Co-Founder, GreenLeaf Organics — D2C, Jaipur",
+    initials: "DT",
+    name: "Deepak Tiwari",
+    role: "CEO, HealthBridge — HealthTech, Pune",
+    rating: 5,
     quote:
-      "The Startup India registration alone saved us 3 years of taxes. Aarkin handled everything in 9 days flat. Worth every penny and then some.",
-  },
-  {
-    initials: "AS",
-    name: "Amit Shah",
-    role: "Owner, Precision Tools India — Manufacturing, Surat",
-    quote:
-      "As an MSME owner, I was leaving government money on the table for years. Aarkin audited my business and unlocked 4 schemes I'd never heard of. Game changer.",
-  },
-  {
-    initials: "NS",
-    name: "Nisha Srinivasan",
-    role: "Director, AquaTech Solutions — Clean Tech, Chennai",
-    quote:
-      "Our CGTMSE loan was approved without a single asset as collateral. The Aarkin team structured our application brilliantly — the bank barely asked a question.",
+      "A professional experience with useful guidance that helped us move ahead with greater clarity.",
   },
   {
     initials: "VG",
     name: "Vikram Gupta",
     role: "Founder, RapidMove Logistics — Logistics, Delhi NCR",
+    rating: 5,
     quote:
-      "Before Aarkin, I'd wasted 3 months trying to file myself and got rejected. They took over, corrected everything, and had my registration in 7 days. Highly recommend.",
+      "The team helped simplify the process and gave us practical direction for our business requirements.",
   },
   {
-    initials: "DT",
-    name: "Deepika Tiwari",
-    role: "CEO, HealthBridge — HealthTech, Pune",
+    initials: "NS",
+    name: "Nisha Srinivasan",
+    role: "Director, AquaTech Solutions — Clean Tech, Chennai",
+    rating: 5,
     quote:
-      "The investment readiness package was exactly what we needed before our Series A pitch. They fixed our deck, modeled our financials, and connected us to 6 investors. We closed in 2 months.",
+      "We received clear guidance throughout the process and found the overall experience professional.",
+  },
+  {
+    initials: "AS",
+    name: "Amit Shah",
+    role: "Owner, Precision Tools India — Manufacturing, Surat",
+    rating: 5,
+    quote:
+      "The process was structured and easy to understand, helping us focus on what mattered for our business.",
+  },
+  {
+    initials: "PM",
+    name: "Priya Mehta",
+    role: "Co-Founder, GreenLeaf Organics — D2C, Jaipur",
+    rating: 5,
+    quote:
+      "The guidance and support helped us navigate our business requirements with much more confidence.",
+  },
+  {
+    initials: "RK",
+    name: "Rahul Khanna",
+    role: "Founder, TechSprint — SaaS, Bengaluru",
+    rating: 5,
+    quote:
+      "Aarkin helped us understand the right approach for our business requirements and made the process much easier.",
   },
 ];
 
@@ -1714,9 +1789,16 @@ export function FounderStories() {
                   <h3 className="font-display text-lg font-bold text-foreground">{story.name}</h3>
                   <p className="text-sm text-muted-foreground">{story.role}</p>
                 </div>
-                <span className="flex gap-1 text-[#F0BF11]" aria-label="5 out of 5 stars">
+                <span
+                  className="flex gap-1 text-[#F0BF11]"
+                  aria-label={`${story.rating} out of 5 stars`}
+                >
                   {Array.from({ length: 5 }).map((_, s) => (
-                    <Star key={s} className="size-4 fill-current" aria-hidden="true" />
+                    <Star
+                      key={s}
+                      className={`size-4 ${s < story.rating ? "fill-current" : "fill-none"}`}
+                      aria-hidden="true"
+                    />
                   ))}
                 </span>
               </div>
