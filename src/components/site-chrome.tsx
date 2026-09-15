@@ -478,7 +478,9 @@ export function SiteFooter() {
             <span className="font-semibold text-foreground/60">
               Aarkin Biz Solutions Private Limited
             </span>
+            {" (trading as Aarkin)"}
             {" · "}CIN: U70200GJ2025PTC158343{" · "}GSTIN: 24ABCCA0649M1Z0
+            {" · "}Incorporated 28 Jan 2025
           </p>
         </div>
 
