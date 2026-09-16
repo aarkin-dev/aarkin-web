@@ -501,11 +501,11 @@ export function SiteFooter() {
             &copy; {new Date().getFullYear()} Aarkin Biz Solutions Pvt. Ltd. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-x-2 gap-y-1">
-            <a href="#" className="hover:text-foreground">
+            <a href="/privacy" className="hover:text-foreground">
               Privacy Policy
             </a>
             <span>&middot;</span>
-            <a href="#" className="hover:text-foreground">
+            <a href="/terms" className="hover:text-foreground">
               Terms of Service
             </a>
             <span>&middot;</span>

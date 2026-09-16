@@ -914,10 +914,7 @@ const SERVICES = [
    Measurements pulled directly from the reference via computed styles:
    heading 44px/700/plain navy (no gradient), subtitle 18px/500/70%
    opacity, icon 83px, column bg #F6F9FE, title 20px/600, list 15px/400,
-   button bg rgba(38,80,226,.06) with plain navy text (not tinted).
-   NOTE: layout-first pass. Aarkin has 8 real services; only the
-   first 4 are seated here for now — the rest need an accommodation
-   decision (second row? a "view all" page?) in a follow-up pass. ---------- */
+   button bg rgba(38,80,226,.06) with plain navy text (not tinted). ---------- */
 /* ---------- Services: themazine.com/mr/dobee "Our Services" section,
    ditto -- plain eyebrow + big heading beside a bordered highlight box
    (spark icon, copy, pill CTA), then a row of plain white cards on the
@@ -1766,11 +1763,11 @@ const FAQS: [string, string][] = [
   ],
   [
     "Can I get a business loan without collateral?",
-    "Yes. CGTMSE-backed schemes, MUDRA and Standup India offer collateral-free credit. We structure and file the application so approval odds stay high.",
+    "Yes. CGTMSE-backed credit guarantees and MUDRA loans both offer collateral-free credit for eligible micro and small enterprises. We structure and file the application so approval odds stay high.",
   ],
   [
     "What grants are available for early-stage startups?",
-    "Startup India Seed Fund, SIDBI schemes, BIRAC grants for biotech, DST support for deep tech, plus state-level programmes. We map every scheme you qualify for.",
+    "Government grants, AIF/NAIFF and PMEGP support, plus state-level programmes — we run a full audit against 200+ central and state schemes and map every one you qualify for.",
   ],
   [
     "Do I get a dedicated point of contact?",
@@ -2099,12 +2096,11 @@ export function Consultation() {
                 <option value="" disabled>
                   Select need
                 </option>
-                <option>Startup India registration</option>
-                <option>MSME / Udyam registration</option>
-                <option>Government grants & funding</option>
-                <option>Business / MSME loans</option>
+                <option>Start Your Business — registration & incorporation</option>
+                <option>Fund Your Business — grants & loans</option>
+                <option>Protect Your Business — trademark, patent & compliance</option>
+                <option>Digitalize Your Business — website, SEO & marketing</option>
                 <option>Investment readiness</option>
-                <option>Compliance & documentation</option>
                 <option>Not sure — need guidance</option>
               </select>
             </Field>
@@ -2286,10 +2282,10 @@ export function ScrollEnquiryPopup() {
             <option value="" disabled>
               Select a service
             </option>
-            <option>Startup India registration</option>
-            <option>MSME / Udyam registration</option>
-            <option>Government grants & funding</option>
-            <option>Business / MSME loans</option>
+            <option>Start Your Business — registration & incorporation</option>
+            <option>Fund Your Business — grants & loans</option>
+            <option>Protect Your Business — trademark, patent & compliance</option>
+            <option>Digitalize Your Business — website, SEO & marketing</option>
             <option>Investment readiness</option>
             <option>Not sure — need guidance</option>
           </select>
