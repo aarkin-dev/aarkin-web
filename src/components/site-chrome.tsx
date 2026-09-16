@@ -498,9 +498,7 @@ export function SiteFooter() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-foreground/10 py-8 text-xs text-foreground/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            &copy; {new Date().getFullYear()} Aarkin Biz Solutions Pvt. Ltd. All rights reserved.
-          </p>
+          <p>&copy; 2025 Aarkin Biz Solutions Pvt. Ltd. All rights reserved.</p>
           <div className="flex flex-wrap gap-x-2 gap-y-1">
             <a href="/privacy" className="hover:text-foreground">
               Privacy Policy
