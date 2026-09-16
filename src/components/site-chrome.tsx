@@ -4,6 +4,7 @@ import {
   Asterisk,
   BadgeCheck,
   Calendar,
+  Heart,
   Instagram,
   Linkedin,
   Mail,
@@ -517,6 +518,14 @@ export function SiteFooter() {
               +91 81305 57358
             </a>
           </div>
+        </div>
+
+        <div className="border-t border-foreground/10 py-6 text-center text-xs text-foreground/45">
+          <p className="inline-flex items-center gap-1.5">
+            Designed with
+            <Heart className="size-3.5 fill-[var(--green-text)] text-[var(--green-text)]" />
+            by Aarkin
+          </p>
         </div>
       </div>
     </footer>

@@ -150,10 +150,9 @@ export function Hero() {
     <section className="dotted-bg relative overflow-hidden pt-44 pb-24">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
         <div>
-          <h1 className="font-display text-5xl leading-[1.08] font-extrabold text-balance text-foreground md:text-6xl">
+          <h1 className="font-display text-2xl leading-[1.25] font-extrabold text-foreground sm:text-5xl sm:leading-[1.08] md:text-6xl">
             Your Business Deserves
-            <br />
-            Every Rupee of Support
+            <br /> Every Rupee of Support
             <br />
             <span className="text-[var(--green-text)]">India Offers</span>
           </h1>
