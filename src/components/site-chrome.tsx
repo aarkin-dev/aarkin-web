@@ -316,19 +316,19 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="relative overflow-hidden bg-[var(--mint)] pt-20 text-foreground/70">
+    <footer className="relative overflow-hidden bg-[var(--orange-dark)] pt-20 text-white/70">
       <Sparkles
         aria-hidden
-        className="animate-[footer-bob_2s_ease-in-out_infinite_alternate] absolute top-16 right-[8%] size-6 text-[var(--green-text)]/40"
+        className="animate-[footer-bob_2s_ease-in-out_infinite_alternate] absolute top-16 right-[8%] size-6 text-orange/40"
       />
       <Asterisk
         aria-hidden
-        className="animate-[footer-pulse_2s_ease-in-out_infinite_alternate] absolute top-[38%] left-[4%] size-10 text-foreground/15"
+        className="animate-[footer-pulse_2s_ease-in-out_infinite_alternate] absolute top-[38%] left-[4%] size-10 text-white/10"
       />
       <svg
         aria-hidden
         viewBox="0 0 40 40"
-        className="animate-[footer-bob_2s_ease-in-out_infinite_alternate] absolute right-[18%] bottom-24 size-8 text-[var(--green-text)]/30"
+        className="animate-[footer-bob_2s_ease-in-out_infinite_alternate] absolute right-[18%] bottom-24 size-8 text-orange/25"
         style={{ animationDelay: "0.6s" }}
       >
         <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="1.5" />
@@ -336,12 +336,12 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <SealMark className="h-12 w-auto" />
+            <SealMark className="h-12 w-auto brightness-0 invert" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed">
               Helping Indian startups and MSMEs unlock the full power of government support —
               registrations, grants, funding, and beyond.
             </p>
-            <p className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-foreground/85">
+            <p className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white/85">
               <span aria-hidden>🇮🇳</span> Proudly Serving Indian Builders
             </p>
             <div className="mt-6 flex gap-3">
@@ -367,7 +367,7 @@ export function SiteFooter() {
                   aria-label={label}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="grid size-9 place-items-center rounded-full bg-foreground/10 text-foreground transition-colors hover:bg-orange"
+                  className="grid size-9 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-orange hover:text-[var(--orange-dark)]"
                 >
                   <Icon className="size-4" />
                 </a>
@@ -376,14 +376,11 @@ export function SiteFooter() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="font-display text-sm font-bold text-foreground">Services</h4>
+            <h4 className="font-display text-sm font-bold text-white">Services</h4>
             <ul className="mt-5 space-y-3">
               {serviceLinks.map(([l, href]) => (
                 <li key={l}>
-                  <a
-                    href={href}
-                    className="text-sm transition-colors hover:text-[var(--green-text)]"
-                  >
+                  <a href={href} className="text-sm transition-colors hover:text-orange">
                     {l}
                   </a>
                 </li>
@@ -392,14 +389,11 @@ export function SiteFooter() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="font-display text-sm font-bold text-foreground">Quick Links</h4>
+            <h4 className="font-display text-sm font-bold text-white">Quick Links</h4>
             <ul className="mt-5 space-y-3">
               {quickLinks.map(([l, href]) => (
                 <li key={l}>
-                  <a
-                    href={href}
-                    className="text-sm transition-colors hover:text-[var(--green-text)]"
-                  >
+                  <a href={href} className="text-sm transition-colors hover:text-orange">
                     {l}
                   </a>
                 </li>
@@ -408,9 +402,9 @@ export function SiteFooter() {
           </div>
 
           <div className="lg:col-span-4">
-            <h4 className="font-display text-sm font-bold text-foreground">Subscribe Newsletter</h4>
+            <h4 className="font-display text-sm font-bold text-white">Subscribe Newsletter</h4>
             <form
-              className="mt-5 flex items-center rounded-full border border-foreground/15 bg-white p-1.5"
+              className="mt-5 flex items-center rounded-full border border-white/15 bg-white p-1.5"
               onSubmit={submitNewsletter}
             >
               <input
@@ -429,99 +423,90 @@ export function SiteFooter() {
                 →
               </button>
             </form>
-            <p className="mt-3 text-xs text-foreground/40">
+            <p className="mt-3 text-xs text-white/40">
               Scheme &amp; funding updates only. No spam, ever.
             </p>
           </div>
         </div>
 
-        <div className="mt-14 grid gap-8 border-t border-foreground/10 pt-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-8 border-t border-white/10 pt-12 sm:grid-cols-2 lg:grid-cols-4">
           {offices.map(({ label, city, address }) => (
             <div key={label} className="flex gap-3">
-              <MapPin
-                className="mt-0.5 size-4 shrink-0 text-[var(--green-text)]"
-                strokeWidth={1.75}
-              />
+              <MapPin className="mt-0.5 size-4 shrink-0 text-orange" strokeWidth={1.75} />
               <div>
-                <h5 className="text-sm font-bold text-foreground">
-                  {label} <span className="font-normal text-foreground/50">— {city}</span>
+                <h5 className="text-sm font-bold text-white">
+                  {label} <span className="font-normal text-white/50">— {city}</span>
                 </h5>
                 <p className="mt-1 text-sm leading-relaxed">{address}</p>
               </div>
             </div>
           ))}
           <div className="flex gap-3">
-            <Phone className="mt-0.5 size-4 shrink-0 text-[var(--green-text)]" strokeWidth={1.75} />
+            <Phone className="mt-0.5 size-4 shrink-0 text-orange" strokeWidth={1.75} />
             <div>
-              <h5 className="text-sm font-bold text-foreground">Call Us</h5>
-              <a
-                href="tel:+918130557358"
-                className="mt-1 block text-sm hover:text-[var(--green-text)]"
-              >
+              <h5 className="text-sm font-bold text-white">Call Us</h5>
+              <a href="tel:+918130557358" className="mt-1 block text-sm hover:text-orange">
                 +91 81305 57358
               </a>
             </div>
           </div>
           <div className="flex gap-3">
-            <Mail className="mt-0.5 size-4 shrink-0 text-[var(--green-text)]" strokeWidth={1.75} />
+            <Mail className="mt-0.5 size-4 shrink-0 text-orange" strokeWidth={1.75} />
             <div>
-              <h5 className="text-sm font-bold text-foreground">Email Us</h5>
-              <a
-                href="mailto:info@aarkin.co.in"
-                className="mt-1 block text-sm hover:text-[var(--green-text)]"
-              >
+              <h5 className="text-sm font-bold text-white">Email Us</h5>
+              <a href="mailto:info@aarkin.co.in" className="mt-1 block text-sm hover:text-orange">
                 info@aarkin.co.in
               </a>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-foreground/10 py-6">
-          <p className="text-sm font-semibold text-foreground/70">
+        <div className="mt-10 border-t border-white/10 py-6">
+          <p className="text-sm font-semibold text-white/70">
             Aarkin Biz Solutions Private Limited{" "}
-            <span className="font-normal text-foreground/45">(trading as Aarkin)</span>
+            <span className="font-normal text-white/45">(trading as Aarkin)</span>
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-foreground/5 px-3 py-1.5 text-xs font-semibold text-foreground/70">
-              <BadgeCheck className="size-3.5 text-[var(--green-text)]" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/70">
+              <BadgeCheck className="size-3.5 text-orange" />
               CIN: U70200GJ2025PTC158343
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-foreground/5 px-3 py-1.5 text-xs font-semibold text-foreground/70">
-              <BadgeCheck className="size-3.5 text-[var(--green-text)]" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/70">
+              <BadgeCheck className="size-3.5 text-orange" />
               GSTIN: 24ABCCA0649M1Z0
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-foreground/5 px-3 py-1.5 text-xs font-semibold text-foreground/70">
-              <Calendar className="size-3.5 text-[var(--green-text)]" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/70">
+              <Calendar className="size-3.5 text-orange" />
               Incorporated 28 Jan 2025
             </span>
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-foreground/10 py-8 text-xs text-foreground/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 border-t border-white/10 py-8 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; 2025 Aarkin Biz Solutions Pvt. Ltd. All rights reserved.</p>
           <div className="flex flex-wrap gap-x-2 gap-y-1">
-            <a href="/privacy" className="hover:text-foreground">
+            <a href="/privacy" className="hover:text-white">
               Privacy Policy
             </a>
             <span>&middot;</span>
-            <a href="/terms" className="hover:text-foreground">
+            <a href="/terms" className="hover:text-white">
               Terms of Service
             </a>
             <span>&middot;</span>
-            <a href="mailto:info@aarkin.co.in" className="hover:text-foreground">
+            <a href="mailto:info@aarkin.co.in" className="hover:text-white">
               info@aarkin.co.in
             </a>
             <span>&middot;</span>
-            <a href="tel:+918130557358" className="hover:text-foreground">
+            <a href="tel:+918130557358" className="hover:text-white">
               +91 81305 57358
             </a>
           </div>
         </div>
 
-        <div className="border-t border-foreground/10 py-6 text-center text-xs text-foreground/45">
+        <div className="border-t border-white/10 py-6 text-center text-xs text-white/50">
           <p className="inline-flex items-center gap-1.5">
             Designed with
-            <Heart className="size-3.5 fill-[var(--green-text)] text-[var(--green-text)]" />
+            <Heart className="size-3.5 fill-orange text-orange" />
             by Aarkin
           </p>
         </div>
