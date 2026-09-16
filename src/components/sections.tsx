@@ -718,27 +718,16 @@ const SERVICE_CATEGORIES = [
   "Digitalize Your Business",
 ] as const;
 
-const CATEGORY_STYLES: Record<
-  (typeof SERVICE_CATEGORIES)[number],
-  { active: string; inactive: string }
-> = {
-  "Start Your Business": {
-    active: "bg-orange text-foreground",
-    inactive: "bg-orange/15 text-[var(--green-text)] hover:bg-orange/30",
-  },
-  "Fund Your Business": {
-    active: "bg-[var(--yellow)] text-foreground",
-    inactive: "bg-[var(--yellow)]/15 text-foreground/70 hover:bg-[var(--yellow)]/30",
-  },
-  "Protect Your Business": {
-    active: "bg-[var(--orange-dark)] text-white",
-    inactive:
-      "bg-[var(--orange-dark)]/10 text-[var(--orange-dark)] hover:bg-[var(--orange-dark)]/20",
-  },
-  "Digitalize Your Business": {
-    active: "bg-[var(--green-text)] text-white",
-    inactive: "bg-[var(--green-text)]/10 text-[var(--green-text)] hover:bg-[var(--green-text)]/20",
-  },
+/* One solid brand colour per category, used at all times -- chips no
+   longer fade to a light tint when unselected or swap hue when
+   clicked. The selected chip is marked with a ring, not a colour
+   change, so "which one is active" stays visible without touching
+   the colour itself. */
+const CATEGORY_STYLES: Record<(typeof SERVICE_CATEGORIES)[number], string> = {
+  "Start Your Business": "bg-orange text-foreground",
+  "Fund Your Business": "bg-[var(--yellow)] text-foreground",
+  "Protect Your Business": "bg-[var(--orange-dark)] text-white",
+  "Digitalize Your Business": "bg-[var(--green-text)] text-white",
 };
 
 const SERVICES = [
@@ -960,15 +949,16 @@ export function Services() {
             monochrome filter pill) so all 22 services stay scannable in 4
             groups instead of one long wall of cards, mirroring the 4 tabs
             on the client's existing site. */}
-        <div className="flex flex-wrap gap-2 pb-10">
+        <div className="grid grid-cols-2 gap-2 pb-10 sm:flex sm:flex-wrap">
           {SERVICE_CATEGORIES.map((c) => {
-            const style = CATEGORY_STYLES[c];
             return (
               <button
                 key={c}
                 onClick={() => setActive(c)}
-                className={`rounded-full px-4 py-2 text-sm font-bold transition-colors ${
-                  active === c ? style.active : style.inactive
+                className={`rounded-full px-4 py-2 text-sm font-bold transition-shadow ${CATEGORY_STYLES[c]} ${
+                  active === c
+                    ? "ring-2 ring-offset-2 ring-offset-[var(--mint)] ring-foreground/50"
+                    : "ring-2 ring-offset-2 ring-offset-[var(--mint)] ring-transparent"
                 }`}
               >
                 {c}
@@ -978,13 +968,12 @@ export function Services() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {shown.map((s, i) => {
+          {shown.map((s) => {
             const Icon = s.icon;
             return (
               <div
                 key={s.title}
-                className="reveal-card group flex h-full flex-col rounded-[5px] bg-white p-6 transition-colors duration-300 hover:bg-orange"
-                data-reveal-delay-ms={300 + (i % 4) * 150}
+                className="group flex h-full flex-col rounded-[5px] bg-white p-6 transition-colors duration-300 hover:bg-orange"
               >
                 <div className="flex items-center gap-4">
                   <span className="grid size-12 shrink-0 place-items-center rounded-full bg-orange text-foreground transition-colors duration-300 hover:bg-foreground hover:text-white">
@@ -1395,13 +1384,12 @@ export function Certifications() {
         </div>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {shown.map((c, i) => {
+          {shown.map((c) => {
             const Icon = c.icon;
             return (
               <div
                 key={c.title}
-                className="reveal-card group flex h-full flex-col rounded-[5px] bg-[var(--orange-light)] p-6 transition-colors duration-300 hover:bg-orange"
-                data-reveal-delay-ms={300 + (i % 4) * 150}
+                className="group flex h-full flex-col rounded-[5px] bg-[var(--orange-light)] p-6 transition-colors duration-300 hover:bg-orange"
               >
                 <div className="flex items-center gap-4">
                   <span className="grid size-12 shrink-0 place-items-center rounded-full border-2 border-dashed border-[var(--orange-dark)]/40 bg-white/70 text-[var(--orange-dark)] transition-colors duration-300 group-hover:border-white/60 group-hover:bg-white/30 hover:!bg-[var(--orange-dark)] hover:!text-white">
