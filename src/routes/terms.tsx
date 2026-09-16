@@ -28,7 +28,7 @@ function Terms() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <main>
-        <section className="bg-[var(--mint)] py-16 sm:py-20">
+        <section className="bg-[var(--mint)] pt-32 pb-16 sm:pt-40 sm:pb-20">
           <div className="mx-auto max-w-3xl px-6">
             <p className="eyebrow text-[var(--green-text)]">Legal</p>
             <h1 className="mt-3 font-display text-4xl font-bold text-foreground sm:text-5xl">

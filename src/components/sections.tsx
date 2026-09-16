@@ -1712,7 +1712,10 @@ export function FounderStories() {
       <div className="mt-14 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
         <div className="stories-marquee flex w-max animate-[marquee-loop_46s_linear_infinite] gap-8 px-6 hover:[animation-play-state:paused]">
           {track.map((story, i) => (
-            <div key={i} className="w-[360px] shrink-0 rounded-[15px] bg-white p-8 sm:w-[420px]">
+            <div
+              key={i}
+              className="w-[80vw] shrink-0 rounded-[15px] bg-white p-8 sm:w-[420px] sm:p-8"
+            >
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <h3 className="font-display text-lg font-bold text-foreground">{story.name}</h3>
