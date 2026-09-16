@@ -151,11 +151,11 @@ export function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
         <div>
           <h1 className="font-display text-5xl leading-[1.08] font-extrabold text-balance text-foreground md:text-6xl">
-            Your Business
+            Your Business Deserves
             <br />
-            Deserves Every
+            Every Rupee of Support
             <br />
-            <span className="text-[var(--green-text)]">Rupee of Support</span>
+            <span className="text-[var(--green-text)]">India Offers</span>
           </h1>
 
           <p className="mt-7 max-w-md text-base leading-relaxed text-foreground/60 md:text-lg">
