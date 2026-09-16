@@ -1955,7 +1955,7 @@ export function Consultation() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("https://formsubmit.co/ajax/aarkin2024@gmail.com", {
+      const response = await fetch("https://formsubmit.co/ajax/943827e250bef5", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
@@ -2173,7 +2173,7 @@ export function ScrollEnquiryPopup() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("https://formsubmit.co/ajax/aarkin2024@gmail.com", {
+      const response = await fetch("https://formsubmit.co/ajax/943827e250bef5", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
