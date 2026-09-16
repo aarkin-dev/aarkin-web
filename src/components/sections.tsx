@@ -1741,11 +1741,11 @@ export function FounderStories() {
 const FAQS: [string, string][] = [
   [
     "Who qualifies for Startup India registration?",
-    "Any private limited company, LLP or partnership firm — less than 10 years old, with annual turnover under ₹100 crore — working on innovation or scalable technology qualifies for DPIIT recognition.",
+    "Any private limited company, LLP or partnership firm — less than 10 years old, with annual turnover under ₹200 crore — working on innovation or scalable technology qualifies for DPIIT recognition.",
   ],
   [
     "How long does MSME Udyam registration take?",
-    "With Aarkin managing the process, Udyam registration typically completes within 24–72 hours of receiving your documents. The certificate is issued instantly after government approval.",
+    "With Aarkin managing the process, Udyam registration gets instant approval — your certificate is typically issued within a couple of hours of submitting your documents.",
   ],
   [
     "What documents do I need to get started?",
@@ -1757,7 +1757,7 @@ const FAQS: [string, string][] = [
   ],
   [
     "What grants are available for early-stage startups?",
-    "Government grants, AIF/NAIFF and PMEGP support, plus state-level programmes — we run a full audit against 200+ central and state schemes and map every one you qualify for.",
+    "The Startup India Seed Fund Scheme (SISFS) 2.0 for proof-of-concept, prototyping and early commercialisation, and NIDHI SSP/SSS for incubator-backed seed support — alongside 200+ other central and state schemes we audit your business against to map every one you qualify for.",
   ],
   [
     "Do I get a dedicated point of contact?",
