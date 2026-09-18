@@ -170,7 +170,8 @@ function Index() {
         <WhyArkin />
         <FundingCta />
         <Certifications />
-        <FounderStories />
+        {/* FounderStories (reviews/testimonials) temporarily disabled -- re-enable by uncommenting. */}
+        {/* <FounderStories /> */}
         <Faq />
         <Consultation />
         <ContactCta />
